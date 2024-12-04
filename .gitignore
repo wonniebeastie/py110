@@ -1,0 +1,4 @@
+# Ignore test files
+test.py
+test2.py
+test_2.py

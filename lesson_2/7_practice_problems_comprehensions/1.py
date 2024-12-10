@@ -56,7 +56,7 @@ munsters = {
 def sum_male_ages(family_info):
 	ages = []
 
-	for name, age_n_gender in family_info.items():
+	for age_n_gender in family_info.values():
 		if age_n_gender['gender'] == 'male':
 			ages.append(age_n_gender['age'])
 	
@@ -66,13 +66,17 @@ def sum_male_ages(family_info):
 
 print(sum_male_ages(munsters)) # 444
 
+# for name, age_n_gender in family_info.items():
+# 	if age_n_gender['gender'] == 'male':
+# 		ages.append(age_n_gender['age'])
 
-# Using a comprehension.
-def sum_male_ages_comprehension(family_info):
-	# print(family_info.values())
-	# summed_ages = [sum(ages) for ages in family_info.values() if ]
 
-	print(summed_ages)
-	#return summed_ages
+# # Using a comprehension.
+# def sum_male_ages_comprehension(family_info):
+# 	# print(family_info.values())
+# 	# summed_ages = [sum(ages) for ages in family_info.values() if ]
 
-print(sum_male_ages_comprehension(munsters)) # 444
+# 	print(summed_ages)
+# 	#return summed_ages
+
+# print(sum_male_ages_comprehension(munsters)) # 444

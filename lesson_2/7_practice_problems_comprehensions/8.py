@@ -73,22 +73,8 @@ def color_n_size(fruits_n_veggies):
 NOW DO ONE WITH COMPREHENSION!
 '''
 
-def color_n_size_comp(fruits_n_veggies):
-	resulting_list = []
-	
-	for item in fruits_n_veggies.values():
-		# if item['type'] == 'fruit':
-		# print(item)
-		capitalized_colors = [color.capitalize() for color in item['colors'] if item['type'] == 'fruit']
-		print(capitalized_colors)
-			# uppercase_colors = []
-			# for color in item['colors']:
-			# 	uppercase_colors.append(color.capitalize())
-
-		# 	resulting_list.append(uppercase_colors)
-		# else:
-		# 	resulting_list.append(item['size'].upper())
-	
-	# return resulting_list
-
-color_n_size_comp(dict1)
+def color_or_size(subdict):
+	if subdict['type'] == 'fruit':
+		return [color.capitalize() for color in subdict['colors']]
+	else:
+		return [size.upper() for size in subdict['size']]

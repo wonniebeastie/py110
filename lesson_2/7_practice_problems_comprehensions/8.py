@@ -73,8 +73,14 @@ def color_n_size(fruits_n_veggies):
 NOW DO ONE WITH COMPREHENSION!
 '''
 
+
 def color_or_size(subdict):
 	if subdict['type'] == 'fruit':
 		return [color.capitalize() for color in subdict['colors']]
 	else:
 		return [size.upper() for size in subdict['size']]
+
+def colors_n_sizes(dictionary):
+	return [color_or_size(subdict) for subdict in dict1.values()]
+
+print(colors_n_sizes(dict1))

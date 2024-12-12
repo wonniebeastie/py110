@@ -55,7 +55,8 @@ def list_of_vowels(dictionary):
 	vowels = 'aeiou'
 
 	for list_of_strings in dictionary.values():
-		print(list_of_strings)
+		for string in list_of_strings:
+			print(string)
 
 print(list_of_vowels(dict1))
 # ['e', 'u', 'i', 'o', 'o', 'u', 'e', 'o', 'e', 'e', 'a', 'o']

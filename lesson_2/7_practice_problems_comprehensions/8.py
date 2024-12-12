@@ -78,9 +78,23 @@ def color_or_size(subdict):
 	if subdict['type'] == 'fruit':
 		return [color.capitalize() for color in subdict['colors']]
 	else:
-		return [size.upper() for size in subdict['size']]
+		return subdict['size'].upper()
 
 def colors_n_sizes(dictionary):
 	return [color_or_size(subdict) for subdict in dict1.values()]
 
 print(colors_n_sizes(dict1))
+# [['Red', 'Green'], 'MEDIUM', ['Orange'], 'LARGE']
+
+'''
+The `color_or_size` function defined on line 77 works by returning
+either a list with strings that describe a color or colors (first
+character capitalized) if the value for the `'type'` key is `'fruit'`,
+or just a string describing size otherwise (if it's `'vegetable'`), 
+all in uppercase.
+
+This returning value is used in the function defined after it, called
+`colors_n_sizes`. This function returns the final list called for by
+the problem description - a list of colors in sublists and sizes as 
+strings.
+'''

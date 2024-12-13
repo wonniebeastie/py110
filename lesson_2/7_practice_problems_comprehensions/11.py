@@ -30,16 +30,16 @@ EXAMPLES / TEST CASES
 => output: ['e', 'u', 'i', 'o', 'o', 'u', 'e', 'o', 'e', 'e', 'a', 'o']
 
 ALGO 
-[x] 1. Create an empty "final list" list.
+[x] 1. Create an empty "all vowels" list.
 [x] 2. Create a "string of vowels" (aeiou).
 [x] 3. Use a loop to target the values of the "input dictionary" (by
 using the key);
-[] 4. Use a nested loop to target each element (strings) of the nested 
+[x] 4. Use a nested loop to target each element (strings) of the nested 
 lists:
 	[TODO: SUBSTEPS]
 	4A) If any of the strings include the characters from "string of
-	vowels" then add the char to "final list".
-[] 5. Return "final list"
+	vowels" then add the char to "all vowels" list.
+[x] 5. Return "all vowels" list.
 
 """
 
@@ -56,8 +56,11 @@ def list_of_vowels(dictionary):
 
 	for list_of_strings in dictionary.values():
 		for str in list_of_strings:
-			if vowels in str:
-				all_vowels.append()
+			for char in str:
+				if char in vowels:
+					all_vowels.append(char)
+	
+	return all_vowels
 
 print(list_of_vowels(dict1))
 # ['e', 'u', 'i', 'o', 'o', 'u', 'e', 'o', 'e', 'e', 'a', 'o']

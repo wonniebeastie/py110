@@ -50,6 +50,7 @@ dict1 = {
     'fourth': ['over', 'the', 'lazy', 'dog'],
 }
 
+# Nested loops portion
 def list_of_vowels(dictionary):
 	all_vowels = []
 	vowels = 'aeiou'
@@ -63,4 +64,15 @@ def list_of_vowels(dictionary):
 	return all_vowels
 
 print(list_of_vowels(dict1))
+# ['e', 'u', 'i', 'o', 'o', 'u', 'e', 'o', 'e', 'e', 'a', 'o']
+
+
+# Comprehensions portion
+def list_of_vowels2(dictionary):
+	vowels = 'aeiou'
+	return [char for list_of_strings in dictionary.values()
+				for str in list_of_strings
+				for char in str if char in vowels]
+
+print(list_of_vowels2(dict1))
 # ['e', 'u', 'i', 'o', 'o', 'u', 'e', 'o', 'e', 'e', 'a', 'o']

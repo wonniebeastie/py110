@@ -108,54 +108,6 @@ def empty_squares(board):
         	for key, value in board.items() 
             if value == INITIAL_MARKER]
 
-"""
-PROBLEM
-Keep track of how many times the player & computer each win, and report
-scores after each game. First player to win 5 games wins the overall
-match (a series of 2 or more games). The score should reset to `0` for 
-each player when beginning a new match. Don't use any global variables. 
-However, you may want to use a global constant to represent the number 
-of games needed to win the match.
-
-
-INPUT & OUTPUT
-I: play_tic_tac_toe()
-O: "You win the overall match!" (if player wins)
-O: "Computer wins the overall match!" (if computer wins)
-
-
-RULES (EXPLICIT/IMPLICIT)
-EXP:
-- Keep track of "player score" 
-- Keep track of "computer score"
-- Each time player or computer wins, increment their score by 1.
-- Keep looping tic tac toe game until either the player or the computer
-  score is 5.
-- A "match" is "a series of 2 or more games".
-- The score should reset to `0` when beginning a new "match". 
-- Use a global constant to represent the # of games needed to win the
-  match.
-
-IMP:
-- Do not increment either score if result of a game is a tie.
-- A "match" ends if either the player or computer has a total score of
-  5. 
-  [NOTE] Ask to play again when beginning a new "match".
-
-
-EXAMPLES / TEST CASES
-- 
-
-
-ALGO 
-[] 1. 
-[] 2. 
-[] 3. 
-
-"""
-
-
-
 def player_chooses_square(board):
     while True:
         valid_choices = [str(num) for num in empty_squares(board)]
@@ -206,6 +158,118 @@ def detect_winner(board):
             return 'Computer'
 
     return None
+
+"""
+PROBLEM
+Keep track of how many times the player & computer each win, and report
+scores after each game. First player to win 5 games wins the overall
+match (a series of 2 or more games). The score should reset to `0` for 
+each player when beginning a new match. Don't use any global variables. 
+However, you may want to use a global constant to represent the number 
+of games needed to win the match.
+
+
+INPUT & OUTPUT
+I: play_tic_tac_toe()
+O: "You win the overall match!" (if player wins)
+O: "Computer wins the overall match!" (if computer wins)
+
+
+RULES (EXPLICIT/IMPLICIT)
+EXP:
+- Keep track of "player score" 
+- Keep track of "computer score"
+- Each time player or computer wins, increment their score by 1.
+- Keep looping tic tac toe game until either the player or the computer
+  score is 5.
+- A "match" is "a series of 2 or more games".
+- The score should reset to `0` when beginning a new "match". 
+- Use a global constant to represent the # of games needed to win the
+  match.
+- A "match" ends if either the player or computer has a total score of
+  5. 
+  [NOTE] Ask to play again when beginning a new "match".
+
+IMP:
+- Do not increment either score if result of a game is a tie.
+
+
+EXAMPLES / TEST CASES
+- input: 
+
+
+ALGO 
+[NOTE] `play_match` function will be outer function (a "match").
+	   -> `update_scores` function will be used here. 
+	   -> `display_scores` function will be used here.
+	   -> `play_round` function will be used here. (one "round")
+	   -> Ask to play again here.
+
+
+`play_match` ALGO
+[TODO] Make global constant "WINNING_SCORE" = 5
+
+[NOTE] WITHIN LOOP:
+[] 1. Create "scores":
+	[TODO] Use a dictionary
+	  - Make "player score" == 0
+	  - Make "computer score" == 0
+
+[] 2. "Let's play a match of Tic Tac Toe! The first player to win 5
+	  games wins the overall match!"
+	  [NOTE] Use f-string - '5' should be WINNING_SCORE
+
+[] 3. INNER LOOP: 
+	  Play one round with `play_round`. [NOTE: EXTRACTED]
+
+[] 4. Play one round:
+	  4A) If `detect_winner` is "Player":
+	  	   - display "Player wins!"
+		   - increment "player score" by 1
+	      If `detect_winner` is "Computer":
+		   - display "Comptuer wins!"
+		   - increment "computer score" by 1
+	  4B) Display both "player score" & "computer score".
+[] 5. Play more rounds until either "player score" or "computer score"
+	  is `5`.
+	  - When either one is 5:
+	      - "Player wins overall match!" if player wins
+		  - "Computer wins overall match!" if computer wins
+[] 6. "Play another match?"
+	  - If yes:
+	      - reset "player score" & "computer score" to 0
+		  - restart from step 1.
+	  - If no, 
+	      - "Thanks for playing Tic Tac Toe!"
+
+`update_scores` ALGO
+[TODO] Reset to `0` for both when restarting a match.
+[] 1. Create dictionary of:
+	  - "player score" [key]: 0 (value)
+	  - "computer score" [key]: 0 (value)
+
+`display_scores` ALGO
+
+
+<-------- STEP 3 EXTRACTED -------->
+
+Problem/Function: `play_round`
+
+I: 
+O: 
+
+Rules: 
+
+Algo
+[] 1. `display_board(board)`
+[] 
+[] 
+
+<---------------------------------->
+
+"""
+def keep_score():
+
 
 def play_tic_tac_toe():
     while True:

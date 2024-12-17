@@ -66,10 +66,10 @@ ALGO [PROGRAMMATIC]
 
 def join_or(num_list, delimiter=', ', join_word='or'):
 	if num_list == []:
-		return prompt('')
+		return ''
 	
 	if len(num_list) == 1:
-		return prompt(num_list[0])
+		return num_list[0]
 	
 	if len(num_list) == 2:
 		two_nums = f'{num_list[0]} {join_word} {num_list[1]}'

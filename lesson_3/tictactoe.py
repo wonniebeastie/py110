@@ -8,9 +8,82 @@ COMPUTER_MARKER = 'O'
 def prompt(message):
     print(f'==> {message}')
 
-'''
+"""
+INPUT & OUTPUT
+I: a list (empty or integers)
+I (Optional): a string (delimiter of choice)
+I (Optional): a string (a word before last digit)
 
-'''
+O: a string that represents the final string
+
+
+QUESTIONS
+Q:
+
+
+RULES (EXPLICIT/IMPLICIT) / SEQ
+EXP:
+- Lets you specify different delimiters & different words for last item.
+
+IMP:
+- Empty list as an input produces an empty string as output.
+- The delimiters & different words are optional.
+    - Default is a comma followed by a space & 'or' for the join word.
+- Just two integers on the list does not display a comma, just 'or'.
+
+
+EXAMPLES / TEST CASES
+print(join_or([1, 2, 3]))               # => "1, 2, or 3"
+print(join_or([1, 2, 3], '; '))         # => "1; 2; or 3"
+print(join_or([1, 2, 3], ', ', 'and'))  # => "1, 2, and 3"
+print(join_or([]))                      # => ""
+print(join_or([5]))                     # => "5"
+print(join_or([1, 2]))                  # => "1 or 2"
+
+
+ALGO [PROGRAMMATIC]
+[x] 1. If "input list" is empty, return an empty string.
+       [NOTE] Function should have default values of:
+			  - ', ' ("delimiter")
+			  - 'or' ("join word")
+[x] 2. If "input list" only has one value, return that value as a string
+[x] 3. If "input list" has exactly two values, return those values 
+      separated by "join word"; don't use "delimiter".
+[] 4. If "input list" has 3 or more values, return the concatenation of
+      all the values as follows:
+		4A) "For each number in 'input list', join each with 'delimiter' 
+		  until the last number; Join the last number with the 'join 
+		  word' to the rest of the numbers.
+		    - [TODO] Two lists for each? Try slicing syntax.
+				a) from index 0 to index before the last - "first part"
+					a.1. Join each num of "first part" with 'delimiter'
+				b) last index - "second part"
+				c) Join "first part" & "second part" with "join word"
+				   as "final string".
+		4B) Return "final string".
+
+"""
+
+def join_or(num_list, delimiter=', ', join_word='or'):
+	if num_list == []:
+		return prompt('')
+	
+	if len(num_list) == 1:
+		return prompt(num_list[0])
+	
+	if len(num_list) == 2:
+		two_nums = f'{num_list[0]} {join_word} {num_list[1]}'
+		return two_nums
+	
+	if len(num_list) >= 3:
+		first_part = num_list[:-1]
+		second_part = num_list[-1:]
+		
+		joined_first_part = delimiter.join([str(num) for num 
+													in first_part])
+		last_element = str(second_part[0])
+		final_string = f'{joined_first_part}{delimiter}{join_word} {last_element}'
+		return final_string
 
 def display_board(board):
     os.system('clear')
@@ -43,7 +116,7 @@ def player_chooses_square(board):
     while True:
         valid_choices = [str(num) for num in empty_squares(board)]
         # input trimmed to allow spaces in input
-        prompt(f"Choose a square: {join_or()}")
+        prompt(f"Choose a square: {join_or(valid_choices)}")
         square = input().strip()
         
         if square in valid_choices:

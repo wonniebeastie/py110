@@ -9,6 +9,9 @@ def prompt(message):
     print(f'==> {message}')
 
 """
+PROBLEM 
+Improved "join".
+
 INPUT & OUTPUT
 I: a list (empty or integers)
 I (Optional): a string (delimiter of choice)
@@ -49,7 +52,7 @@ ALGO [PROGRAMMATIC]
 [x] 2. If "input list" only has one value, return that value as a string
 [x] 3. If "input list" has exactly two values, return those values 
       separated by "join word"; don't use "delimiter".
-[] 4. If "input list" has 3 or more values, return the concatenation of
+[x] 4. If "input list" has 3 or more values, return the concatenation of
       all the values as follows:
 		4A) "For each number in 'input list', join each with 'delimiter' 
 		  until the last number; Join the last number with the 'join 
@@ -104,6 +107,54 @@ def empty_squares(board):
     return [key 
         	for key, value in board.items() 
             if value == INITIAL_MARKER]
+
+"""
+PROBLEM
+Keep track of how many times the player & computer each win, and report
+scores after each game. First player to win 5 games wins the overall
+match (a series of 2 or more games). The score should reset to `0` for 
+each player when beginning a new match. Don't use any global variables. 
+However, you may want to use a global constant to represent the number 
+of games needed to win the match.
+
+
+INPUT & OUTPUT
+I: play_tic_tac_toe()
+O: "You win the overall match!" (if player wins)
+O: "Computer wins the overall match!" (if computer wins)
+
+
+RULES (EXPLICIT/IMPLICIT)
+EXP:
+- Keep track of "player score" 
+- Keep track of "computer score"
+- Each time player or computer wins, increment their score by 1.
+- Keep looping tic tac toe game until either the player or the computer
+  score is 5.
+- A "match" is "a series of 2 or more games".
+- The score should reset to `0` when beginning a new "match". 
+- Use a global constant to represent the # of games needed to win the
+  match.
+
+IMP:
+- Do not increment either score if result of a game is a tie.
+- A "match" ends if either the player or computer has a total score of
+  5. 
+  [NOTE] Ask to play again when beginning a new "match".
+
+
+EXAMPLES / TEST CASES
+- 
+
+
+ALGO 
+[] 1. 
+[] 2. 
+[] 3. 
+
+"""
+
+
 
 def player_chooses_square(board):
     while True:

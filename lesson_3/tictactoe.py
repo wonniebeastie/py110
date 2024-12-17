@@ -109,12 +109,15 @@ def display_board(board):
 
 def initialize_board():
 	'''
-	Clear the board
+	Clear the board of all markers.
 	'''
 	return {square: INITIAL_MARKER for square in range(1, 10)}
 
 def empty_squares(board):
-	# create a list of only the valid choices
+	'''
+	Creates a list of numbers reprensenting the only choices left
+	for choosing.  
+	'''
 	return [key 
 			for key, value in board.items() 
 			if value == INITIAL_MARKER]
@@ -141,6 +144,10 @@ def computer_chooses_square(board):
 
 def board_full(board):
 	'''
+	Returns "True" if there are no more choices of squares left to 
+	pick. "False" otherwise.
+
+	Notes:
 	`==` was used to return a truthy value, since `[]` is a falsy value
 	and we need this function to return a truthy value in order for
 	our loop to work correctly.
@@ -148,9 +155,19 @@ def board_full(board):
 	return len(empty_squares(board)) == 0
 
 def someone_won(board):
+	'''
+	Confirms if either the player or computer has won (returns `True`),
+	or tied (`False`).
+	'''
 	return bool(detect_winner(board))
 
 def detect_winner(board):
+	'''
+	Checks to see if the player or the computer has picked a winning
+	combo & returns either 'Player' or 'Computer' depending on who won.
+
+	Otherwise, returns `None` (a tie).
+	'''
 	winning_lines = [
 		[1, 2, 3], [4, 5, 6], [7, 8, 9],  # rows
 		[1, 4, 7], [2, 5, 8], [3, 6, 9],  # columns
@@ -279,8 +296,6 @@ Algo
 <---------------------------------->
 
 """
-def keep_score():
-	pass
 
 def play_tic_tac_toe():
 	while True:

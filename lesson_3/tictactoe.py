@@ -73,13 +73,9 @@ def join_or(num_list, delimiter=', ', join_word='or'):
 		case 2:
 			return f'{num_list[0]} {join_word} {num_list[1]}'
 	
-	first_part = num_list[:-1]
-	second_part = num_list[-1:]
-	
 	joined_first_part = delimiter.join([str(num) for num 
-										in first_part])
-	last_element = str(second_part[0])
-	final_string = f'{joined_first_part}{delimiter}{join_word} {last_element}'
+										in num_list[:-1]])
+	final_string = f'{joined_first_part}{delimiter}{join_word} {num_list[-1]}'
 	return final_string
 
 def display_board(board):

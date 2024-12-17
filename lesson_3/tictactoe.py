@@ -65,25 +65,22 @@ ALGO [PROGRAMMATIC]
 """
 
 def join_or(num_list, delimiter=', ', join_word='or'):
-	if num_list == []:
-		return ''
+	match len(num_list):
+		case 0:
+			return ''
+		case 1:
+			return str(num_list[0])
+		case 2:
+			return f'{num_list[0]} {join_word} {num_list[1]}'
 	
-	if len(num_list) == 1:
-		return num_list[0]
+	first_part = num_list[:-1]
+	second_part = num_list[-1:]
 	
-	if len(num_list) == 2:
-		two_nums = f'{num_list[0]} {join_word} {num_list[1]}'
-		return two_nums
-	
-	if len(num_list) >= 3:
-		first_part = num_list[:-1]
-		second_part = num_list[-1:]
-		
-		joined_first_part = delimiter.join([str(num) for num 
-													in first_part])
-		last_element = str(second_part[0])
-		final_string = f'{joined_first_part}{delimiter}{join_word} {last_element}'
-		return final_string
+	joined_first_part = delimiter.join([str(num) for num 
+										in first_part])
+	last_element = str(second_part[0])
+	final_string = f'{joined_first_part}{delimiter}{join_word} {last_element}'
+	return final_string
 
 def display_board(board):
     os.system('clear')

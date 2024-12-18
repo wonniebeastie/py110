@@ -305,50 +305,47 @@ def play_round():
 
 	"""
 	while True:
+		'''
+		Board intialized in outer loop bc each game needs a separate
+		board.
+		'''
 		board = initialize_board()
 
 		while True:
 			display_board(board)
 
-	pass
+			player_chooses_square(board)
+			if someone_won(board) or board_full(board):
+				break
 
-def play_tic_tac_toe():
+			computer_chooses_square(board)
+			if someone_won(board) or board_full(board):
+				break
+		
+		display_board(board)
+
+		if someone_won(board):
+			prompt(f"{detect_winner(board)} wins this round.")
+			return detect_winner(board)
+		else:
+			prompt("It's a tie - try again.")
+
+def play_match():
 	while True:
-		'''
-		Board intialized in outer loop bc each game needs a separate
-		board.
-		'''
 		scores = { 'Player': 0, 'Computer': 0 }
 
 		prompt(
-			"Let's play a match of Tic-Tac-Toe! "
-			"The first player to win 5 games wins the overall match!")
+            "Let's play a match of Tic-Tac-Toe! "
+            "The first player to win 5 games wins the overall match!"
+        )
 		
-		while (
-			scores['Player'] < WINNING_SCORE and 
-			scores['Computer'] < WINNING_SCORE
-		): 
-			winner = play_round()
-			increment_scores(scores, winner)
-
-
-	# 	while True:
-	# 		display_board(board)
-
-	# 		player_chooses_square(board)
-	# 		if someone_won(board) or board_full(board):
-	# 			break
-
-	# 		computer_chooses_square(board)
-	# 		if someone_won(board) or board_full(board):
-	# 			break
-
-	# 	display_board(board)
-
-	# 	if someone_won(board):
-	# 		prompt(f"{detect_winner(board)} won!")
-	# 	else:
-	# 		prompt("It's a tie!")
+		# while (
+		# 	scores['Player'] < WINNING_SCORE and 
+		# 	scores['Computer'] < WINNING_SCORE
+		# ): 
+		# 	winner = play_round()
+		# 	print(winner)
+		# 	increment_scores(scores, winner)
 		
 		# Ask user if they want to play again.
 		prompt("Play again? (y or n)")
@@ -359,4 +356,4 @@ def play_tic_tac_toe():
 
 	prompt('Thanks for playing Tic Tac Toe!')
 
-play_tic_tac_toe()
+play_match()

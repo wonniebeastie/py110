@@ -42,6 +42,32 @@ def join_or(num_list, delimiter=', ', join_word='or'):
 	final_string = f'{joined_first_part}{delimiter}{join_word} {num_list[-1]}'
 	return final_string
 
+def increment_scores(score_dictionary, winner):
+	"""
+    Update the scores based on the winner of the round.
+
+    Parameters:
+    score_dictionary (dict): A dictionary containing current scores for
+                              the 'Player' and 'Computer'.
+    winner (str): The winner of the round ('Player' or 'Computer').
+    """
+	if winner == 'Player':
+		score_dictionary['Player'] += 1
+	elif winner == 'Computer':
+		score_dictionary['Computer'] += 1
+
+def display_scores(score_board):
+	"""
+    Display the current scores for the player and computer.
+
+    Parameters:
+    score_board (dict): A dictionary containing the scores for 'Player' and
+                   'Computer'.
+	"""
+	player_score = score_board['Player']
+	computer_score = score_board['Computer']
+	print(f" < Player: {player_score} | Computer: {computer_score} >")
+
 def display_board(board):
 	"""
     Display the current state of the Tic-Tac-Toe board.
@@ -177,32 +203,6 @@ def detect_winner(board):
 
 	return None
 
-def increment_scores(score_dictionary, winner):
-	"""
-    Update the scores based on the winner of the round.
-
-    Parameters:
-    score_dictionary (dict): A dictionary containing current scores for
-                              the 'Player' and 'Computer'.
-    winner (str): The winner of the round ('Player' or 'Computer').
-    """
-	if winner == 'Player':
-		score_dictionary['Player'] += 1
-	elif winner == 'Computer':
-		score_dictionary['Computer'] += 1
-
-def display_scores(scores):
-	"""
-    Display the current scores for the player and computer.
-
-    Parameters:
-    scores (dict): A dictionary containing the scores for 'Player' and
-                   'Computer'.
-	"""
-	player_score = scores['Player']
-	computer_score = scores['Computer']
-	print(f"Player: {player_score} | Computer: {computer_score}")
-
 def play_round():
 	"""
 	Play a single round of Tic-Tac-Toe.
@@ -211,8 +211,7 @@ def play_round():
     str: 'Player' if the player wins, 'Computer' if the computer wins,
          or None if the round ends in a tie.
 	"""
-	os.system('clear')
-	
+	# os.system('clear')
 	board = initialize_board()
 
 	while True:
@@ -225,12 +224,12 @@ def play_round():
 		computer_chooses_square(board)
 		if someone_won(board) or board_full(board):
 			break
-		os.system('clear') # Clears the terminal after player places a marker.
+		# os.system('clear') # Clears the terminal after player places a marker.
 		# want to have it so that it displays the score the entire game
 		# and only shows one board at a time.
-	os.system('clear')
+	# os.system('clear')
 	display_board(board)
-	
+
 	if someone_won(board):
 		winner = detect_winner(board)
 		prompt(f"{winner} wins this round.")
@@ -255,13 +254,24 @@ def play_match():
 		# Pause before entering a round, which clears the terminal.
 		input("Press Enter to start...")
 
+		round = 1
+
 		while (scores['Player'] < WINNING_SCORE and scores['Computer'] < WINNING_SCORE): 
+			terminal_width = os.get_terminal_size().columns if hasattr(os, 'get_terminal_size') else 80
+
+			print(''.center(terminal_width, '-'))
+			print(f'ROUND {round}'.center(terminal_width))
+			print(''.center(terminal_width, '-'))
+
 			winner = play_round()
 
 			if winner:
 				increment_scores(scores, winner)
-				display_scores(scores)
-		
+			
+			display_scores(scores)
+			
+			round += 1
+
 		if scores['Player'] == WINNING_SCORE:
 			prompt("You win the overall match!")
 		else:

@@ -116,26 +116,14 @@ def player_chooses_square(board):
 
 	board[int(square)] = HUMAN_MARKER
 
-def find_at_risk_square(board, marker):
-	"""
-	Computer AI: Defense HELPER FUNCTION
-	I: the current state of the board
-	I: a string, the value for HUMAN_MARKER 
-	O: the square at risk
+def find_at_risk_square(line, board):
+    markers_in_line = [board[square] for square in line]
 
-	[x] + Loop through WINNING_LINES, check if any of them have 2 squares occu-
-		 pied by HUMAN_MARKER. 
-		 - If one does, return the integer of the last square.
-		 - Else return None.
-	"""
-	for line in WINNING_LINES:
-		sq1, sq2, sq3 = line
-		
-		if (board[sq1] == HUMAN_MARKER and
-			board[sq2] == HUMAN_MARKER and
-			board[sq3] == INITIAL_MARKER):
-			return sq3
-	return None # Returns this only after checking every line.
+    if markers_in_line.count('X') == 2:
+        for square in line:
+            if board[square] == ' ':
+                return square
+    return None
 
 def computer_chooses_square(board):
 	"""

@@ -211,6 +211,8 @@ def play_round():
     str: 'Player' if the player wins, 'Computer' if the computer wins,
          or None if the round ends in a tie.
 	"""
+	os.system('clear')
+	
 	board = initialize_board()
 
 	while True:
@@ -223,7 +225,9 @@ def play_round():
 		computer_chooses_square(board)
 		if someone_won(board) or board_full(board):
 			break
-		os.system('clear')
+		os.system('clear') # Clears the terminal after player places a marker.
+		# want to have it so that it displays the score the entire game
+		# and only shows one board at a time.
 	os.system('clear')
 	display_board(board)
 	
@@ -247,6 +251,9 @@ def play_match():
 		scores = { 'Player': 0, 'Computer': 0 }
 
 		prompt("Let's play a match of Tic-Tac-Toe! The first player to win 5 games wins the overall match!")
+
+		# Pause before entering a round, which clears the terminal.
+		input("Press Enter to start...")
 
 		while (scores['Player'] < WINNING_SCORE and scores['Computer'] < WINNING_SCORE): 
 			winner = play_round()

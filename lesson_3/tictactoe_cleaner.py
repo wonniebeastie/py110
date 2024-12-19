@@ -48,32 +48,6 @@ def join_or(num_list, delimiter=', ', join_word='or'):
 	final_string = f'{joined_first_part}{delimiter}{join_word} {num_list[-1]}'
 	return final_string
 
-def increment_scores(score_dictionary, winner):
-	"""
-    Update the scores based on the winner of the round.
-
-    Parameters:
-    score_dictionary (dict): A dictionary containing current scores for
-                              the 'Player' and 'Computer'.
-    winner (str): The winner of the round ('Player' or 'Computer').
-    """
-	if winner == 'Player':
-		score_dictionary['Player'] += 1
-	elif winner == 'Computer':
-		score_dictionary['Computer'] += 1
-
-def display_scores(score_board):
-	"""
-    Display the current scores for the player and computer.
-
-    Parameters:
-    score_board (dict): A dictionary containing the scores for 'Player' and
-                   'Computer'.
-	"""
-	player_score = score_board['Player']
-	computer_score = score_board['Computer']
-	print(f" < Player: {player_score} | Computer: {computer_score} >")
-
 def display_board(board):
 	"""
     Display the current state of the Tic-Tac-Toe board.
@@ -97,7 +71,6 @@ def display_board(board):
 	print(f"  {board[7]}  |  {board[8]}  |  {board[9]}")
 	print('     |     |')
 	print('')
-
 
 def initialize_board():
 	"""
@@ -225,6 +198,32 @@ def detect_winner(board):
 			return 'Computer'
 
 	return None
+
+def increment_scores(score_dictionary, winner):
+	"""
+    Update the scores based on the winner of the round.
+
+    Parameters:
+    score_dictionary (dict): A dictionary containing current scores for
+                              the 'Player' and 'Computer'.
+    winner (str): The winner of the round ('Player' or 'Computer').
+    """
+	if winner == 'Player':
+		score_dictionary['Player'] += 1
+	elif winner == 'Computer':
+		score_dictionary['Computer'] += 1
+
+def display_scores(score_board):
+	"""
+    Display the current scores for the player and computer.
+
+    Parameters:
+    score_board (dict): A dictionary containing the scores for 'Player' and
+                   'Computer'.
+	"""
+	player_score = score_board['Player']
+	computer_score = score_board['Computer']
+	print(f" < Player: {player_score} | Computer: {computer_score} >")
 
 def play_round():
 	"""

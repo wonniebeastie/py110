@@ -123,13 +123,19 @@ def find_at_risk_square(board, marker):
 	I: a string, the value for HUMAN_MARKER 
 	O: the square at risk
 
-	[] + Loop through WINNING_LINES, check if any of them have 2 squares occu-
+	[x] + Loop through WINNING_LINES, check if any of them have 2 squares occu-
 		 pied by HUMAN_MARKER. 
 		 - If one does, return the integer of the last square.
 		 - Else return None.
 	"""
-	pass
-
+	for line in WINNING_LINES:
+		sq1, sq2, sq3 = line
+		
+		if (board[sq1] == HUMAN_MARKER and
+			board[sq2] == HUMAN_MARKER and
+			board[sq3] == INITIAL_MARKER):
+			return sq3
+	return None # Returns this only after checking every line.
 
 def computer_chooses_square(board):
 	"""
@@ -148,7 +154,15 @@ def computer_chooses_square(board):
 	"""
 	if len(empty_squares(board)) == 0:
 		return
+	
+	risk_or_no = find_at_risk_square(board, HUMAN_MARKER)
+	print(f'risk_or_no: {risk_or_no}')
+
+	if risk_or_no:
+		board[risk_or_no] == COMPUTER_MARKER
+	
 	square = random.choice(empty_squares(board))
+	print(f'square: {square}')
 	board[square] = COMPUTER_MARKER
 
 def board_full(board):

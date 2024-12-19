@@ -70,9 +70,24 @@ ALGO [PROGRAMMATIC]
 
 def join_or(num_list, delimiter=', ', join_word='or'):
 	'''
-	Display the numbers (representing squares) that are available to
-	pick from in a neat way, with option to choose a delimiter & a
-	join word.
+	Format a list of numbers into a human-readable string with custom 
+	delimiters.
+
+    Parameters:
+    + num_list (list): A list of numbers to format.
+    + delimiter (str): A string used to separate elements in the list 
+	  (default: ', ').
+    + join_word (str): A word to use before the last element (default: 'or').
+
+    Returns:
+    str: 
+        - An empty string if the input list is empty.
+        - The first element as a string if the input list has one element.
+        - Two elements joined by the join_word if the input list has two 
+		  elements.
+        - Elements separated by the delimiter, with the join_word before the 
+		  last element for lists with three or more elements.
+
 	'''
 	match len(num_list):
 		case 0:
@@ -88,9 +103,13 @@ def join_or(num_list, delimiter=', ', join_word='or'):
 	return final_string
 
 def display_board(board):
-	'''
-	Display the current state of the board.
-	'''
+	"""
+    Display the current state of the Tic-Tac-Toe board.
+	
+	Parameters:
+    + board (dict): A dictionary representing the game board where keys
+                    are square numbers (1-9) and values are markers.
+    """
 	os.system('clear')
 	
 	prompt(f"You are {HUMAN_MARKER}. Computer is {COMPUTER_MARKER}.")
@@ -109,21 +128,36 @@ def display_board(board):
 	print('')
 
 def initialize_board():
-	'''
-	Clear the board of all markers.
-	'''
+	"""
+    Create a new empty Tic-Tac-Toe board.
+
+    Returns:
+    dict: A dictionary where keys are square numbers (1-9) and values
+          are the initial marker (space).
+    """
 	return {square: INITIAL_MARKER for square in range(1, 10)}
 
 def empty_squares(board):
-	'''
-	Creates a list of numbers reprensenting the only choices left
-	for choosing.  
-	'''
+	"""
+    Get a list of unoccupied squares on the board.
+
+    Parameters:
+    board (dict): A dictionary representing the game board.
+
+    Returns:
+    list: A list of square numbers (keys) that are still unoccupied.
+    """
 	return [key 
 			for key, value in board.items() 
 			if value == INITIAL_MARKER]
 
 def player_chooses_square(board):
+	"""
+    Allow the player to choose a square on the board.
+
+    Parameters:
+    board (dict): A dictionary representing the game board.
+    """
 	while True:
 		valid_choices = [str(num) for num in empty_squares(board)]
 		# input trimmed to allow spaces in input
@@ -138,37 +172,52 @@ def player_chooses_square(board):
 	board[int(square)] = HUMAN_MARKER
 
 def computer_chooses_square(board):
+	"""
+    Allow the computer to choose a square on the board.
+
+    Parameters:
+    board (dict): A dictionary representing the game board.
+    """
 	if len(empty_squares(board)) == 0:
 		return
 	square = random.choice(empty_squares(board))
 	board[square] = COMPUTER_MARKER
 
 def board_full(board):
-	'''
-	Returns "True" if there are no more choices of squares left to 
-	pick. "False" otherwise.
+	"""
+    Check if the board is full (no empty squares remain).
 
-	Notes:
-	`==` was used to return a truthy value, since `[]` is a falsy value
-	and we need this function to return a truthy value in order for
-	our loop to work correctly.
-	'''
+    Parameters:
+    board (dict): A dictionary representing the game board.
+
+    Returns:
+    bool: True if no empty squares remain, False otherwise.
+    """
 	return len(empty_squares(board)) == 0
 
 def someone_won(board):
-	'''
-	Confirms if either the player or computer has won (returns `True`),
-	or tied (`False`).
-	'''
+	"""
+    Check if either player has won the game.
+
+    Parameters:
+    board (dict): A dictionary representing the game board.
+
+    Returns:
+    bool: True if either player has won, False otherwise.
+    """
 	return bool(detect_winner(board))
 
 def detect_winner(board):
-	'''
-	Checks to see if the player or the computer has picked a winning
-	combo & returns either 'Player' or 'Computer' depending on who won.
+	"""
+    Determine the winner of the game, if any.
 
-	Otherwise, returns `None` (a tie).
-	'''
+    Parameters:
+    board (dict): A dictionary representing the game board.
+
+    Returns:
+    str: 'Player' if the player wins, 'Computer' if the computer wins,
+          or None if there is no winner.
+    """
 	winning_lines = [
 		[1, 2, 3], [4, 5, 6], [7, 8, 9],  # rows
 		[1, 4, 7], [2, 5, 8], [3, 6, 9],  # columns
@@ -259,14 +308,17 @@ EXAMPLES / TEST CASES
 
 def increment_scores(score_dictionary, winner):
 	"""
-	I: target dictionary
-	I: a string, naming the winner
+    Update the scores based on the winner of the round.
 
-	ALGO 
-	[] + If "winner" is `'Player'`, increment "player score" by 1.
-	[] + If "winner" is `'Computer'`, increment "computer score" by 1.
-	"""
-	pass
+    Parameters:
+    score_dictionary (dict): A dictionary containing current scores for
+                              the 'Player' and 'Computer'.
+    winner (str): The winner of the round ('Player' or 'Computer').
+    """
+	if winner == 'Player':
+		score_dictionary['Player'] += 1
+	elif winner == 'Computer':
+		score_dictionary['Computer'] += 1
 
 def display_scores(scores):
 	"""
@@ -278,13 +330,20 @@ def display_scores(scores):
 	[] + "computer score" is "scores['Computer']
 	[] + Print "Player: {player_score} | Computer: {computer_score}"
 
+    Display the current scores for the player and computer.
+
+    Parameters:
+    scores (dict): A dictionary containing the scores for 'Player' and
+                   'Computer'.
 	"""
-	pass
+	player_score = scores['Player']
+	computer_score = scores['Computer']
+	print(f"Player: {player_score} | Computer: {computer_score}")
 
 def play_round():
 	"""
 	I: 
-	O: 'Player' or 'Computer'
+	O: `'Player'` or `'Computer'` or `None`
 
 	ALGO
 	[TODO] 
@@ -299,38 +358,48 @@ def play_round():
 		++ Display board.
 		++ If "someone won": 
 		  +++ "'detect winner' wins this round."
-		  +++ Return "detect_winner"
 		  +++ Call `increment_scores` with "detect winner".
+		  +++ Return "detect_winner"
 		++ Else, "It's a tie, try again."
 
 	"""
+	"""
+	Play a single round of Tic-Tac-Toe.
+
+    Returns:
+    str: 'Player' if the player wins, 'Computer' if the computer wins,
+         or None if the round ends in a tie.
+	"""
+	board = initialize_board()
+
 	while True:
-		'''
-		Board intialized in outer loop bc each game needs a separate
-		board.
-		'''
-		board = initialize_board()
-
-		while True:
-			display_board(board)
-
-			player_chooses_square(board)
-			if someone_won(board) or board_full(board):
-				break
-
-			computer_chooses_square(board)
-			if someone_won(board) or board_full(board):
-				break
-		
 		display_board(board)
 
-		if someone_won(board):
-			prompt(f"{detect_winner(board)} wins this round.")
-			return detect_winner(board)
-		else:
-			prompt("It's a tie - try again.")
+		player_chooses_square(board)
+		if someone_won(board) or board_full(board):
+			break
+
+		computer_chooses_square(board)
+		if someone_won(board) or board_full(board):
+			break
+	
+	display_board(board)
+	
+	if someone_won(board):
+		winner = detect_winner(board)
+		prompt(f"{winner} wins this round.")
+		return winner
+	prompt("It's a tie!")
+	return None
 
 def play_match():
+	"""
+    Play a single round of Tic-Tac-Toe.
+
+    Returns:
+    str: 'Player' if the player wins, 'Computer' if the computer wins,
+          or None if the round ends in a tie.
+    """
 	while True:
 		scores = { 'Player': 0, 'Computer': 0 }
 
@@ -339,17 +408,21 @@ def play_match():
             "The first player to win 5 games wins the overall match!"
         )
 		
-		# while (
-		# 	scores['Player'] < WINNING_SCORE and 
-		# 	scores['Computer'] < WINNING_SCORE
-		# ): 
-		# 	winner = play_round()
-		# 	print(winner)
-		# 	increment_scores(scores, winner)
+		while (scores['Player'] < WINNING_SCORE and scores['Computer'] < WINNING_SCORE): 
+			winner = play_round()
+
+			if winner:
+				increment_scores(scores, winner)
+				display_scores(scores)
+		
+		if scores['Player'] == WINNING_SCORE:
+			prompt("You win the overall match!")
+		else:
+			prompt("Computer wins the overall match!")
 		
 		# Ask user if they want to play again.
-		prompt("Play again? (y or n)")
-		answer = input().lower()
+		prompt("Play another match? (y or n)")
+		answer = input().strip().lower()
 
 		if answer[0] != 'y':
 			break

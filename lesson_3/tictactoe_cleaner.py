@@ -5,6 +5,12 @@ INITIAL_MARKER = ' '
 HUMAN_MARKER = 'X'
 COMPUTER_MARKER = 'O'
 WINNING_SCORE = 5
+WINNING_LINES = [
+	[1, 2, 3], [4, 5, 6], [7, 8, 9],  # rows
+	[1, 4, 7], [2, 5, 8], [3, 6, 9],  # columns
+	[1, 5, 9], [3, 5, 7]              # diagonals
+]
+
 
 def prompt(message):
 	print(f'==> {message}')
@@ -184,12 +190,6 @@ def detect_winner(board):
     str: 'Player' if the player wins, 'Computer' if the computer wins,
           or None if there is no winner.
     """
-	winning_lines = [
-		[1, 2, 3], [4, 5, 6], [7, 8, 9],  # rows
-		[1, 4, 7], [2, 5, 8], [3, 6, 9],  # columns
-		[1, 5, 9], [3, 5, 7]              # diagonals
-	]
-
 	for line in winning_lines:
 		sq1, sq2, sq3 = line
 		if (board[sq1] == HUMAN_MARKER

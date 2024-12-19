@@ -143,6 +143,21 @@ def player_chooses_square(board):
 
 	board[int(square)] = HUMAN_MARKER
 
+def find_at_risk_square(board, marker):
+	"""
+	Computer AI: Defense HELPER FUNCTION
+	I: the current state of the board
+	I: a string, the value for HUMAN_MARKER 
+	O: the square at risk
+
+	[] + Loop through WINNING_LINES, check if any of them have 2 squares occu-
+		 pied by HUMAN_MARKER. 
+		 - If one does, return the integer of the last square.
+		 - Else return None.
+	"""
+	pass
+
+
 def computer_chooses_square(board):
 	"""
     Allow the computer to choose a square on the board.
@@ -150,6 +165,14 @@ def computer_chooses_square(board):
     Parameters:
     board (dict): A dictionary representing the game board.
     """
+	"""
+	Computer AI: Defense
+	[] + Have computer loop through WINNING_LINES to see if any of them have 
+		 2 squares occupied by HUMAN_MARKER [NOTE: HELPER FUNCTION]
+		 - If a list does, then have computer place COMPUTER_MARKER in the last
+		   square (value returned by find_at_risk_square).
+		 - Else, let it choose a random one.  
+	"""
 	if len(empty_squares(board)) == 0:
 		return
 	square = random.choice(empty_squares(board))
@@ -190,7 +213,7 @@ def detect_winner(board):
     str: 'Player' if the player wins, 'Computer' if the computer wins,
           or None if there is no winner.
     """
-	for line in winning_lines:
+	for line in WINNING_LINES:
 		sq1, sq2, sq3 = line
 		if (board[sq1] == HUMAN_MARKER
 			   and board[sq2] == HUMAN_MARKER

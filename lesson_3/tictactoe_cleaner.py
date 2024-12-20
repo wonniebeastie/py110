@@ -132,27 +132,18 @@ def computer_chooses_square(board):
     Parameters:
     board (dict): A dictionary representing the game board.
     """
-	"""
-	Computer AI: Defense
-	[] + Have computer loop through WINNING_LINES to see if any of them have 
-		 2 squares occupied by HUMAN_MARKER [NOTE: HELPER FUNCTION]
-		 - If a list does, then have computer place COMPUTER_MARKER in the last
-		   square (value returned by find_at_risk_square).
-		 - Else, let it choose a random one.  
-	"""
 	if len(empty_squares(board)) == 0:
 		return
 	
-	# Check for immediate threat.
-	risk_or_no = find_at_risk_square(board, HUMAN_MARKER)
-	print(f'risk_or_no: {risk_or_no}')
-	if risk_or_no:
-		board[risk_or_no] = COMPUTER_MARKER
-		return
+	square = None
+	for line in WINNING_LINES:
+		square = find_at_risk_square(line, board)
+		if square:
+			break
+
+	if not square:
+		square = random.choice(empty_squares(board))
 	
-	# Otherwise, choose random square.
-	square = random.choice(empty_squares(board))
-	print(f'square: {square}')
 	board[square] = COMPUTER_MARKER
 
 def board_full(board):

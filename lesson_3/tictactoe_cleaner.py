@@ -116,14 +116,24 @@ def player_chooses_square(board):
 
 	board[int(square)] = HUMAN_MARKER
 
-def find_at_risk_square(line, board):
-    markers_in_line = [board[square] for square in line]
+def find_at_risk_square(line, board, marker):
+	"""
+	PROBLEM
+	Make computer AI offensive-minded. Find an empty square in a line where 
+	two other squares belong to the computer. Incorporate defense as well.
 
-    if markers_in_line.count('X') == 2:
-        for square in line:
-            if board[square] == ' ':
-                return square
-    return None
+	I: `line` - the sublist in WINNING_LIST
+	I: `board` - the current state of the board
+	I: `marker` - `'X'` or `'O'`
+	O: the empty square number that the computer must mark
+	"""
+	markers_in_line = [board[square] for square in line]
+	
+	if markers_in_line.count(marker) == 2:
+		for square in line:
+			if board[square] == ' ':
+				return square
+	return None
 
 def computer_chooses_square(board):
 	"""
@@ -132,6 +142,10 @@ def computer_chooses_square(board):
     Parameters:
     board (dict): A dictionary representing the game board.
     """
+	"""
+
+	"""
+
 	if len(empty_squares(board)) == 0:
 		return
 	
@@ -286,9 +300,11 @@ def play_match():
 			display_scores(scores)
 			
 			round += 1
-			input(f"Press Enter to continue onto round {round}...")
-			os.system('clear')
 
+			if scores['Player'] < WINNING_SCORE and scores['Computer'] < WINNING_SCORE:
+				input(f"Press Enter to continue onto round {round}...")
+				os.system('clear')
+		
 		if scores['Player'] == WINNING_SCORE:
 			prompt("You win the overall match!")
 		else:

@@ -116,17 +116,8 @@ def player_chooses_square(board):
 
 	board[int(square)] = HUMAN_MARKER
 
+# Function changed to allow for both defense & offense.
 def find_at_risk_square(line, board, marker):
-	"""
-	PROBLEM
-	Make computer AI offensive-minded. Find an empty square in a line where 
-	two other squares belong to the computer. Incorporate defense as well.
-
-	I: `line` - the sublist in WINNING_LIST
-	I: `board` - the current state of the board
-	I: `marker` - `'X'` or `'O'`
-	O: the empty square number that the computer must mark
-	"""
 	markers_in_line = [board[square] for square in line]
 	
 	if markers_in_line.count(marker) == 2:
@@ -143,7 +134,7 @@ def computer_chooses_square(board):
     board (dict): A dictionary representing the game board.
     """
 	"""
-
+	
 	"""
 
 	if len(empty_squares(board)) == 0:

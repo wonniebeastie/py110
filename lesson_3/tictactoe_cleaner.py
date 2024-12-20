@@ -117,6 +117,8 @@ def player_chooses_square(board):
 	board[int(square)] = HUMAN_MARKER
 
 # Function changed to allow for both defense & offense.
+# Now the computer will only pick a random square if there are no two
+# Xs or Os in the winning line sublist.
 def find_at_risk_square(line, board, marker):
 	markers_in_line = [board[square] for square in line]
 	

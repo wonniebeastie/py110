@@ -141,6 +141,7 @@ def computer_chooses_square(board):
 	for line in WINNING_LINES:
 		square = find_at_risk_square(line, board, COMPUTER_MARKER)
 		if square:
+			print(f"Computer is playing offensively at square {square}")
 			break
 	
 	# Defense
@@ -148,11 +149,22 @@ def computer_chooses_square(board):
 		for line in WINNING_LINES:
 			square = find_at_risk_square(line, board, HUMAN_MARKER)
 			if square:
+				print(f"Computer is playing defensively at square {square}")
 				break
+	
+	# Pick square 5 if available
+	"""
+	[] + If square is not a truthy value and it's occupied by ' ', 
+		 square is assigned 5. 
+	"""
+	if not square and board[5] == INITIAL_MARKER:
+		square = 5
+		print("Computer is picking square 5")
 	
 	# Pick a random square if no immediate threat nor win
 	if not square:
 		square = random.choice(empty_squares(board))
+		print(f"Computer is picking a random square: {square}")
 	
 	board[square] = COMPUTER_MARKER
 
@@ -287,7 +299,7 @@ def play_match():
 			print(''.center(terminal_width, '-'))
 			print(f'ROUND {round}'.center(terminal_width))
 			print(''.center(terminal_width, '-'))
-			
+
 			display_scores(scores)
 			winner = play_round()
 

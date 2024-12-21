@@ -137,16 +137,16 @@ def computer_chooses_square(board):
     """
 	square = None
 
-	# Defense first
+	# Offense first
 	for line in WINNING_LINES:
-		square = find_at_risk_square(line, board, HUMAN_MARKER)
+		square = find_at_risk_square(line, board, COMPUTER_MARKER)
 		if square:
 			break
 	
-	# Offense
+	# Defense
 	if not square:
 		for line in WINNING_LINES:
-			square = find_at_risk_square(line, board, COMPUTER_MARKER)
+			square = find_at_risk_square(line, board, HUMAN_MARKER)
 			if square:
 				break
 	
@@ -287,6 +287,7 @@ def play_match():
 			print(''.center(terminal_width, '-'))
 			print(f'ROUND {round}'.center(terminal_width))
 			print(''.center(terminal_width, '-'))
+			
 			display_scores(scores)
 			winner = play_round()
 

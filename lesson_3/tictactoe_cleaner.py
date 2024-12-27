@@ -250,9 +250,8 @@ def play_round(player):
 	board = initialize_board()
 
 	while True:
-		display_board(board)
-
 		if player == PLAYER: # Player goes first
+			display_board(board)
 			player_chooses_square(board)
 			if someone_won(board) or board_full(board):
 				break
@@ -289,7 +288,7 @@ def play_match(starting_player):
 		if starting_player == CHOOSE:
 			valid_choices = {'p': PLAYER, 'c': COMPUTER}
 			while True:
-				player_input = input("Pick who will make the first move: Enter 'p' Player or 'c' for Computer \n").lower()
+				player_input = input("==> Pick who will make the first move: Enter 'p' Player or 'c' for Computer \n").lower()
 				if player_input in valid_choices:
 					player =  valid_choices[player_input]
 					break
@@ -310,7 +309,6 @@ def play_match(starting_player):
 			print(''.center(terminal_width, '-'))
 
 			display_scores(scores)
-			print(f'player: {player}')
 
 			if player == PLAYER:
 				winner = play_round(PLAYER)
@@ -342,4 +340,4 @@ def play_match(starting_player):
 
 	prompt('Thanks for playing Tic Tac Toe!')
 
-play_match(COMPUTER)
+play_match(CHOOSE)

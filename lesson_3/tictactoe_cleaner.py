@@ -158,7 +158,7 @@ def computer_chooses_square(board):
 	# Pick square 5 if available
 	if not square and board[5] == INITIAL_MARKER:
 		square = 5
-		print("Computer is picking square 5")
+		print("Computer is picking square 5 if it's not occupied")
 	
 	# Pick a random square if no immediate threat nor win
 	if not square:
@@ -241,7 +241,7 @@ def display_scores(score_board):
 	computer_score = score_board['Computer']
 	print(f" < Player: {player_score} | Computer: {computer_score} >")
 
-def play_round():
+def play_round(player):
 	"""
 	Play a single round of Tic-Tac-Toe.
 
@@ -250,40 +250,29 @@ def play_round():
          or None if the round ends in a tie.
 	"""
 
-	"""
-	PROBLEM
-	The function should be able to use a constant to determine who plays first.
-
-	INPUT & OUTPUT
-	I: "current player" (PLAYER or COMPUTER)
-	O: either the winner or None (if tied)
-
-	TEST CASES
-	- I: PLAYER => player chooses square first, then computer
-	- O: If board isn't full & no one has won, then player chooses again, then computer
-
-	ALGO (-, +, -, +)
-	[] - If "player" == "PLAYER", 
-		+ "player chooses square" is called first,
-		+ then "computer chooses square"
-	[] - Else, 
-		+ "computer chooses square" is called first,
-		+ then "player chooses square"
-
-	"""
-
 	board = initialize_board()
 
 	while True:
 		display_board(board)
-		
-		player_chooses_square(board)
-		if someone_won(board) or board_full(board):
-			break
-		
-		computer_chooses_square(board)
-		if someone_won(board) or board_full(board):
-			break
+
+		if player == PLAYER: # Player goes first
+			prompt('Player turn')
+			player_chooses_square(board)
+			if someone_won(board) or board_full(board):
+				break
+			computer_chooses_square(board)
+			if someone_won(board) or board_full(board):
+				break
+
+		else: # Computer goes first
+			prompt('Computer turn')
+			computer_chooses_square(board)
+			display_board(board)
+			if someone_won(board) or board_full(board):
+				break
+			player_chooses_square(board)
+			if someone_won(board) or board_full(board):
+				break
 
 	display_board(board)
 
@@ -295,13 +284,9 @@ def play_round():
 	prompt("It's a tie!")
 	return None
 
-def play_match():
+def play_match(starting_player):
 	"""
-    Play a single round of Tic-Tac-Toe.
 
-    Returns:
-    str: 'Player' if the player wins, 'Computer' if the computer wins,
-          or None if the round ends in a tie.
     """
 
 	while True:
@@ -328,10 +313,13 @@ def play_match():
 			"""
 			I: "starting player" (either PLAYER or COMPUTER)
 
-			[] - If "starting player" is PLAYER, call `play_round` with `PLAYER`
-			[] - Else, call `play_round` with `COMPUTER`
+			[x] - If "starting player" is PLAYER, call `play_round` with `PLAYER`
+			[x] - Else, call `play_round` with `COMPUTER`
 			"""
-			winner = play_round()
+			if starting_player == PLAYER:
+				winner = play_round(PLAYER)
+			else:
+				winner = play_round(COMPUTER)
 
 			if winner:
 				increment_scores(scores, winner)

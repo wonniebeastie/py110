@@ -255,11 +255,15 @@ def play_round():
 	The function should be able to use a constant to determine who plays first.
 
 	INPUT & OUTPUT
-	I: starting player (PLAYER or COMPUTER)
+	I: "current player" (PLAYER or COMPUTER)
 	O: either the winner or None (if tied)
 
+	TEST CASES
+	- I: PLAYER => player chooses square first, then computer
+	- O: If board isn't full & no one has won, then player chooses again, then computer
+
 	ALGO (-, +, -, +)
-	[] - If "starting player" == "PLAYER", 
+	[] - If "player" == "PLAYER", 
 		+ "player chooses square" is called first,
 		+ then "computer chooses square"
 	[] - Else, 
@@ -299,6 +303,7 @@ def play_match():
     str: 'Player' if the player wins, 'Computer' if the computer wins,
           or None if the round ends in a tie.
     """
+
 	while True:
 		scores = { 'Player': 0, 'Computer': 0 }
 
@@ -319,6 +324,13 @@ def play_match():
 			print(''.center(terminal_width, '-'))
 
 			display_scores(scores)
+
+			"""
+			I: "starting player" (either PLAYER or COMPUTER)
+
+			[] - If "starting player" is PLAYER, call `play_round` with `PLAYER`
+			[] - Else, call `play_round` with `COMPUTER`
+			"""
 			winner = play_round()
 
 			if winner:
@@ -346,4 +358,4 @@ def play_match():
 
 	prompt('Thanks for playing Tic Tac Toe!')
 
-play_match()
+play_match(COMPUTER)

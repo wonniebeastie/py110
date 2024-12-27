@@ -257,7 +257,7 @@ def play_round(player):
 		display_board(board)
 
 		if player == PLAYER: # Player goes first
-			prompt('Player turn')
+			print('YOUR TURN')
 			player_chooses_square(board)
 			if someone_won(board) or board_full(board):
 				break
@@ -266,7 +266,7 @@ def play_round(player):
 				break
 
 		else: # Computer goes first
-			prompt('Computer turn')
+			print('COMPUTER TURN')
 			computer_chooses_square(board)
 			display_board(board)
 			if someone_won(board) or board_full(board):
@@ -292,8 +292,18 @@ def play_match(starting_player):
 		prompt("Let's play a match of Tic-Tac-Toe!")
 		prompt("The first player to win 5 games wins the overall match!")
 
+		if starting_player == CHOOSE:
+			valid_choices = {'p': PLAYER, 'c': COMPUTER}
+			while True:
+				player_input = input("Pick who will make the first move: Enter 'p' Player or 'c' for Computer \n").lower()
+				if player_input in valid_choices:
+					player =  valid_choices[player_input]
+					break
+				print("Invalid choice. Please try again.")
+		else:
+			player = starting_player
+			input("Press Enter to start...")
 		# Pause before entering a round, which clears the terminal.
-		input("Press Enter to start...")
 		os.system('clear')
 
 		round = 1
@@ -306,8 +316,9 @@ def play_match(starting_player):
 			print(''.center(terminal_width, '-'))
 
 			display_scores(scores)
-			
-			if starting_player == PLAYER:
+			print(f'player: {player}')
+
+			if player == PLAYER:
 				winner = play_round(PLAYER)
 			else:
 				winner = play_round(COMPUTER)
@@ -337,4 +348,4 @@ def play_match(starting_player):
 
 	prompt('Thanks for playing Tic Tac Toe!')
 
-play_match(COMPUTER)
+play_match(CHOOSE)

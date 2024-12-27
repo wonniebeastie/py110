@@ -13,6 +13,7 @@ WINNING_LINES = [
 
 PLAYER = 'player'
 COMPUTER = 'computer'
+CHOOSE = 'choose'
 
 
 def prompt(message):
@@ -285,10 +286,6 @@ def play_round(player):
 	return None
 
 def play_match(starting_player):
-	"""
-
-    """
-
 	while True:
 		scores = { 'Player': 0, 'Computer': 0 }
 
@@ -309,13 +306,7 @@ def play_match(starting_player):
 			print(''.center(terminal_width, '-'))
 
 			display_scores(scores)
-
-			"""
-			I: "starting player" (either PLAYER or COMPUTER)
-
-			[x] - If "starting player" is PLAYER, call `play_round` with `PLAYER`
-			[x] - Else, call `play_round` with `COMPUTER`
-			"""
+			
 			if starting_player == PLAYER:
 				winner = play_round(PLAYER)
 			else:

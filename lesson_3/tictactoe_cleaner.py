@@ -11,6 +11,9 @@ WINNING_LINES = [
 	[1, 5, 9], [3, 5, 7]              # diagonals
 ]
 
+PLAYER = 'player'
+COMPUTER = 'computer'
+
 
 def prompt(message):
 	print(f'==> {message}')
@@ -153,10 +156,6 @@ def computer_chooses_square(board):
 				break
 	
 	# Pick square 5 if available
-	"""
-	[] + If square is not a truthy value and it's occupied by ' ', 
-		 square is assigned 5. 
-	"""
 	if not square and board[5] == INITIAL_MARKER:
 		square = 5
 		print("Computer is picking square 5")
@@ -250,6 +249,25 @@ def play_round():
     str: 'Player' if the player wins, 'Computer' if the computer wins,
          or None if the round ends in a tie.
 	"""
+
+	"""
+	PROBLEM
+	The function should be able to use a constant to determine who plays first.
+
+	INPUT & OUTPUT
+	I: starting player (PLAYER or COMPUTER)
+	O: either the winner or None (if tied)
+
+	ALGO (-, +, -, +)
+	[] - If "starting player" == "PLAYER", 
+		+ "player chooses square" is called first,
+		+ then "computer chooses square"
+	[] - Else, 
+		+ "computer chooses square" is called first,
+		+ then "player chooses square"
+
+	"""
+
 	board = initialize_board()
 
 	while True:

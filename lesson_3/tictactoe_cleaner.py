@@ -145,7 +145,6 @@ def computer_chooses_square(board):
 	for line in WINNING_LINES:
 		square = find_at_risk_square(line, board, COMPUTER_MARKER)
 		if square:
-			print(f"Computer is playing offensively at square {square}")
 			break
 	
 	# Defense
@@ -153,18 +152,15 @@ def computer_chooses_square(board):
 		for line in WINNING_LINES:
 			square = find_at_risk_square(line, board, HUMAN_MARKER)
 			if square:
-				print(f"Computer is playing defensively at square {square}")
 				break
 	
 	# Pick square 5 if available
 	if not square and board[5] == INITIAL_MARKER:
 		square = 5
-		print("Computer is picking square 5 if it's not occupied")
 	
 	# Pick a random square if no immediate threat nor win
 	if not square:
 		square = random.choice(empty_squares(board))
-		print(f"Computer is picking a random square: {square}")
 	
 	board[square] = COMPUTER_MARKER
 
@@ -257,7 +253,6 @@ def play_round(player):
 		display_board(board)
 
 		if player == PLAYER: # Player goes first
-			print('YOUR TURN')
 			player_chooses_square(board)
 			if someone_won(board) or board_full(board):
 				break
@@ -266,7 +261,6 @@ def play_round(player):
 				break
 
 		else: # Computer goes first
-			print('COMPUTER TURN')
 			computer_chooses_square(board)
 			display_board(board)
 			if someone_won(board) or board_full(board):
@@ -348,4 +342,4 @@ def play_match(starting_player):
 
 	prompt('Thanks for playing Tic Tac Toe!')
 
-play_match(CHOOSE)
+play_match(COMPUTER)

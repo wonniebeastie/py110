@@ -331,13 +331,19 @@ def play_match(starting_player):
 		else:
 			prompt("Computer wins the overall match!")
 		
-		# Ask user if they want to play again.
-		prompt("Play another match? (y or n)")
-		answer = input().strip().lower()
+		while True:
+			# Ask user if they want to play again.
+			prompt("Play another match? (y or n)")
+			valid_responses = ['y', 'n']
+			answer = input().strip().lower()
 
-		if answer[0] != 'y':
+			if answer not in valid_responses:
+				print("Invalid response. Please enter 'y' or 'n'.")
+			else:
+				break
+		
+		if answer == 'n':
+			prompt('Thanks for playing Tic Tac Toe!')
 			break
-
-	prompt('Thanks for playing Tic Tac Toe!')
 
 play_match(CHOOSE)

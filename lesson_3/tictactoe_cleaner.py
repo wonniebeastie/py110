@@ -270,7 +270,7 @@ def choose_square(game_board, player):
 
 
 
-def play_round(player):
+def play_round(starter):
 	"""
 	Play a single round of Tic-Tac-Toe.
 
@@ -278,9 +278,16 @@ def play_round(player):
     str: 'Player' if the player wins, 'Computer' if the computer wins,
          or None if the round ends in a tie.
 	"""
+	current_player = starter
 
 	board = initialize_board()
 
+	"""
+	PROBLEM
+	A loop that displays the board, then chooses a square starting with the 
+	starting player, then choose a square with the other player, and keep
+	going until either somebody wins or the board is full (tie).
+	"""
 	while True:
 		display_board(board)
 		choose_square(board, current_player)

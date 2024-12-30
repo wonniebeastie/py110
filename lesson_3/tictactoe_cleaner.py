@@ -238,7 +238,10 @@ def display_scores(score_board):
 	computer_score = score_board['Computer']
 	print(f" < Player: {player_score} | Computer: {computer_score} >")
 
-def choose_square(game_board, player):
+def alternate_player(other_player):
+	return 'computer' if other_player == 'player' else 'player'
+
+def choose_square(game_board, current_contestant):
 	"""
 	PROBLEM
 	Function that will call `computer_chooses_square` or `player_chooses_square`
@@ -247,28 +250,17 @@ def choose_square(game_board, player):
 	INPUT & OUTPUT
 	I: the game board,
 	I: current player
-	O: 
-
-	RULES (EXPLICIT/IMPLICIT)
-	EXP:
-	- 
-
-	IMP:
-	- 
-
-
-	EXAMPLES / TEST CASES
-	- 
-
+	O: None (just marks the board with either an X or O)
 
 	ALGO (-, +, -, +)
-	[] - 
-	[] - 
-	[] - 
-
+	[] - If "current contestant" is "player", call "player chooses square" 
+		 function,
+	[] - Else, call "computer chooses square"
 	"""
-
-
+	if current_contestant == 'player':
+		player_chooses_square(game_board)
+	else:
+		computer_chooses_square(game_board)
 
 def play_round(starter):
 	"""
@@ -393,4 +385,4 @@ def play_match(starting_option):
 			prompt('Thanks for playing Tic Tac Toe!')
 			break
 
-play_match(CHOOSE)
+play_match(PLAYER)

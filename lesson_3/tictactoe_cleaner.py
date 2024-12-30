@@ -238,6 +238,38 @@ def display_scores(score_board):
 	computer_score = score_board['Computer']
 	print(f" < Player: {player_score} | Computer: {computer_score} >")
 
+def choose_square(game_board, player):
+	"""
+	PROBLEM
+	Function that will call `computer_chooses_square` or `player_chooses_square`
+	depending on the value of `current_player`.
+
+	INPUT & OUTPUT
+	I: the game board,
+	I: current player
+	O: 
+
+	RULES (EXPLICIT/IMPLICIT)
+	EXP:
+	- 
+
+	IMP:
+	- 
+
+
+	EXAMPLES / TEST CASES
+	- 
+
+
+	ALGO (-, +, -, +)
+	[] - 
+	[] - 
+	[] - 
+
+	"""
+
+
+
 def play_round(player):
 	"""
 	Play a single round of Tic-Tac-Toe.
@@ -286,14 +318,14 @@ def play_round(player):
 	prompt("It's a tie!")
 	return None
 
-def play_match(starting_player):
+def play_match(starting_option):
 	while True:
 		scores = { 'Player': 0, 'Computer': 0 }
 
 		prompt("Let's play a match of Tic-Tac-Toe!")
 		prompt("The first player to win 5 games wins the overall match!")
 
-		if starting_player == CHOOSE:
+		if starting_option == CHOOSE:
 			valid_choices = {'p': PLAYER, 'c': COMPUTER}
 			while True:
 				player_input = input("==> Pick who will make the first move: Enter 'p' Player or 'c' for Computer \n").lower()
@@ -302,7 +334,7 @@ def play_match(starting_player):
 					break
 				print("Invalid choice. Please try again.")
 		else:
-			player = starting_player
+			player = starting_option
 			input("Press Enter to start...")
 		# Pause before entering a round, which clears the terminal.
 		os.system('clear')

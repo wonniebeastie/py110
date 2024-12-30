@@ -242,21 +242,6 @@ def alternate_player(other_player):
 	return 'computer' if other_player == 'player' else 'player'
 
 def choose_square(game_board, current_contestant):
-	"""
-	PROBLEM
-	Function that will call `computer_chooses_square` or `player_chooses_square`
-	depending on the value of `current_player`.
-
-	INPUT & OUTPUT
-	I: the game board,
-	I: current player
-	O: None (just marks the board with either an X or O)
-
-	ALGO (-, +, -, +)
-	[] - If "current contestant" is "player", call "player chooses square" 
-		 function,
-	[] - Else, call "computer chooses square"
-	"""
 	if current_contestant == 'player':
 		player_chooses_square(game_board)
 	else:
@@ -274,12 +259,6 @@ def play_round(starter):
 
 	board = initialize_board()
 
-	"""
-	PROBLEM
-	A loop that displays the board, then chooses a square starting with the 
-	starting player, then choose a square with the other player, and keep
-	going until either somebody wins or the board is full (tie).
-	"""
 	while True:
 		display_board(board)
 		choose_square(board, current_player)

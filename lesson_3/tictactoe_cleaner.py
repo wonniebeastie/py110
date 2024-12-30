@@ -330,11 +330,11 @@ def play_match(starting_option):
 			while True:
 				player_input = input("==> Pick who will make the first move: Enter 'p' Player or 'c' for Computer \n").lower()
 				if player_input in valid_choices:
-					player =  valid_choices[player_input]
+					starting_player =  valid_choices[player_input]
 					break
 				print("Invalid choice. Please try again.")
 		else:
-			player = starting_option
+			starting_player = starting_option
 			input("Press Enter to start...")
 		# Pause before entering a round, which clears the terminal.
 		os.system('clear')
@@ -350,7 +350,7 @@ def play_match(starting_option):
 
 			display_scores(scores)
 
-			if player == PLAYER:
+			if starting_player == PLAYER:
 				winner = play_round(PLAYER)
 			else:
 				winner = play_round(COMPUTER)

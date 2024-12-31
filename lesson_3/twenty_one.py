@@ -24,17 +24,7 @@ def initialize_deck():
 
 def shuffle(deck):
 	random.shuffle(deck)
-"""
-PROBLEM
-A card needs to be removed from the top of the deck, and dealt to a player.
 
-INPUT & OUTPUT
-I: nested list, deck in question
-O: a list, suit & value as values
-
-ALGO (-, +, -, +)
-[] - If deck is not empty, pop off a card & return it.
-"""
 def deal_card(current_deck):
 	if deck:
 		return current_deck.pop()

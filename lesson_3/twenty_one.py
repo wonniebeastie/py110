@@ -35,4 +35,6 @@ O: a list, suit & value as values
 ALGO (-, +, -, +)
 [] - If deck is not empty, pop off a card & return it.
 """
-def deal_card():
+def deal_card(current_deck):
+	if deck:
+		return current_deck.pop()

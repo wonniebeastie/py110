@@ -267,25 +267,6 @@ def play_round(starter):
 		if someone_won(board) or board_full(board):
 			break
 
-	# while True:
-	# 	if player == PLAYER: # Player goes first
-	# 		display_board(board)
-	# 		player_chooses_square(board)
-	# 		if someone_won(board) or board_full(board):
-	# 			break
-	# 		computer_chooses_square(board)
-	# 		if someone_won(board) or board_full(board):
-	# 			break
-
-	# 	else: # Computer goes first
-	# 		computer_chooses_square(board)
-	# 		display_board(board)
-	# 		if someone_won(board) or board_full(board):
-	# 			break
-	# 		player_chooses_square(board)
-	# 		if someone_won(board) or board_full(board):
-	# 			break
-
 	display_board(board)
 
 	if someone_won(board):

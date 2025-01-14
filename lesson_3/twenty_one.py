@@ -22,8 +22,14 @@ High-level pseudocode:
 def prompt(message):
 	print(f'==> {message}')
 
-# Initializes entire deck
+
 def initialize_deck(): 
+	"""Creates a card deck that will be used throughout the game.
+
+	Returns:
+		list: A nested list representing a deck of cards. 
+  		      Example: [['H', '3'], ['S', 'Q'], ... ]
+	"""
 	new_deck = [[suit, value] for suit in SUITS
 						  for value in VALUES]
 	return new_deck
@@ -36,7 +42,12 @@ def deal_card(deck):
 		return deck.pop()
 
 def deal_two_cards(deck):
-    return [deal_card(deck), deal_card(deck)]
+	"""Deals two cards to each player.
+	
+	Returns:
+		list: A hand composed of 2 returning cards from `deal_card` function.
+	"""
+	return [deal_card(deck), deal_card(deck)]
 
 # def player_turn()
 
@@ -47,9 +58,9 @@ def play_twenty_one():
     shuffle(deck)
     
     player_hand = deal_two_cards(deck)
-    dealer_hand = deal_two_cards(deck)
+    dealer_hand = deal_two_cards(deck) 
     
     print(player_hand)
-    print(dealer_hand)
+    print(dealer_hand)    
 
 play_twenty_one()

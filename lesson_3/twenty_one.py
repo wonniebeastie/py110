@@ -24,20 +24,18 @@ def prompt(message):
 
 # Initializes entire deck
 def initialize_deck(): 
-	deck = [[suit, value] for suit in SUITS
+	new_deck = [[suit, value] for suit in SUITS
 						  for value in VALUES]
-	return deck
+	return new_deck
 
-def shuffle(deck):
-	random.shuffle(deck)
+def shuffle(full_deck):
+	random.shuffle(full_deck)
 
 def deal_card(current_deck):
-	if deck:
+	if current_deck:
 		return current_deck.pop()
 
 
 # def player_turn()
 
 
-def play_twenty_one():
-    

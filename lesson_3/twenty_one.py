@@ -3,6 +3,9 @@ import random
 SUITS = ['H', 'D', 'C', 'S']
 VALUES = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'] 
 
+PLAYER = 'player'
+DEALER = 'dealer'
+
 """
 High-level pseudocode:
 1. Initialize deck
@@ -16,6 +19,9 @@ High-level pseudocode:
 7. Compare cards and declare winner.
 """
 
+def prompt(message):
+	print(f'==> {message}')
+
 # Initializes entire deck
 def initialize_deck(): 
 	deck = [[suit, value] for suit in SUITS
@@ -28,3 +34,10 @@ def shuffle(deck):
 def deal_card(current_deck):
 	if deck:
 		return current_deck.pop()
+
+
+# def player_turn()
+
+
+def play_twenty_one():
+    

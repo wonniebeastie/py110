@@ -28,13 +28,15 @@ def initialize_deck():
 						  for value in VALUES]
 	return new_deck
 
-def shuffle(full_deck):
-	random.shuffle(full_deck)
+def shuffle(deck):
+	random.shuffle(deck)
 
-def deal_card(current_deck):
-	if current_deck:
-		return current_deck.pop()
+def deal_card(deck):
+	if deck:
+		return deck.pop()
 
+def deal_two_cards(deck):
+    return [deal_card(deck), deal_card(deck)]
 
 # def player_turn()
 
@@ -44,7 +46,10 @@ def play_twenty_one():
     deck = initialize_deck()
     shuffle(deck)
     
-    player_hand = []
-    dealer_hand = []
+    player_hand = deal_two_cards(deck)
+    dealer_hand = deal_two_cards(deck)
+    
+    print(player_hand)
+    print(dealer_hand)
 
 play_twenty_one()

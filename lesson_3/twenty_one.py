@@ -38,4 +38,13 @@ def deal_card(current_deck):
 
 # def player_turn()
 
+def play_twenty_one():
+    prompt("Let's play a game of Twenty-One!")
+        
+    deck = initialize_deck()
+    shuffle(deck)
+    
+    player_hand = []
+    dealer_hand = []
 
+play_twenty_one()

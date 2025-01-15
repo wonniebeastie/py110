@@ -22,7 +22,6 @@ High-level pseudocode:
 def prompt(message):
 	print(f'==> {message}')
 
-
 def initialize_deck(): 
 	"""Creates a card deck that will be used throughout the game.
 
@@ -37,6 +36,21 @@ def initialize_deck():
 def shuffle(deck):
 	random.shuffle(deck)
 
+def replace_face_cards(lst_of_card_values):
+	"""
+	PROBLEM
+	Replace 'A' with 'Ace', 'J' with 'Jack' and so on.
+
+	I: a list of card values
+	O: same list of card values but with single letters replaced with their 
+	   long forms
+
+	ALGO (-, +, -, +)
+	[] - FOR each value in "lst_of_card_values",
+		 + if value is 'A', replace it with 'Ace' & so on
+	[] - Return the list
+	"""
+
 def display_hand(hand):
     """
 	PROBLEM
@@ -50,6 +64,7 @@ def display_hand(hand):
 	[x] - Extract just the values of the cards in the hand. 
  		 i.e. (['1', 'J', 'K'...])
 		 Capture in "values"
+	[NOTE: Extract step to another function - to change letters to long form]
 	[] - IF the length of "values" is less than 3:
 		 + display them joined together with 'and'
 	   - ELSE join them together with "delimiter" (except for the last element)

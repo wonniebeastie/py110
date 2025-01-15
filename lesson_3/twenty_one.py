@@ -51,14 +51,14 @@ def replace_face_cards(lst_of_card_values):
         'Q': 'Queen',
         'K': 'King',
     }
-    new = []
+    display_lst = []
     for value in lst_of_card_values:
         if value in face_card_names:
-            # We're using "value" as the key name to fetch the value of the pair.
-            new.append(face_card_names[value])
+            # Uses "value" as the key name to fetch the value of the pair.
+            display_lst.append(face_card_names[value])
         else:
-            new.append(value)
-    return new
+            display_lst.append(value)
+    return display_lst
 
 def display_hand(hand):
     """

@@ -37,6 +37,30 @@ def initialize_deck():
 def shuffle(deck):
 	random.shuffle(deck)
 
+def display_hand(hand):
+    """
+	PROBLEM
+	Display the card in human-readable form.
+
+	I: A player's "hand" (nested lst)
+	O: "...[card value], [card value] and [card_value]"
+
+	ALGO (-, +, -, +)
+	[] - SET "delimiter" to ', '
+	[] - SET "join_word" to 'and'
+	[] - Extract just the values of the cards in the hand. 
+ 		 i.e. (['1', 'J', 'K'...])
+		 Capture in "values"
+	[] - IF the length of "values" is less than 3:
+		 + display them joined together with 'and'
+	   - ELSE join them together with "delimiter" (except for the last element)
+		 (Capture in "joined_first_part")
+	[] - Combine the "joined_first_part" string with 'and' & the last element
+		 (Capture in "final_string")
+	[] - Return "final_string"
+	"""
+	
+
 def deal_card(deck):
 	if deck:
 		return deck.pop()
@@ -49,7 +73,10 @@ def deal_two_cards(deck):
 	"""
 	return [deal_card(deck), deal_card(deck)]
 
-# def player_turn()
+def player_turn(initial_player_hand):
+    current_hand = initial_player_hand
+    
+    
 
 def play_twenty_one():
     prompt("Let's play a game of Twenty-One!")
@@ -60,7 +87,6 @@ def play_twenty_one():
     player_hand = deal_two_cards(deck)
     dealer_hand = deal_two_cards(deck) 
     
-    print(player_hand)
-    print(dealer_hand)    
+    player_turn(player_hand)
 
 play_twenty_one()

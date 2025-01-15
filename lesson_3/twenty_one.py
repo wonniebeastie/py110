@@ -37,24 +37,6 @@ def shuffle(deck):
 	random.shuffle(deck)
 
 def replace_face_cards(lst_of_card_values):
-	"""
-	PROBLEM
-	Replace 'A' with 'Ace', 'J' with 'Jack' and so on.
-
-	I: a list of card values
-	O: same list of card values but with single letters replaced with their 
-	   long forms
-	
-	DS:
-	- dict for letters & full face card names
-
-	ALGO (-, +, -, +)
-	[] - FOR each index in a range of numbers that is the length of the 
-		 argument list, 
-		 	+ IF the value at index exists in "face card names":
-				- Reassign that index the value paired with that key.
-	[] - Return the list
-	"""
 	face_card_names = {
 		'A': 'Ace',
 		'J': 'Jack',

@@ -20,99 +20,108 @@ High-level pseudocode:
 """
 
 def prompt(message):
-	print(f'==> {message}')
+    print(f'==> {message}')
 
 def initialize_deck(): 
-	"""Creates a card deck that will be used throughout the game.
+    """Creates a card deck that will be used throughout the game.
 
-	Returns:
-		list: A nested list representing a deck of cards. 
-  		      Example: [['H', '3'], ['S', 'Q'], ... ]
-	"""
-	new_deck = [[suit, value] for suit in SUITS
-						  for value in VALUES]
-	return new_deck
+    Returns:
+        list: A nested list representing a deck of cards. 
+                Example: [['H', '3'], ['S', 'Q'], ... ]
+    """
+    new_deck = [[suit, value] for suit in SUITS
+                          for value in VALUES]
+    return new_deck
 
 def shuffle(deck):
-	random.shuffle(deck)
+    random.shuffle(deck)
 
 def replace_face_cards(lst_of_card_values):
-	face_card_names = {
-		'A': 'Ace',
-		'J': 'Jack',
-		'Q': 'Queen',
-		'K': 'King',
-	}
+    """Replaces face card abbreviations 
 
-	for i in range(len(lst_of_card_values)):
-		if lst_of_card_values[i] in face_card_names:
-			# Using the value in arg list as the key for face_card_names
-			lst_of_card_values[i] = face_card_names[lst_of_card_values[i]]
-	
-	return lst_of_card_values
+    Args:
+        lst_of_card_values (lst): A list of just the values of cards in a hand.
+
+    Returns:
+        lst: A new list with the abrreviations replaced with their long names.
+    """
+    face_card_names = {
+        'A': 'Ace',
+        'J': 'Jack',
+        'Q': 'Queen',
+        'K': 'King',
+    }
+    new = []
+    for value in lst_of_card_values:
+        if value in face_card_names:
+            # We're using "value" as the key name to fetch the value of the pair.
+            new.append(face_card_names[value])
+        else:
+            new.append(value)
+    return new
 
 def display_hand(hand):
     """
-	PROBLEM
-	Display the card in human-readable form.
+    PROBLEM
+    Display the card in human-readable form.
 
-	I: A player's "hand" (nested lst)
-	O: "...[card value], [card value] and [card_value]"
+    I: A player's "hand" (nested lst)
+    O: "...[card value], [card value] and [card_value]"
 
-	ALGO (-, +, -, +)
-	[x] - SET "delimiter" to ', '
-	[x] - Extract just the values of the cards in the hand. 
- 		 i.e. (['1', 'J', 'K'...])
-		 Capture in "values"
-	[NOTE: Extract step to another function - to change letters to long form]
-	[] - IF the length of "values" is less than 3:
-		 + display them joined together with 'and'
-	   - ELSE join them together with "delimiter" (except for the last element)
-		 (Capture in "joined_first_part")
-	[] - Combine the "joined_first_part" string with 'and' & the last element
-		 (Capture in "final_string")
-	[] - Return "final_string"
-	"""
+    ALGO (-, +, -, +)
+    [x] - SET "delimiter" to ', '
+    [x] - Extract just the values of the cards in the hand. 
+          i.e. (['1', 'J', 'K'...])
+         Capture in "values"
+    [NOTE: Extract step to another function - to change letters to long form]
+    [] - IF the length of "values" is less than 3:
+         + display them joined together with 'and'
+       - ELSE join them together with "delimiter" (except for the last element)
+         (Capture in "joined_first_part")
+    [] - Combine the "joined_first_part" string with 'and' & the last element
+         (Capture in "final_string")
+    [] - Return "final_string"
+    """
     delimiter = ', '
     values = [card[1] for card in cards]
 
 def deal_card(deck):
-	if deck:
-		return deck.pop()
+    if deck:
+        return deck.pop()
 
 def deal_two_cards(deck):
-	"""Deals two cards to each player.
-	
-	Returns:
-		list: A hand composed of 2 returning cards from `deal_card` function.
-	"""
-	return [deal_card(deck), deal_card(deck)]
+    """Deals two cards to each player.
+    
+    Returns:
+        list: A hand composed of 2 returning cards from `deal_card` function.
+    """
+    return [deal_card(deck), deal_card(deck)]
 
 def player_turn(initial_player_hand):
-	"""
-	Rename `initial_player_hand` to `current_hand`
-	- Display `current_hand` & "Your hand: ... Total points: [#]."
+    """
+    Rename `initial_player_hand` to `current_hand`
+    - Display `current_hand` & "Your hand: ... Total points: [#]."
 
-	- WHILE True:
-		- Ask (`input()`) player to hit or stay (capture in `answer`)
-		- IF `answer` is `'hit'`:
-			- call: `deal_card(deck)` to deal player a new card.
-			- display new card.
-			- update `current_hand` to include new card. 
-			- capture `total(current_hand)` in `player_total`
-			- display: "Dealer has: [ex: 7 and unknown card]"
-			- display:  "You have: [ex: Jack, 10 and 6] | Total points: [`player_total`]. 
-			- check if busted - call: `busted(player_points)`
-				- if True, END LOOP.
-		- ELSE IF : `answer` is `'stay'`: END LOOP 
-		- ELSE: display "invalid input. Please enter 'hit' or 'stay'"
-	- IF `busted(current_hand)` is truthy:
-		- print "You busted! Dealer wins!"
-		- call  `ask_play_again()`
-	- ELSE:
-		- print "You chose to stay." (`prompt()`)
-		- return `player_total`
-	"""
+    - WHILE True:
+        - Ask (`input()`) player to hit or stay (capture in `answer`)
+        - IF `answer` is `'hit'`:
+            - call: `deal_card(deck)` to deal player a new card.
+            - display new card.
+            - update `current_hand` to include new card. 
+            - capture `total(current_hand)` in `player_total`
+            - display: "Dealer has: [ex: 7 and unknown card]"
+            - display:  "You have: [ex: Jack, 10 and 6] | Total points: [`player_total`]. 
+            - check if busted - call: `busted(player_points)`
+                - if True, END LOOP.
+        - ELSE IF : `answer` is `'stay'`: END LOOP 
+        - ELSE: display "invalid input. Please enter 'hit' or 'stay'"
+    - IF `busted(current_hand)` is truthy:
+        - print "You busted! Dealer wins!"
+        - call  `ask_play_again()`
+    - ELSE:
+        - print "You chose to stay." (`prompt()`)
+        - return `player_total`
+    """
     current_hand = initial_player_hand
     
     

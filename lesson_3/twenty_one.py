@@ -47,7 +47,6 @@ def display_hand(hand):
 
 	ALGO (-, +, -, +)
 	[] - SET "delimiter" to ', '
-	[] - SET "join_word" to 'and'
 	[] - Extract just the values of the cards in the hand. 
  		 i.e. (['1', 'J', 'K'...])
 		 Capture in "values"
@@ -59,7 +58,8 @@ def display_hand(hand):
 		 (Capture in "final_string")
 	[] - Return "final_string"
 	"""
-	
+    delimiter = ', '
+    
 
 def deal_card(deck):
 	if deck:
@@ -74,6 +74,30 @@ def deal_two_cards(deck):
 	return [deal_card(deck), deal_card(deck)]
 
 def player_turn(initial_player_hand):
+	"""
+	Rename `initial_player_hand` to `current_hand`
+	- Display `current_hand` & "Your hand: ... Total points: [#]."
+
+	- WHILE True:
+		- Ask (`input()`) player to hit or stay (capture in `answer`)
+		- IF `answer` is `'hit'`:
+			- call: `deal_card(deck)` to deal player a new card.
+			- display new card.
+			- update `current_hand` to include new card. 
+			- capture `total(current_hand)` in `player_total`
+			- display: "Dealer has: [ex: 7 and unknown card]"
+			- display:  "You have: [ex: Jack, 10 and 6] | Total points: [`player_total`]. 
+			- check if busted - call: `busted(player_points)`
+				- if True, END LOOP.
+		- ELSE IF : `answer` is `'stay'`: END LOOP 
+		- ELSE: display "invalid input. Please enter 'hit' or 'stay'"
+	- IF `busted(current_hand)` is truthy:
+		- print "You busted! Dealer wins!"
+		- call  `ask_play_again()`
+	- ELSE:
+		- print "You chose to stay." (`prompt()`)
+		- return `player_total`
+	"""
     current_hand = initial_player_hand
     
     

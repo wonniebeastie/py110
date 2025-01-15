@@ -46,8 +46,8 @@ def display_hand(hand):
 	O: "...[card value], [card value] and [card_value]"
 
 	ALGO (-, +, -, +)
-	[] - SET "delimiter" to ', '
-	[] - Extract just the values of the cards in the hand. 
+	[x] - SET "delimiter" to ', '
+	[x] - Extract just the values of the cards in the hand. 
  		 i.e. (['1', 'J', 'K'...])
 		 Capture in "values"
 	[] - IF the length of "values" is less than 3:
@@ -59,7 +59,7 @@ def display_hand(hand):
 	[] - Return "final_string"
 	"""
     delimiter = ', '
-    
+    values = [card[1] for card in cards]
 
 def deal_card(deck):
 	if deck:

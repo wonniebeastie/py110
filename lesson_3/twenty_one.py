@@ -44,12 +44,30 @@ def replace_face_cards(lst_of_card_values):
 	I: a list of card values
 	O: same list of card values but with single letters replaced with their 
 	   long forms
+	
+	DS:
+	- dict for letters & full face card names
 
 	ALGO (-, +, -, +)
-	[] - FOR each value in "lst_of_card_values",
-		 + if value is 'A', replace it with 'Ace' & so on
+	[] - FOR each index in a range of numbers that is the length of the 
+		 argument list, 
+		 	+ IF the value at index exists in "face card names":
+				- Reassign that index the value paired with that key.
 	[] - Return the list
 	"""
+	face_card_names = {
+		'A': 'Ace',
+		'J': 'Jack',
+		'Q': 'Queen',
+		'K': 'King',
+	}
+
+	for i in range(len(lst_of_card_values)):
+		if lst_of_card_values[i] in face_card_names:
+			# Using the value in arg list as the key for face_card_names
+			lst_of_card_values[i] = face_card_names[lst_of_card_values[i]]
+	
+	return lst_of_card_values
 
 def display_hand(hand):
     """

@@ -37,7 +37,7 @@ def shuffle(deck):
     random.shuffle(deck)
 
 def replace_face_cards(lst_of_card_values):
-    """Replaces face card abbreviations 
+    """Replaces face card abbreviations to full names for displaying to player.
 
     Args:
         lst_of_card_values (lst): A list of just the values of cards in a hand.
@@ -52,12 +52,14 @@ def replace_face_cards(lst_of_card_values):
         'K': 'King',
     }
     display_lst = []
+    
     for value in lst_of_card_values:
         if value in face_card_names:
             # Uses "value" as the key name to fetch the value of the pair.
             display_lst.append(face_card_names[value])
         else:
             display_lst.append(value)
+    
     return display_lst
 
 def display_hand(hand):

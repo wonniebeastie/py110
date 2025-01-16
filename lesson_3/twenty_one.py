@@ -81,7 +81,8 @@ def display_hand(hand):
     if len(card_values) < 3:
         return f'{card_values[0]} and {card_values[1]}'
     else:
-        first_str = delimiter.join(card_value for card_value in card_values[:-1])
+        first_str = delimiter.join(card_value 
+                                   for card_value in card_values[:-1])
         final_str = f'{first_str} and {card_values[-1]}'
         return final_str
 

@@ -38,8 +38,8 @@ def shuffle(deck):
 
 def generate_just_card_values(hand):
     cards = hand
-    card_values = [card[1] for card in cards] 
-    return card_values
+    lst_of_card_values = [card[1] for card in cards] 
+    return lst_of_card_values
 
 
 def replace_face_cards(lst_of_card_values):

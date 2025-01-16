@@ -1,3 +1,5 @@
+.DS_Store
+/images
 # Ignore test files
 test.py
 test2.py

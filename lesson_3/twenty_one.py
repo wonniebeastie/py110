@@ -93,6 +93,37 @@ def deal_two_cards(deck):
     """
     return [deal_card(deck), deal_card(deck)]
 
+def total(cards):
+    """
+    PROBLEM
+    Adds up how many points a hand has.
+
+    Number 2-10 are worth their face values, Jack/Queen/King are worth 10, and 
+    Aces can be worth 1 or 11. 
+
+    Aces:
+    If the sum of the hand exceeds 21, then an Ace will be worth 1. If it still
+    goes over, then it's a bust.
+
+    I: the current hand of player (nested lists) 
+    O: number of points that hand had (integer)
+
+    STEPS
+    [] - Create a list composed of the extracted values of all cards (suit-value pairs) (Capture in `values`).
+    [] - SET variable `sum_val` to use to add them as integers. Set it to `0`.
+    [] - FOR each value in `values`:
+        + IF the value is `'A'`: add 1 to sum_val
+        + ELSE IF the value is in `['J', 'Q' 'K']`: add 10 to sum_val
+        + ELSE: add the value coerced as an integer to sum_val
+    [] - SET `aces` with the number of times `'A'` occurs in `values`
+    [] - FOR each ace that appears in `values`: add 10 to `sum_val` IF adding 10 to `sum_val` results in `sum_val` being less than or equal to 21.
+    [] - WHILE `sum_val` is greater than `21` AND `aces` is not 0:       
+         + Subtract 10 from `sum_val`
+         + Subtract 1 from `aces`
+    
+    [] - Return `sum_val` 
+    """
+
 def player_turn(initial_player_hand):
     """Player's turn to play. 
     Player must decide to draw a card & risk busting or choose to stay.

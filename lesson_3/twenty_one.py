@@ -69,8 +69,10 @@ def display_hand(hand):
     [x] - SET "delimiter" to ', '
     [x] - Extract just the values of the cards in the hand. 
           i.e. (['1', 'J', 'K'...])
-         Capture in "values"
+          Capture in "card_values"
     [NOTE: Extract step to another function - to change letters to long form]
+    [] - Call "replace face cards" function to return a list with the values
+         but with the face cards in long form.
     [] - IF the length of "values" is less than 3:
          + display them joined together with 'and'
        - ELSE join them together with "delimiter" (except for the last element)
@@ -79,8 +81,13 @@ def display_hand(hand):
          (Capture in "final_string")
     [] - Return "final_string"
     """
+    print(hand)
+    cards = hand
     delimiter = ', '
-    values = [card[1] for card in cards]
+    # Extracting just the values of the cards in hand.
+    card_values = [card[1] for card in cards] 
+    card_values = replace_face_cards(card_values)
+    
 
 def deal_card(deck):
     if deck:
@@ -125,6 +132,8 @@ def player_turn(initial_player_hand):
         - return `player_total`
     """
     current_hand = initial_player_hand
+    prompt(f"You have: {} | Total Points: {}")
+
     
     
 

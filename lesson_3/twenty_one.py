@@ -99,6 +99,23 @@ def deal_two_cards(deck):
     return [deal_card(deck), deal_card(deck)]
 
 def total(cards):
+    """Calculates the total value of a hand of cards, with Aces dynamically 
+    valued as 1 or 11 to avoid exceeding 21.
+
+    Args:
+        cards (list): A list of cards, where each card is represented as 
+                      a list or tuple (e.g., [['H', 'A'], ['D', 'J'], ['C', 
+                      '10']]).
+
+    Returns:
+        int: The total value of the hand.
+
+    NOTE:
+        - Number cards (2–10) are worth their face values.
+        - Face cards (J, Q, K) are worth 10.
+        - Aces are worth 1 but may be upgraded to 11 if it doesn't cause a 
+          bust.
+    """
     card_values = generate_just_card_values(hand)
 
     sum_val = 0

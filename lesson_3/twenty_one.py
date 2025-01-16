@@ -70,8 +70,9 @@ def display_hand(hand):
                      (e.g., [['H', 'A'], ['D', 'J'], ['C', '10']]).
 
     Returns:
-        str: A string representation of the hand, with face card values replaced
-             by their full names and proper grammar (e.g., "Ace, Jack and 10").
+        str: A string representation of the hand, with face card values 
+             replaced by their full names and proper grammar (e.g., "Ace, Jack 
+             and 10").
     """
     delimiter = ', '
     # Extracting just the values of the cards in hand.
@@ -112,20 +113,22 @@ def total(cards):
     O: number of points that hand had (integer)
 
     STEPS
-    [] - Create a list composed of the extracted values of all cards (suit-value pairs) (Capture in `values`).
+    [] - Create a list composed of the extracted values of all cards (suit-
+         value pairs) (Capture in `values`).
     [] - SET variable `sum_val` to use to add them as integers. Set it to `0`.
     [] - FOR each value in `values`:
         + IF the value is `'A'`: add 1 to sum_val
         + ELSE IF the value is in `['J', 'Q' 'K']`: add 10 to sum_val
         + ELSE: add the value coerced as an integer to sum_val
     [] - SET `aces` with the number of times `'A'` occurs in `values`
-    [] - FOR each ace that appears in `values`: add 10 to `sum_val` IF adding 10 to `sum_val` results in `sum_val` being less than or equal to 21.
+    [] - FOR each ace that appears in `values`: add 10 to `sum_val` IF adding 
+         10 to `sum_val` results in `sum_val` being less than or equal to 21.
     [] - WHILE `sum_val` is greater than `21` AND `aces` is not 0:       
          + Subtract 10 from `sum_val`
          + Subtract 1 from `aces`
-    
     [] - Return `sum_val` 
     """
+
 
 def player_turn(initial_player_hand):
     """Player's turn to play. 

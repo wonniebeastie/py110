@@ -71,22 +71,28 @@ def display_hand(hand):
           i.e. (['1', 'J', 'K'...])
           Capture in "card_values"
     [NOTE: Extract step to another function - to change letters to long form]
-    [] - Call "replace face cards" function to return a list with the values
-         but with the face cards in long form.
-    [] - IF the length of "values" is less than 3:
+    [x] - Call "replace face cards" function to return a list with the values
+          but with the face cards in long form.
+    [x] - IF the length of "card_values" is less than 3:
          + display them joined together with 'and'
        - ELSE join them together with "delimiter" (except for the last element)
-         (Capture in "joined_first_part")
-    [] - Combine the "joined_first_part" string with 'and' & the last element
-         (Capture in "final_string")
-    [] - Return "final_string"
+         (Capture in "first_str")
+    [x] - Combine the "first_str" string with 'and' & the last element
+         (Capture in "final_st")
+    [x] - Return "final_str"
     """
-    print(hand)
     cards = hand
     delimiter = ', '
     # Extracting just the values of the cards in hand.
     card_values = [card[1] for card in cards] 
     card_values = replace_face_cards(card_values)
+
+    if len(card_values) < 3:
+        return f'{card_values[0]} and {card_values[1]}'
+    else:
+        first_str = delimiter.join(card_value for card_value in card_values[:-1])
+        final_str = f'{first_str} and {card_values[-1]}'
+        return final_str
     
 
 def deal_card(deck):

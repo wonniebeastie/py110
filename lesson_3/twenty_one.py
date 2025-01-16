@@ -58,28 +58,15 @@ def replace_face_cards(lst_of_card_values):
             for card_value in lst_of_card_values]
 
 def display_hand(hand):
-    """
-    PROBLEM
-    Display the card in human-readable form.
+    """Formats a hand of cards into a human-readable string.
 
-    I: A player's "hand" (nested lst)
-    O: "...[card value], [card value] and [card_value]"
+    Args:
+        hand (list): A list of cards where each card is represented as a list
+                     (e.g., [['H', 'A'], ['D', 'J'], ['C', '10']]).
 
-    ALGO (-, +, -, +)
-    [x] - SET "delimiter" to ', '
-    [x] - Extract just the values of the cards in the hand. 
-          i.e. (['1', 'J', 'K'...])
-          Capture in "card_values"
-    [NOTE: Extract step to another function - to change letters to long form]
-    [x] - Call "replace face cards" function to return a list with the values
-          but with the face cards in long form.
-    [x] - IF the length of "card_values" is less than 3:
-         + display them joined together with 'and'
-       - ELSE join them together with "delimiter" (except for the last element)
-         (Capture in "first_str")
-    [x] - Combine the "first_str" string with 'and' & the last element
-         (Capture in "final_st")
-    [x] - Return "final_str"
+    Returns:
+        str: A string representation of the hand, with face card values replaced
+             by their full names and proper grammar (e.g., "Ace, Jack and 10").
     """
     cards = hand
     delimiter = ', '

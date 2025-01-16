@@ -41,7 +41,6 @@ def generate_just_card_values(hand):
     lst_of_card_values = [card[1] for card in cards] 
     return lst_of_card_values
 
-
 def replace_face_cards(lst_of_card_values):
     """Replaces face card abbreviations to full names for displaying to player.
 
@@ -74,11 +73,9 @@ def display_hand(hand):
         str: A string representation of the hand, with face card values replaced
              by their full names and proper grammar (e.g., "Ace, Jack and 10").
     """
-    cards = hand
     delimiter = ', '
     # Extracting just the values of the cards in hand.
-    card_values = [card[1] for card in cards] 
-    card_values = replace_face_cards(card_values)
+    card_values = generate_just_card_values(hand)
 
     if len(card_values) < 3:
         return f'{card_values[0]} and {card_values[1]}'

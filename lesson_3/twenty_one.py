@@ -98,7 +98,7 @@ def deal_two_cards(deck):
     """
     return [deal_card(deck), deal_card(deck)]
 
-def total(cards):
+def total(hand):
     """Calculates the total value of a hand of cards, with Aces dynamically 
     valued as 1 or 11 to avoid exceeding 21.
 
@@ -165,7 +165,7 @@ def player_turn(initial_player_hand):
         - return `player_total`
     """
     current_hand = initial_player_hand
-    prompt(f"You have: {display_hand(current_hand)} | Total Points: {}")
+    prompt(f"You have: {display_hand(current_hand)} | Total Points: {total(current_hand)}")
 
     
     

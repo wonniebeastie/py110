@@ -80,7 +80,6 @@ def display_hand(hand):
         first_str = delimiter.join(card_value for card_value in card_values[:-1])
         final_str = f'{first_str} and {card_values[-1]}'
         return final_str
-    
 
 def deal_card(deck):
     if deck:
@@ -125,7 +124,7 @@ def player_turn(initial_player_hand):
         - return `player_total`
     """
     current_hand = initial_player_hand
-    prompt(f"You have: {} | Total Points: {}")
+    prompt(f"You have: {display_hand(current_hand)} | Total Points: {}")
 
     
     

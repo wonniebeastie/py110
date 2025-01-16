@@ -114,22 +114,36 @@ def total(cards):
     O: number of points that hand had (integer)
 
     STEPS
-    [] - Create a list composed of the extracted values of all cards (suit-
-         value pairs) (Capture in `values`).
-    [] - SET variable `sum_val` to use to add them as integers. Set it to `0`.
-    [] - FOR each value in `values`:
+    [x] - Create a list composed of the extracted values of all cards (suit-
+         value pairs) (Capture in `card_values`).
+    [x] - SET variable `sum_val` to use to add them as integers. Set it to `0`.
+    [x] - FOR each value in `card_values`:
         + IF the value is `'A'`: add 1 to sum_val
         + ELSE IF the value is in `['J', 'Q' 'K']`: add 10 to sum_val
         + ELSE: add the value coerced as an integer to sum_val
-    [] - SET `aces` with the number of times `'A'` occurs in `values`
-    [] - FOR each ace that appears in `values`: add 10 to `sum_val` IF adding 
-         10 to `sum_val` results in `sum_val` being less than or equal to 21.
-    [] - WHILE `sum_val` is greater than `21` AND `aces` is not 0:       
-         + Subtract 10 from `sum_val`
-         + Subtract 1 from `aces`
-    [] - Return `sum_val` 
+    [x] - SET `aces` with the number of times `'A'` occurs in `card_values`
+    [x] - FOR each ace that appears in `card_values`: 
+          + add 10 to `sum_val` IF adding 10 to `sum_val` results in `sum_val` 
+            being less than or equal to 21.
+    [x] - Return `sum_val` 
     """
+    card_values = generate_just_card_values(hand)
 
+    sum_val = 0
+    for card_value in card_values:
+        if card_value == "A":
+            sum_val += 1
+        elif card_value in ['J', 'Q', 'K']:
+            sum_val += 10
+        else:
+            sum_val += int(card_value)
+    
+    aces = card_values.count("A")
+    for _ in range(aces):
+        if sum_val + 10 <= 21: # Upgrade an ace to 11 if it won't cause a bust.
+            sum_val += 10
+    
+    return sum_val
 
 def player_turn(initial_player_hand):
     """Player's turn to play. 

@@ -36,6 +36,12 @@ def initialize_deck():
 def shuffle(deck):
     random.shuffle(deck)
 
+def generate_just_card_values(hand):
+    cards = hand
+    card_values = [card[1] for card in cards] 
+    return card_values
+
+
 def replace_face_cards(lst_of_card_values):
     """Replaces face card abbreviations to full names for displaying to player.
 

@@ -90,7 +90,7 @@ def display_hand(hand, hide_second_card=False):
     delimiter = ', '
     # Extracting just the values of the cards in hand.
     card_values = generate_just_card_values(hand)
-    
+
     if hide_second_card:
         return f'{card_values[0]} and unknown card'
     elif len(card_values) < 3:
@@ -137,7 +137,7 @@ def total(hand):
     
     return sum_val
 
-def player_turn(initial_player_hand, initial_dealer_hand):
+def player_turn(initial_player_hand, initial_dealer_hand, deck):
     """Player's turn to play. 
     Player must decide to draw a card & risk busting or choose to stay.
     """
@@ -148,7 +148,7 @@ def player_turn(initial_player_hand, initial_dealer_hand):
     [x] - Display `current_hand` & "Your hand: ... Total points: [#]."
 
     [] - WHILE True:
-        [] - Ask (`input()`) player to hit or stay (capture in `answer`)
+        [x] - Ask (`input()`) player to hit or stay (capture in `answer`)
         [] - IF `answer` is `'hit'`:
               - call: `deal_card(deck)` to deal player a new card.
               - display new card.
@@ -171,7 +171,12 @@ def player_turn(initial_player_hand, initial_dealer_hand):
     current_hand = initial_player_hand
     prompt(f"Dealer has: {display_hand(initial_dealer_hand, True)}")
     prompt(f"You have: {display_hand(current_hand)} | Total Points: {total(current_hand)}")
-    
+
+    while True:
+        answer = input("Hit or Stay? Enter 'h' for Hit & 's' for Stay. ").strip().lower()
+        if answer == 'h':
+            new_card = deal_card(deck)
+            prompt(f"You drew: {new_card}")
 
 def play_twenty_one():
     prompt("Let's play a game of Twenty-One!")
@@ -188,7 +193,7 @@ def play_twenty_one():
     player_hand = deal_two_cards(deck)
     dealer_hand = deal_two_cards(deck)
     
-    humbug = player_turn(player_hand, dealer_hand)
+    humbug = player_turn(player_hand, dealer_hand, deck)
     print(humbug)
 
 play_twenty_one()

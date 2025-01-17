@@ -90,16 +90,7 @@ def display_hand(hand, hide_second_card=False):
     delimiter = ', '
     # Extracting just the values of the cards in hand.
     card_values = generate_just_card_values(hand)
-    """
-    I: hand (nested lst)
-    I: True
-    O: "[Card value] and unknown card"
     
-    [x] - IF hide_second_card is True:
-         + return "[hand's first card] and unknown card"
-    [x] - ELSE IF length of `card_values` is less than 3...
-    """
-
     if hide_second_card:
         return f'{card_values[0]} and unknown card'
     elif len(card_values) < 3:

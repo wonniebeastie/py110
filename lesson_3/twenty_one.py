@@ -1,4 +1,5 @@
 import random
+import os
 
 SUITS = ['H', 'D', 'C', 'S']
 VALUES = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'] 
@@ -36,6 +37,18 @@ def initialize_deck():
 def shuffle(deck):
     random.shuffle(deck)
 
+def deal_card(deck):
+    if deck:
+        return deck.pop()
+
+def deal_two_cards(deck):
+    """Deals two cards to each player.
+    
+    Returns:
+        list: A hand composed of 2 returning cards from `deal_card` function.
+    """
+    return [deal_card(deck), deal_card(deck)]
+
 def generate_just_card_values(hand):
     cards = hand
     lst_of_card_values = [card[1] for card in cards] 
@@ -62,7 +75,7 @@ def replace_face_cards(lst_of_card_values):
     return [face_card_names.get(card_value, card_value)
             for card_value in lst_of_card_values]
 
-def display_hand(hand):
+def display_hand(hand, hide_second_card=False):
     """Formats a hand of cards into a human-readable string.
 
     Args:
@@ -77,26 +90,25 @@ def display_hand(hand):
     delimiter = ', '
     # Extracting just the values of the cards in hand.
     card_values = generate_just_card_values(hand)
+    """
+    I: hand (nested lst)
+    I: True
+    O: "[Card value] and unknown card"
+    
+    [x] - IF hide_second_card is True:
+         + return "[hand's first card] and unknown card"
+    [x] - ELSE IF length of `card_values` is less than 3...
+    """
 
-    if len(card_values) < 3:
+    if hide_second_card:
+        return f'{card_values[0]} and unknown card'
+    elif len(card_values) < 3:
         return f'{card_values[0]} and {card_values[1]}'
     else:
         first_str = delimiter.join(card_value 
                                    for card_value in card_values[:-1])
         final_str = f'{first_str} and {card_values[-1]}'
         return final_str
-
-def deal_card(deck):
-    if deck:
-        return deck.pop()
-
-def deal_two_cards(deck):
-    """Deals two cards to each player.
-    
-    Returns:
-        list: A hand composed of 2 returning cards from `deal_card` function.
-    """
-    return [deal_card(deck), deal_card(deck)]
 
 def total(hand):
     """Calculates the total value of a hand of cards, with Aces dynamically 
@@ -134,14 +146,15 @@ def total(hand):
     
     return sum_val
 
-def player_turn(initial_player_hand):
+def player_turn(initial_player_hand, initial_dealer_hand):
     """Player's turn to play. 
     Player must decide to draw a card & risk busting or choose to stay.
     """
 
     """
     [x] - Rename `initial_player_hand` to `current_hand`
-    [] - Display `current_hand` & "Your hand: ... Total points: [#]."
+    [x] - Display "Dealer has: [card value] and unknown card."
+    [x] - Display `current_hand` & "Your hand: ... Total points: [#]."
 
     [] - WHILE True:
         [] - Ask (`input()`) player to hit or stay (capture in `answer`)
@@ -165,20 +178,26 @@ def player_turn(initial_player_hand):
         - return `player_total`
     """
     current_hand = initial_player_hand
+    prompt(f"Dealer has: {display_hand(initial_dealer_hand, True)}")
     prompt(f"You have: {display_hand(current_hand)} | Total Points: {total(current_hand)}")
-
-    
     
 
 def play_twenty_one():
     prompt("Let's play a game of Twenty-One!")
-        
+    
+    terminal_width = os.get_terminal_size().columns if hasattr(os, 'get_terminal_size') else 80
+
     deck = initialize_deck()
     shuffle(deck)
+
+    print(''.center(terminal_width, '-'))
+    print("PLAYER TURN".center(terminal_width))
+    print(''.center(terminal_width, '-'))
     
     player_hand = deal_two_cards(deck)
-    dealer_hand = deal_two_cards(deck) 
+    dealer_hand = deal_two_cards(deck)
     
-    player_turn(player_hand)
+    humbug = player_turn(player_hand, dealer_hand)
+    print(humbug)
 
 play_twenty_one()

@@ -75,6 +75,24 @@ def replace_face_cards(lst_of_card_values):
     return [face_card_names.get(card_value, card_value)
             for card_value in lst_of_card_values]
 
+def display_card(drawn_card):
+    """
+    PROBLEM
+    Find a way to display the suit & value in human readable form.
+
+    I: the drawn/dealt card (`lst`)
+    O: "[value] of [suit]" i.e. -> "10 of Diamonds" (`str`)
+
+    DS:
+    - 
+
+    ALGO (-, +, -, +)
+    [] - 
+    [] - 
+    [] - 
+
+    """
+
 def display_hand(hand, hide_second_card=False):
     """Formats a hand of cards into a human-readable string.
 
@@ -150,9 +168,11 @@ def player_turn(initial_player_hand, initial_dealer_hand, deck):
     [] - WHILE True:
         [x] - Ask (`input()`) player to hit or stay (capture in `answer`)
         [] - IF `answer` is `'hit'`:
-              - call: `deal_card(deck)` to deal player a new card.
-              - display new card.
-              - update `current_hand` to include new card. 
+              - call: `deal_card(deck)` to deal player a new card (capture in
+                `new_card`).
+              - display the new card - "You drew: [value] of [suit]" -
+                call `display_card(new_card)`.
+              - update `current_hand` to include `new_card`. 
               - capture `total(current_hand)` in `player_total`
               - display: "Dealer has: [ex: 7 and unknown card]"
               - display:  "You have: [ex: Jack, 10 and 6] | 

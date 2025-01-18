@@ -108,6 +108,7 @@ def display_hand(hand, hide_second_card=False):
     delimiter = ', '
     # Extracting just the values of the cards in hand.
     card_values = generate_just_card_values(hand)
+    # Replacing the face card abbreviations with their long names.
     card_values = replace_face_cards(card_values)
 
     if hide_second_card:

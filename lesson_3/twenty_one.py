@@ -76,13 +76,6 @@ def replace_face_cards(lst_of_card_values):
             for card_value in lst_of_card_values]
 
 def replace_suit_name(suit_abbreviation):
-    """
-    PROBLEM
-    Replace the abbreviation of 'H', 'D', 'C', and 'S' to their full names.
-
-    I: 'H'
-    O: 'Hearts'
-    """
     match suit_abbreviation:
         case 'H':
             return 'Hearts'
@@ -94,27 +87,13 @@ def replace_suit_name(suit_abbreviation):
             return 'Spades'
 
 def display_card(drawn_card):
-    """
-    PROBLEM
-    Find a way to display the suit & value in human readable form.
-
-    I: the drawn/dealt card (`lst`) - i.e. ['D', '10'] or ['H', 'J']
-    O: "[value] of [suit]" i.e. -> "10 of Diamonds" (`str`) or "Jack of Hearts"
-
-    ALGO (-, +, -, +)
-    [x] - Capture the 2nd value in given list in `value`
-         - call `replace_face_cards` to replace it with full name (reassign
-           returning value to `value`)
-    [x] - Capture first value in `suit`
-    [x] - Embed & return the str - "[`value`] of [`suit`]
-
-    """
     value_abbr = replace_face_cards(drawn_card[1])
     value = value_abbr[0]
+
     suit_abbr = drawn_card[0]
     suit = replace_suit_name(suit_abbr)
+
     return f'{value} of {suit}'
-    # return f'{drawn_card}'
 
 def display_hand(hand, hide_second_card=False):
     """Formats a hand of cards into a human-readable string.

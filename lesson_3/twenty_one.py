@@ -75,23 +75,46 @@ def replace_face_cards(lst_of_card_values):
     return [face_card_names.get(card_value, card_value)
             for card_value in lst_of_card_values]
 
+def replace_suit_name(suit_abbreviation):
+    """
+    PROBLEM
+    Replace the abbreviation of 'H', 'D', 'C', and 'S' to their full names.
+
+    I: 'H'
+    O: 'Hearts'
+    """
+    match suit_abbreviation:
+        case 'H':
+            return 'Hearts'
+        case 'D':
+            return 'Diamonds'
+        case 'C':
+            return 'Clubs'
+        case 'S':
+            return 'Spades'
+
 def display_card(drawn_card):
     """
     PROBLEM
     Find a way to display the suit & value in human readable form.
 
-    I: the drawn/dealt card (`lst`)
-    O: "[value] of [suit]" i.e. -> "10 of Diamonds" (`str`)
-
-    DS:
-    - 
+    I: the drawn/dealt card (`lst`) - i.e. ['D', '10'] or ['H', 'J']
+    O: "[value] of [suit]" i.e. -> "10 of Diamonds" (`str`) or "Jack of Hearts"
 
     ALGO (-, +, -, +)
-    [] - 
-    [] - 
-    [] - 
+    [x] - Capture the 2nd value in given list in `value`
+         - call `replace_face_cards` to replace it with full name (reassign
+           returning value to `value`)
+    [x] - Capture first value in `suit`
+    [x] - Embed & return the str - "[`value`] of [`suit`]
 
     """
+    value_abbr = replace_face_cards(drawn_card[1])
+    value = value_abbr[0]
+    suit_abbr = drawn_card[0]
+    suit = replace_suit_name(suit_abbr)
+    return f'{value} of {suit}'
+    # return f'{drawn_card}'
 
 def display_hand(hand, hide_second_card=False):
     """Formats a hand of cards into a human-readable string.
@@ -106,7 +129,7 @@ def display_hand(hand, hide_second_card=False):
              and 10").
     """
     delimiter = ', '
-    # Extracting just the values of the cards in hand.
+    # Extracting just the values of the cards in hand.\
     card_values = generate_just_card_values(hand)
     # Replacing the face card abbreviations with their long names.
     card_values = replace_face_cards(card_values)
@@ -198,7 +221,8 @@ def player_turn(initial_player_hand, initial_dealer_hand, deck):
         answer = input("Hit or Stay? Enter 'h' for Hit & 's' for Stay. ").strip().lower()
         if answer == 'h':
             new_card = deal_card(deck)
-            prompt(f"You drew: {new_card}")
+            new_card_for_display = display_card(new_card)
+            prompt(f"You drew: {new_card_for_display}")
 
 def play_twenty_one():
     prompt("Let's play a game of Twenty-One!")

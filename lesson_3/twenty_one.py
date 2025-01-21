@@ -165,6 +165,26 @@ def busted(hand):
     else:
         return False
 
+def ask_play_again():
+    """
+    ALGO (-, +, -, +)
+    [x] WHILE True:
+        [x] - Ask player if they want to play again (enter y for yes, n for no) 
+             - capture in "answer"
+        [] - IF "answer" is "y", return True
+        [] - ELSE IF "answer" is "n" return False
+        [] - ELSE, print "Invalid input, please type y for yes, n for no"
+    """
+    while True:
+        answer = input("==> Play again? Enter 'y' for yes, 'n' for no. \n").strip().lower()
+        if answer == 'y':
+            return True
+        elif answer == 'n':
+            return False
+        else:
+            prompt("Invalid input, please type 'y' or 'n'.")
+
+
 def player_turn(initial_player_hand, initial_dealer_hand, deck):
     """Player's turn to play. 
     Player must decide to draw a card & risk busting or choose to stay.
@@ -175,7 +195,7 @@ def player_turn(initial_player_hand, initial_dealer_hand, deck):
     [x] - Display "Dealer has: [card value] and unknown card."
     [x] - Display `current_hand` & "Your hand: ... Total points: [#]."
 
-    [] - WHILE True:
+    [x] - WHILE True:
         [x] - Ask (`input()`) player to hit or stay (capture in `answer`)
         [x] - IF `answer` is `'hit'`:
              [x] - call: `deal_card(deck)` to deal player a new card (capture 
@@ -183,20 +203,20 @@ def player_turn(initial_player_hand, initial_dealer_hand, deck):
              [x] - display the new card - "You drew: [value] of [suit]" -
                    call `display_card(new_card)`.
              [x] - update `current_hand` to include `new_card`. 
-
+             [] - capture `total(current_hand)` in `player_total`
              [x] - display: "Dealer has: [ex: 7 and unknown card]"
-             [x] - display:  "You have: [ex: Jack, 10 and 6] | 
-                   Total points: [`total(current_hand)`]."
+             [] - display:  "You have: [ex: Jack, 10 and 6] | 
+                   Total points: [`player_total`]."
 
              [x] - check if busted - call: `busted(current_hand)`
                   - if True, END LOOP.
             
         [x] - ELSE IF : `answer` is `'stay'`: END LOOP 
-        [] - ELSE: display "invalid input. Please enter 'hit' or 'stay'"
-    [] - IF `busted(current_hand)` is truthy:
+        [x] - ELSE: display "invalid input. Please enter 'hit' or 'stay'"
+    [x] - IF `busted(current_hand)` is truthy:
         - print "You busted! Dealer wins!"
         - call  `ask_play_again()`
-    [] - ELSE:
+    [x] - ELSE:
         - print "You chose to stay." (`prompt()`)
         - return `player_total`
     """
@@ -216,13 +236,26 @@ def player_turn(initial_player_hand, initial_dealer_hand, deck):
             print(''.center(terminal_width, '-'))
 
             current_hand.append(new_card)
+            player_total = total(current_hand)
             print(f"Dealer has: {display_hand(initial_dealer_hand, True)}")
-            print(f"You have: {display_hand(current_hand)} | Total Points: {total(current_hand)}")
+            print(f"You have: {display_hand(current_hand)} | Total Points: {player_total}")
             print(''.center(terminal_width, '-'))
 
             if busted(current_hand):
                 break
-
+        
+        elif answer == 's':
+            break
+        
+        else:
+            prompt("Invalid input. Please enter 'h' or 's'.")
+        
+    if busted(current_hand):
+        # prompt("You busted! Dealer wins!")
+        # return False
+    else:
+        prompt("You chose to stay.")
+        return player_total
 
 def play_twenty_one():
     prompt("Let's play a game of Twenty-One!")
@@ -240,6 +273,8 @@ def play_twenty_one():
     dealer_hand = deal_two_cards(deck)
     
     humbug = player_turn(player_hand, dealer_hand, deck)
-    print(humbug)
+    
+    # if not humbug:
+
 
 play_twenty_one()

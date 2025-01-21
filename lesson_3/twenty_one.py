@@ -160,17 +160,6 @@ def total(hand):
     return sum_val
 
 def busted(hand):
-    """
-    PROBLEM
-
-    I: current hand of cards (nested `lst`)
-    O: True or False
-
-    ALGO (-, +, -, +)
-    [] - Call: `total(hand)` 
-    [] - IF return value is more than 21, return `True`
-    [] - ELSE return `False`.
-    """
     if total(hand) > 21:
         return True
     else:

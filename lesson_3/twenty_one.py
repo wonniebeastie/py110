@@ -171,18 +171,20 @@ def player_turn(initial_player_hand, initial_dealer_hand, deck):
 
     [] - WHILE True:
         [x] - Ask (`input()`) player to hit or stay (capture in `answer`)
-        [] - IF `answer` is `'hit'`:
-              - call: `deal_card(deck)` to deal player a new card (capture in
-                `new_card`).
-              - display the new card - "You drew: [value] of [suit]" -
-                call `display_card(new_card)`.
-              - update `current_hand` to include `new_card`. 
-              - capture `total(current_hand)` in `player_total`
-              - display: "Dealer has: [ex: 7 and unknown card]"
-              - display:  "You have: [ex: Jack, 10 and 6] | 
-                Total points: [`player_total`]."
-              - check if busted - call: `busted(player_points)`
+        [x] - IF `answer` is `'hit'`:
+             [x] - call: `deal_card(deck)` to deal player a new card (capture 
+                   in `new_card`).
+             [x] - display the new card - "You drew: [value] of [suit]" -
+                   call `display_card(new_card)`.
+             [x] - update `current_hand` to include `new_card`. 
+
+             [x] - display: "Dealer has: [ex: 7 and unknown card]"
+             [x] - display:  "You have: [ex: Jack, 10 and 6] | 
+                   Total points: [`total(current_hand)`]."
+
+             [] - check if busted - call: `busted(player_points)`
                   - if True, END LOOP.
+            
         - ELSE IF : `answer` is `'stay'`: END LOOP 
         - ELSE: display "invalid input. Please enter 'hit' or 'stay'"
     [] - IF `busted(current_hand)` is truthy:
@@ -192,21 +194,32 @@ def player_turn(initial_player_hand, initial_dealer_hand, deck):
         - print "You chose to stay." (`prompt()`)
         - return `player_total`
     """
+    terminal_width = os.get_terminal_size().columns if hasattr(os, 'get_terminal_size') else 60
     current_hand = initial_player_hand
-    prompt(f"Dealer has: {display_hand(initial_dealer_hand, True)}")
-    prompt(f"You have: {display_hand(current_hand)} | Total Points: {total(current_hand)}")
+    print(f"Dealer has: {display_hand(initial_dealer_hand, True)}")
+    print(f"You have: {display_hand(current_hand)} | Total Points: {total(current_hand)}")
+    print(''.center(terminal_width, '-'))
 
     while True:
-        answer = input("Hit or Stay? Enter 'h' for Hit & 's' for Stay. ").strip().lower()
+        answer = input("==> Hit or Stay? Enter 'h' for Hit & 's' for Stay. \n").strip().lower()
         if answer == 'h':
             new_card = deal_card(deck)
             new_card_for_display = display_card(new_card)
+
             prompt(f"You drew: {new_card_for_display}")
+            print(''.center(terminal_width, '-'))
+
+            current_hand.append(new_card)
+            print(f"Dealer has: {display_hand(initial_dealer_hand, True)}")
+            print(f"You have: {display_hand(current_hand)} | Total Points: {total(current_hand)}")
+            print(''.center(terminal_width, '-'))
+
+            busted(total(current_hand))
 
 def play_twenty_one():
     prompt("Let's play a game of Twenty-One!")
     
-    terminal_width = os.get_terminal_size().columns if hasattr(os, 'get_terminal_size') else 80
+    terminal_width = os.get_terminal_size().columns if hasattr(os, 'get_terminal_size') else 60
 
     deck = initialize_deck()
     shuffle(deck)

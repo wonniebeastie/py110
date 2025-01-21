@@ -159,6 +159,23 @@ def total(hand):
     
     return sum_val
 
+def busted(hand):
+    """
+    PROBLEM
+
+    I: current hand of cards (nested `lst`)
+    O: True or False
+
+    ALGO (-, +, -, +)
+    [] - Call: `total(hand)` 
+    [] - IF return value is more than 21, return `True`
+    [] - ELSE return `False`.
+    """
+    if total(hand) > 21:
+        return True
+    else:
+        return False
+
 def player_turn(initial_player_hand, initial_dealer_hand, deck):
     """Player's turn to play. 
     Player must decide to draw a card & risk busting or choose to stay.
@@ -182,11 +199,11 @@ def player_turn(initial_player_hand, initial_dealer_hand, deck):
              [x] - display:  "You have: [ex: Jack, 10 and 6] | 
                    Total points: [`total(current_hand)`]."
 
-             [] - check if busted - call: `busted(player_points)`
+             [x] - check if busted - call: `busted(current_hand)`
                   - if True, END LOOP.
             
-        - ELSE IF : `answer` is `'stay'`: END LOOP 
-        - ELSE: display "invalid input. Please enter 'hit' or 'stay'"
+        [x] - ELSE IF : `answer` is `'stay'`: END LOOP 
+        [] - ELSE: display "invalid input. Please enter 'hit' or 'stay'"
     [] - IF `busted(current_hand)` is truthy:
         - print "You busted! Dealer wins!"
         - call  `ask_play_again()`
@@ -214,7 +231,9 @@ def player_turn(initial_player_hand, initial_dealer_hand, deck):
             print(f"You have: {display_hand(current_hand)} | Total Points: {total(current_hand)}")
             print(''.center(terminal_width, '-'))
 
-            busted(total(current_hand))
+            if busted(current_hand):
+                break
+
 
 def play_twenty_one():
     prompt("Let's play a game of Twenty-One!")

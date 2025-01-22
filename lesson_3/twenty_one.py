@@ -29,10 +29,13 @@ def deal_card(deck):
 
     Returns:
         list: The top card of the deck as a list [suit, value].
+
+    Raises:
+        ValueError: If the deck is empty.
     """
-    if deck:
-        return deck.pop()
-    return "Cannot deal from an empty deck."
+    if not deck:
+        raise ValueError("Cannot deal from an empty deck.")
+    return deck.pop()
 
 def deal_two_cards(deck):
     return [deal_card(deck), deal_card(deck)]

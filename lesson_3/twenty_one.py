@@ -130,13 +130,14 @@ def display_hand(hand, hide_second_card=False):
 
     if hide_second_card:
         return f'{card_values[0]} and unknown card'
-    elif len(card_values) < 3:
+
+    if len(card_values) < 3:
         return f'{card_values[0]} and {card_values[1]}'
-    else:
-        first_str = delimiter.join(card_value
-                                   for card_value in card_values[:-1])
-        final_str = f'{first_str} and {card_values[-1]}'
-        return final_str
+
+    first_str = delimiter.join(card_value
+                                for card_value in card_values[:-1])
+    final_str = f'{first_str} and {card_values[-1]}'
+    return final_str
 
 def total(hand):
     """Calculates the total value of a hand of cards, with Aces dynamically 

@@ -2,12 +2,12 @@ import random
 import os
 
 SUITS = ['H', 'D', 'C', 'S']
-VALUES = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'] 
+VALUES = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
 
 def prompt(message):
     print(f'==> {message}')
 
-def initialize_deck(): 
+def initialize_deck():
     """Creates a card deck that will be used throughout the game.
 
     Returns:
@@ -47,7 +47,7 @@ def generate_just_card_values(hand):
         list: A list of card values from the given hand.
     """
     cards = hand
-    lst_of_card_values = [card[1] for card in cards] 
+    lst_of_card_values = [card[1] for card in cards]
     return lst_of_card_values
 
 def replace_face_cards(lst_of_card_values):
@@ -132,7 +132,7 @@ def display_hand(hand, hide_second_card=False):
     elif len(card_values) < 3:
         return f'{card_values[0]} and {card_values[1]}'
     else:
-        first_str = delimiter.join(card_value 
+        first_str = delimiter.join(card_value
                                    for card_value in card_values[:-1])
         final_str = f'{first_str} and {card_values[-1]}'
         return final_str
@@ -164,12 +164,12 @@ def total(hand):
             sum_val += 10
         else:
             sum_val += int(card_value)
-    
+
     aces = card_values.count("A")
     for _ in range(aces):
         if sum_val + 10 <= 21: # Upgrade an ace to 11 if it won't cause a bust.
             sum_val += 10
-    
+
     return sum_val
 
 def busted(hand):
@@ -235,13 +235,13 @@ def player_turn(initial_player_hand, initial_dealer_hand, deck):
 
             if busted(current_hand):
                 break
-        
+
         elif answer == 's':
             break
-        
+
         else:
             prompt("Invalid input. Please enter 'h' or 's'.")
-    
+
     if busted(current_hand):
         return total(current_hand), True
     else:
@@ -276,7 +276,7 @@ def dealer_turn(initial_dealer_hand, deck):
 
         if busted(current_hand):
             break
-    
+
     if busted(current_hand):
         return total(current_hand), True
     else:
@@ -318,7 +318,7 @@ def play_twenty_one():
         print("PLAYER TURN".center(terminal_width))
         print(''.center(terminal_width, '-'))
         player_total, player_busted = player_turn(player_hand, dealer_hand, deck)
-        
+
         if player_busted:
             prompt(f"You busted with a total of {player_total} points. Dealer wins!")
             if ask_play_again():
@@ -326,7 +326,7 @@ def play_twenty_one():
             else:
                 prompt("Thanks for playing Twenty-One, see you next time!")
                 break
-        
+
         prompt(f"You chose to stay with a total of {player_total} points.")
 
         # Dealer's turn
@@ -342,7 +342,7 @@ def play_twenty_one():
             else:
                 prompt("Thanks for playing Twenty-One, see you next time!")
                 break
-        
+
         prompt(f"Dealer chose to stay with a total of {dealer_total} points.")
 
         # Determine & announce who won if both stayed.

@@ -107,12 +107,8 @@ def display_card(drawn_card):
         str: A string representation of the card, with the suit and value
              converted to full names (e.g., "Ace of Hearts").
     """
-    value_abbr = replace_face_cards(drawn_card[1])
-    value = value_abbr[0]
-
-    suit_abbr = drawn_card[0]
-    suit = replace_suit_name(suit_abbr)
-
+    value = FACE_CARD_NAMES.get(drawn_card[1], drawn_card[1])
+    suit = replace_suit_name(drawn_card[0])
     return f'{value} of {suit}'
 
 def display_hand(hand, hide_second_card=False):

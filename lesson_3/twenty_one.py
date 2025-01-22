@@ -171,9 +171,9 @@ def ask_play_again():
     [x] WHILE True:
         [x] - Ask player if they want to play again (enter y for yes, n for no) 
              - capture in "answer"
-        [] - IF "answer" is "y", return True
-        [] - ELSE IF "answer" is "n" return False
-        [] - ELSE, print "Invalid input, please type y for yes, n for no"
+        [x] - IF "answer" is "y", return True
+        [x] - ELSE IF "answer" is "n" return False
+        [x] - ELSE, print "Invalid input, please type y for yes, n for no"
     """
     while True:
         answer = input("==> Play again? Enter 'y' for yes, 'n' for no. \n").strip().lower()
@@ -205,7 +205,7 @@ def player_turn(initial_player_hand, initial_dealer_hand, deck):
              [x] - update `current_hand` to include `new_card`. 
              [] - capture `total(current_hand)` in `player_total`
              [x] - display: "Dealer has: [ex: 7 and unknown card]"
-             [] - display:  "You have: [ex: Jack, 10 and 6] | 
+             [z] - display:  "You have: [ex: Jack, 10 and 6] | 
                    Total points: [`player_total`]."
 
              [x] - check if busted - call: `busted(current_hand)`
@@ -222,6 +222,7 @@ def player_turn(initial_player_hand, initial_dealer_hand, deck):
     """
     terminal_width = os.get_terminal_size().columns if hasattr(os, 'get_terminal_size') else 60
     current_hand = initial_player_hand
+
     print(f"Dealer has: {display_hand(initial_dealer_hand, True)}")
     print(f"You have: {display_hand(current_hand)} | Total Points: {total(current_hand)}")
     print(''.center(terminal_width, '-'))
@@ -236,9 +237,8 @@ def player_turn(initial_player_hand, initial_dealer_hand, deck):
             print(''.center(terminal_width, '-'))
 
             current_hand.append(new_card)
-            player_total = total(current_hand)
             print(f"Dealer has: {display_hand(initial_dealer_hand, True)}")
-            print(f"You have: {display_hand(current_hand)} | Total Points: {player_total}")
+            print(f"You have: {display_hand(current_hand)} | Total Points: {total(current_hand)}")
             print(''.center(terminal_width, '-'))
 
             if busted(current_hand):
@@ -249,32 +249,41 @@ def player_turn(initial_player_hand, initial_dealer_hand, deck):
         
         else:
             prompt("Invalid input. Please enter 'h' or 's'.")
-        
+    
     if busted(current_hand):
-        # prompt("You busted! Dealer wins!")
-        # return False
+        return total(current_hand), True
     else:
-        prompt("You chose to stay.")
-        return player_total
+        return total(current_hand), False
 
 def play_twenty_one():
-    prompt("Let's play a game of Twenty-One!")
-    
-    terminal_width = os.get_terminal_size().columns if hasattr(os, 'get_terminal_size') else 60
+    while True:
+        prompt("Let's play a game of Twenty-One!")
+        prompt("Whoever gets the highest points without going over 21 wins the game!")
+        terminal_width = os.get_terminal_size().columns if hasattr(os, 'get_terminal_size') else 60
 
-    deck = initialize_deck()
-    shuffle(deck)
+        # Initialize & shuffle deck.
+        deck = initialize_deck()
+        shuffle(deck)
 
-    print(''.center(terminal_width, '-'))
-    print("PLAYER TURN".center(terminal_width))
-    print(''.center(terminal_width, '-'))
-    
-    player_hand = deal_two_cards(deck)
-    dealer_hand = deal_two_cards(deck)
-    
-    humbug = player_turn(player_hand, dealer_hand, deck)
-    
-    # if not humbug:
+        # Deal initial cards to the player & dealer.
+        player_hand = deal_two_cards(deck)
+        dealer_hand = deal_two_cards(deck)
 
+        # Player's turn
+        print(''.center(terminal_width, '-'))
+        print("PLAYER TURN".center(terminal_width))
+        print(''.center(terminal_width, '-'))
+        player_total, player_busted = player_turn(player_hand, dealer_hand, deck)
+        
+        if player_busted:
+            prompt(f"You busted with a total of {player_total} points. Dealer wins!")
+            if ask_play_again():
+                continue
+            else:
+                prompt("Thanks for playing Twenty-One, see you next time!")
+                break
+        else:
+            prompt(f"You chose to stay with a total of {player_total} points.")
+            break
 
 play_twenty_one()

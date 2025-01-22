@@ -347,9 +347,9 @@ def play_twenty_one():
             prompt(f"Dealer busted with a total of {dealer_total} points. You win!")
             if ask_play_again():
                 continue
-            else:
-                prompt("Thanks for playing Twenty-One, see you next time!")
-                break
+
+            prompt("Thanks for playing Twenty-One, see you next time!")
+            break
 
         prompt(f"Dealer chose to stay with a total of {dealer_total} points.")
 
@@ -360,7 +360,7 @@ def play_twenty_one():
         # Ask if player wants to play again.
         if ask_play_again():
             continue
-        else:
-            break
+
+        break
 
 play_twenty_one()

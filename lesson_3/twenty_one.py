@@ -288,9 +288,8 @@ def play_twenty_one():
         
         prompt(f"Dealer chose to stay with a total of {dealer_total} points.")
 
-        # Decide who won if both stayed.
+        # Determine who won if both stayed.
         prompt("Both you and the dealer chose to stay.")
-
         winner = determine_winner(player_total, dealer_total)
 
         print(winner)

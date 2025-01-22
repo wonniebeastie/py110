@@ -32,6 +32,8 @@ def deal_card(deck):
     """
     if deck:
         return deck.pop()
+    else:
+        return "Cannot deal from an empty deck."
 
 def deal_two_cards(deck):
     return [deal_card(deck), deal_card(deck)]

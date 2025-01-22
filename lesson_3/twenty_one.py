@@ -234,6 +234,30 @@ def dealer_turn(initial_dealer_hand, deck):
     else:
         return total(current_hand), False
 
+def determine_winner(player_hand_total, dealer_hand_total):
+    """
+    PROBLEM
+    Determine who the winner is if both stayed.
+
+    I: player total (`int`)
+    I: dealer total (`int`)
+    O: "player" or "dealer" or "tie" (`str`)
+
+    ALGO (-, +, -, +)
+    [x] - IF "player total" > "dealer total":
+	     [x] - return `'player'`
+    [x] - ELSE IF "player total" < "dealer total": 
+         [x] - return `'dealer'`
+    [x] - ELSE:
+         [x] - return `'tie'`
+    """
+    if player_hand_total > dealer_hand_total:
+        return 'player'
+    elif player_hand_total < dealer_hand_total:
+        return 'dealer'
+    else:
+        return 'tie'
+
 def play_twenty_one():
     while True:
         prompt("Let's play a game of Twenty-One!")
@@ -279,5 +303,13 @@ def play_twenty_one():
                 break
         
         prompt(f"Dealer chose to stay with a total of {dealer_total} points.")
+
+        # Decide who won if both stayed.
+        prompt("Both you and the dealer chose to stay.")
+
+        winner = determine_winner(player_total, dealer_total)
+
+        print(winner)
+
 
 play_twenty_one()

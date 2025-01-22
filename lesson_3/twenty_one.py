@@ -4,22 +4,6 @@ import os
 SUITS = ['H', 'D', 'C', 'S']
 VALUES = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'] 
 
-PLAYER = 'player'
-DEALER = 'dealer'
-
-"""
-High-level pseudocode:
-1. Initialize deck
-2. Deal cards to player and dealer
-3. Player turn: hit or stay
-   - repeat until bust or stay
-4. If player bust, dealer wins.
-5. Dealer turn: hit or stay
-   - repeat until total >= 17
-6. If dealer busts, player wins.
-7. Compare cards and declare winner.
-"""
-
 def prompt(message):
     print(f'==> {message}')
 
@@ -300,5 +284,11 @@ def play_twenty_one():
         # Determine & announce who won if both stayed.
         prompt("Both you and the dealer chose to stay.")
         announce_winner(player_total, dealer_total)
+
+        # Ask if player wants to play again.
+        if ask_play_again():
+            continue
+        else:
+            break
 
 play_twenty_one()

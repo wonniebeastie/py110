@@ -189,12 +189,14 @@ def busted(hand):
 def ask_play_again():
     while True:
         answer = input("==> Play again? Enter 'y' for yes, 'n' for no. \n").strip().lower()
+
         if answer == 'y':
             return True
-        elif answer == 'n':
+
+        if answer == 'n':
             return False
-        else:
-            prompt("Invalid input, please type 'y' or 'n'.")
+
+        prompt("Invalid input, please type 'y' or 'n'.")
 
 
 def player_turn(initial_player_hand, initial_dealer_hand, deck):

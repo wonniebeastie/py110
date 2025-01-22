@@ -286,10 +286,11 @@ def dealer_turn(initial_dealer_hand, deck):
 def determine_winner(player_hand_total, dealer_hand_total):
     if player_hand_total > dealer_hand_total:
         return 'player'
-    elif player_hand_total < dealer_hand_total:
+
+    if player_hand_total < dealer_hand_total:
         return 'dealer'
-    else:
-        return 'tie'
+
+    return 'tie'
 
 def announce_winner(player_hand_total, dealer_hand_total):
     victor = determine_winner(player_hand_total, dealer_hand_total)

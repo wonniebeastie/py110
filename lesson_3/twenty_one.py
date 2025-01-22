@@ -184,10 +184,7 @@ def busted(hand):
     Returns:
         bool: True if the hand's total exceeds 21, False otherwise.
     """
-    if total(hand) > 21:
-        return True
-    else:
-        return False
+    return total(hand) > 21
 
 def ask_play_again():
     while True:

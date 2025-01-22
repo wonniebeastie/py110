@@ -293,9 +293,15 @@ def determine_winner(player_hand_total, dealer_hand_total):
 def announce_winner(player_hand_total, dealer_hand_total):
     victor = determine_winner(player_hand_total, dealer_hand_total)
     if victor == 'player':
-        prompt(f"And the winner is... You! Congratulations, you won the game with {player_hand_total} points!")
+        prompt(
+            f"And the winner is... You! Congratulations, you won the game "
+            f"with {player_hand_total} points!"
+        )
     elif victor == 'dealer':
-        prompt(f"And the winner is... The dealer! The dealer won the game with {dealer_hand_total} points. Better luck next time!")
+        prompt(
+            f"And the winner is... The dealer! The dealer won the game with "
+            f"{dealer_hand_total} points. Better luck next time!"
+        )
     else:
         prompt(f"It's a tie! Both you and the dealer had {player_hand_total} points.")
 

@@ -280,8 +280,8 @@ def dealer_turn(initial_dealer_hand, deck):
 
     if busted(current_hand):
         return total(current_hand), True
-    else:
-        return total(current_hand), False
+
+    return total(current_hand), False
 
 def determine_winner(player_hand_total, dealer_hand_total):
     if player_hand_total > dealer_hand_total:

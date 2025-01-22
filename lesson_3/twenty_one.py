@@ -235,22 +235,6 @@ def dealer_turn(initial_dealer_hand, deck):
         return total(current_hand), False
 
 def determine_winner(player_hand_total, dealer_hand_total):
-    """
-    PROBLEM
-    Determine who the winner is if both stayed.
-
-    I: player total (`int`)
-    I: dealer total (`int`)
-    O: "player" or "dealer" or "tie" (`str`)
-
-    ALGO (-, +, -, +)
-    [x] - IF "player total" > "dealer total":
-	     [x] - return `'player'`
-    [x] - ELSE IF "player total" < "dealer total": 
-         [x] - return `'dealer'`
-    [x] - ELSE:
-         [x] - return `'tie'`
-    """
     if player_hand_total > dealer_hand_total:
         return 'player'
     elif player_hand_total < dealer_hand_total:

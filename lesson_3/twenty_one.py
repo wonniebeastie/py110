@@ -245,8 +245,8 @@ def player_turn(initial_player_hand, initial_dealer_hand, deck):
 
     if busted(current_hand):
         return total(current_hand), True
-    else:
-        return total(current_hand), False
+
+    return total(current_hand), False
 
 def dealer_turn(initial_dealer_hand, deck):
     """Handles the dealer's turn, drawing cards until the total reaches at 

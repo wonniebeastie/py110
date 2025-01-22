@@ -295,5 +295,16 @@ def play_twenty_one():
         print(''.center(terminal_width, '-'))
         print("DEALER TURN".center(terminal_width))
         print(''.center(terminal_width, '-'))
+        dealer_total, dealer_busted = dealer_turn(dealer_hand, deck)
+
+        if dealer_busted:
+            prompt(f"Dealer busted with a total of {dealer_total} points. You win!")
+            if ask_play_again():
+                continue
+            else:
+                prompt("Thanks for playing Twenty-One, see you next time!")
+                break
+        
+        prompt(f"Dealer chose to stay with a total of {dealer_total} points.")
 
 play_twenty_one()

@@ -22,18 +22,30 @@ def shuffle(deck):
     random.shuffle(deck)
 
 def deal_card(deck):
+    """Removes and returns the top card from the deck.
+
+    Args:
+        deck (list): The deck of cards.
+
+    Returns:
+        list: The top card of the deck as a list [suit, value].
+    """
     if deck:
         return deck.pop()
 
 def deal_two_cards(deck):
-    """Deals two cards to each player.
-    
-    Returns:
-        list: A hand composed of 2 returning cards from `deal_card` function.
-    """
     return [deal_card(deck), deal_card(deck)]
 
 def generate_just_card_values(hand):
+    """Extracts and returns the values of cards in a given hand.
+
+    Args:
+        hand (list): A list of cards, where each card is represented as [suit, 
+        value].
+
+    Returns:
+        list: A list of card values from the given hand.
+    """
     cards = hand
     lst_of_card_values = [card[1] for card in cards] 
     return lst_of_card_values
@@ -60,6 +72,14 @@ def replace_face_cards(lst_of_card_values):
             for card_value in lst_of_card_values]
 
 def replace_suit_name(suit_abbreviation):
+    """Converts a suit abbreviation ('H', 'D', 'C', 'S') to its full name.
+
+    Args:
+        suit_abbreviation (str): The suit abbreviation.
+
+    Returns:
+        str: The full name of the suit (e.g., 'Hearts', 'Diamonds').
+    """
     match suit_abbreviation:
         case 'H':
             return 'Hearts'
@@ -71,6 +91,16 @@ def replace_suit_name(suit_abbreviation):
             return 'Spades'
 
 def display_card(drawn_card):
+    """Formats a single card into a human-readable string.
+
+    Args:
+        drawn_card (list): A card represented as a list [suit, value],
+                           e.g., ['H', 'A'].
+
+    Returns:
+        str: A string representation of the card, with the suit and value
+             converted to full names (e.g., "Ace of Hearts").
+    """
     value_abbr = replace_face_cards(drawn_card[1])
     value = value_abbr[0]
 
@@ -92,7 +122,7 @@ def display_hand(hand, hide_second_card=False):
              and 10").
     """
     delimiter = ', '
-    # Extracting just the values of the cards in hand.\
+    # Extracting just the values of the cards in hand.
     card_values = generate_just_card_values(hand)
     # Replacing the face card abbreviations with their long names.
     card_values = replace_face_cards(card_values)
@@ -113,8 +143,7 @@ def total(hand):
 
     Args:
         cards (list): A list of cards, where each card is represented as 
-                      a list or tuple (e.g., [['H', 'A'], ['D', 'J'], ['C', 
-                      '10']]).
+                      a list (e.g., [['H', 'A'], ['D', 'J'], ['C', '10']]).
 
     Returns:
         int: The total value of the hand.
@@ -144,6 +173,15 @@ def total(hand):
     return sum_val
 
 def busted(hand):
+    """Determines if a given hand exceeds 21 points.
+
+    Args:
+        hand (list): A list of cards, where each card is represented as [suit, 
+        value].
+
+    Returns:
+        bool: True if the hand's total exceeds 21, False otherwise.
+    """
     if total(hand) > 21:
         return True
     else:
@@ -161,6 +199,19 @@ def ask_play_again():
 
 
 def player_turn(initial_player_hand, initial_dealer_hand, deck):
+    """Handles the player's turn, allowing them to hit or stay.
+
+    Args:
+        initial_player_hand (list): The player's starting hand.
+        initial_dealer_hand (list): The dealer's starting hand for display.
+        deck (list): The current deck of cards.
+
+    Returns:
+        tuple: (total_points, busted_status)
+               - total_points (int): The player's final total points.
+               - busted_status (bool): True if the player busted, False 
+                 otherwise.
+    """
     terminal_width = os.get_terminal_size().columns if hasattr(os, 'get_terminal_size') else 60
     current_hand = initial_player_hand
 
@@ -197,6 +248,19 @@ def player_turn(initial_player_hand, initial_dealer_hand, deck):
         return total(current_hand), False
 
 def dealer_turn(initial_dealer_hand, deck):
+    """Handles the dealer's turn, drawing cards until the total reaches at 
+    least 17 or the dealer busts.
+
+    Args:
+        initial_dealer_hand (list): The dealer's starting hand.
+        deck (list): The current deck of cards.
+
+    Returns:
+        tuple: (total_points, busted_status)
+               - total_points (int): The dealer's final total points.
+               - busted_status (bool): True if the dealer busted, False 
+                 otherwise.
+    """
     terminal_width = os.get_terminal_size().columns if hasattr(os, 'get_terminal_size') else 60
     current_hand = initial_dealer_hand
 

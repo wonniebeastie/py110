@@ -212,6 +212,55 @@ def player_turn(initial_player_hand, initial_dealer_hand, deck):
     else:
         return total(current_hand), False
 
+def dealer_turn(initial_dealer_hand, deck):
+    """
+    PROBLEM
+    Dealer's turn to play. Dealer must hit until total is at least 17.
+
+    I: the dealer's initial hand (nested `lst`)
+    I: current deck (nest `lst`)
+    O: dealer's total points (`int`)
+    O: dealer's busted status (`True` or `False`)
+
+    ALGO (-, +, -, +)
+    [x] - Rename `initial_dealer_hand` to `current_hand`
+
+    [] - WHILE `total(current_hand)` is less than 17:
+        [x] - Deal them a new card - call: `deal_card(deck)`
+        [x] - Display new card
+        [x] - Update `current_hand` to include new card.
+        [x] - Display `current_hand` "Dealer's hand:[`current_hand`] | Total 
+             points: [`total(current_hand)`]. 
+        [x] - See if the new hand is a bust - If `busted(current_hand)` is 
+             truthy:
+            [x] - break
+
+    [x] - if dealer has busted & `busted(current_hand)` is truthy,
+        [x] - return `total(current_hand)`, True (busted)
+    [x] - else:
+        [x] - return  `total(current_hand)`, False (not busted)
+    """
+    terminal_width = os.get_terminal_size().columns if hasattr(os, 'get_terminal_size') else 60
+    current_hand = initial_dealer_hand
+
+    while total(current_hand) < 17:
+        new_card = deal_card(deck)
+        new_card_for_display = display_card(new_card)
+
+        prompt(f"Dealer drew: {new_card_for_display}")
+        current_hand.append(new_card)
+
+        print(f"Dealer has: {display_hand(current_hand)} | Total Points: {total(current_hand)}")
+        print(''.center(terminal_width, '-'))
+
+        if busted(current_hand):
+            break
+    
+    if busted(current_hand):
+        return total(current_hand), True
+    else:
+        return total(current_hand), False
+
 def play_twenty_one():
     while True:
         prompt("Let's play a game of Twenty-One!")
@@ -239,8 +288,12 @@ def play_twenty_one():
             else:
                 prompt("Thanks for playing Twenty-One, see you next time!")
                 break
-        else:
-            prompt(f"You chose to stay with a total of {player_total} points.")
-            break
+        
+        prompt(f"You chose to stay with a total of {player_total} points.")
+
+        # Dealer's turn
+        print(''.center(terminal_width, '-'))
+        print("DEALER TURN".center(terminal_width))
+        print(''.center(terminal_width, '-'))
 
 play_twenty_one()

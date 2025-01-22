@@ -71,16 +71,10 @@ def replace_face_cards(lst_of_card_values):
     Returns:
         lst: A new list with the abrreviations replaced with their long names.
     """
-    face_card_names = {
-        'A': 'Ace',
-        'J': 'Jack',
-        'Q': 'Queen',
-        'K': 'King',
-    }
     # NOTE TO SELF: Add the value of the key-value pair using the card value
     # as the key ('A') to the new list - if it cannot be found, then just add
     # the card value.
-    return [face_card_names.get(card_value, card_value)
+    return [FACE_CARD_NAMES.get(card_value, card_value)
             for card_value in lst_of_card_values]
 
 def replace_suit_name(suit_abbreviation):

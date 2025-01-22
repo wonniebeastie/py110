@@ -213,33 +213,6 @@ def player_turn(initial_player_hand, initial_dealer_hand, deck):
         return total(current_hand), False
 
 def dealer_turn(initial_dealer_hand, deck):
-    """
-    PROBLEM
-    Dealer's turn to play. Dealer must hit until total is at least 17.
-
-    I: the dealer's initial hand (nested `lst`)
-    I: current deck (nest `lst`)
-    O: dealer's total points (`int`)
-    O: dealer's busted status (`True` or `False`)
-
-    ALGO (-, +, -, +)
-    [x] - Rename `initial_dealer_hand` to `current_hand`
-
-    [] - WHILE `total(current_hand)` is less than 17:
-        [x] - Deal them a new card - call: `deal_card(deck)`
-        [x] - Display new card
-        [x] - Update `current_hand` to include new card.
-        [x] - Display `current_hand` "Dealer's hand:[`current_hand`] | Total 
-             points: [`total(current_hand)`]. 
-        [x] - See if the new hand is a bust - If `busted(current_hand)` is 
-             truthy:
-            [x] - break
-
-    [x] - if dealer has busted & `busted(current_hand)` is truthy,
-        [x] - return `total(current_hand)`, True (busted)
-    [x] - else:
-        [x] - return  `total(current_hand)`, False (not busted)
-    """
     terminal_width = os.get_terminal_size().columns if hasattr(os, 'get_terminal_size') else 60
     current_hand = initial_dealer_hand
 

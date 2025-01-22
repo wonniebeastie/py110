@@ -166,15 +166,6 @@ def busted(hand):
         return False
 
 def ask_play_again():
-    """
-    ALGO (-, +, -, +)
-    [x] WHILE True:
-        [x] - Ask player if they want to play again (enter y for yes, n for no) 
-             - capture in "answer"
-        [x] - IF "answer" is "y", return True
-        [x] - ELSE IF "answer" is "n" return False
-        [x] - ELSE, print "Invalid input, please type y for yes, n for no"
-    """
     while True:
         answer = input("==> Play again? Enter 'y' for yes, 'n' for no. \n").strip().lower()
         if answer == 'y':
@@ -186,40 +177,6 @@ def ask_play_again():
 
 
 def player_turn(initial_player_hand, initial_dealer_hand, deck):
-    """Player's turn to play. 
-    Player must decide to draw a card & risk busting or choose to stay.
-    """
-
-    """
-    [x] - Rename `initial_player_hand` to `current_hand`
-    [x] - Display "Dealer has: [card value] and unknown card."
-    [x] - Display `current_hand` & "Your hand: ... Total points: [#]."
-
-    [x] - WHILE True:
-        [x] - Ask (`input()`) player to hit or stay (capture in `answer`)
-        [x] - IF `answer` is `'hit'`:
-             [x] - call: `deal_card(deck)` to deal player a new card (capture 
-                   in `new_card`).
-             [x] - display the new card - "You drew: [value] of [suit]" -
-                   call `display_card(new_card)`.
-             [x] - update `current_hand` to include `new_card`. 
-             [] - capture `total(current_hand)` in `player_total`
-             [x] - display: "Dealer has: [ex: 7 and unknown card]"
-             [z] - display:  "You have: [ex: Jack, 10 and 6] | 
-                   Total points: [`player_total`]."
-
-             [x] - check if busted - call: `busted(current_hand)`
-                  - if True, END LOOP.
-            
-        [x] - ELSE IF : `answer` is `'stay'`: END LOOP 
-        [x] - ELSE: display "invalid input. Please enter 'hit' or 'stay'"
-    [x] - IF `busted(current_hand)` is truthy:
-        - print "You busted! Dealer wins!"
-        - call  `ask_play_again()`
-    [x] - ELSE:
-        - print "You chose to stay." (`prompt()`)
-        - return `player_total`
-    """
     terminal_width = os.get_terminal_size().columns if hasattr(os, 'get_terminal_size') else 60
     current_hand = initial_player_hand
 

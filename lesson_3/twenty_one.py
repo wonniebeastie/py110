@@ -208,17 +208,11 @@ def determine_winner(player_hand_total, dealer_hand_total):
 def announce_winner(player_hand_total, dealer_hand_total):
     victor = determine_winner(player_hand_total, dealer_hand_total)
     if victor == 'player':
-        prompt(
-            f"And the winner is... You! Congratulations, you won the game "
-            f"with {player_hand_total} points!"
-        )
+        prompt("Congratulations, you win the game!")
     elif victor == 'dealer':
-        prompt(
-            f"And the winner is... The dealer! The dealer won the game with "
-            f"{dealer_hand_total} points. Better luck next time!"
-        )
+        prompt("Dealer wins! Better luck next time.")
     else:
-        prompt(f"It's a tie! Both you and the dealer had {player_hand_total} points.")
+        prompt("It's a tie!")
 
 def play_twenty_one():
     while True:
@@ -306,9 +300,7 @@ def play_twenty_one():
         announce_winner(total(player_hand), total(dealer_hand))
 
         # Ask if player wants to play again.
-        if ask_play_again():
-            continue
-
-        break
+        if not ask_play_again():
+            break
 
 play_twenty_one()

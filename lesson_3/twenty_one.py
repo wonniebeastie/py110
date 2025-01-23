@@ -4,6 +4,13 @@ import os
 SUITS = ['H', 'D', 'C', 'S']
 VALUES = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
 
+FACE_CARD_NAMES = {
+    'A': 'Ace',
+    'J': 'Jack',
+    'Q': 'Queen',
+    'K': 'King',
+}
+
 def prompt(message):
     print(f'==> {message}')
 
@@ -29,9 +36,13 @@ def deal_card(deck):
 
     Returns:
         list: The top card of the deck as a list [suit, value].
+
+    Raises:
+        ValueError: If the deck is empty.
     """
-    if deck:
-        return deck.pop()
+    if not deck:
+        raise ValueError("Cannot deal from an empty deck.")
+    return deck.pop()
 
 def deal_two_cards(deck):
     return [deal_card(deck), deal_card(deck)]
@@ -59,16 +70,10 @@ def replace_face_cards(lst_of_card_values):
     Returns:
         lst: A new list with the abrreviations replaced with their long names.
     """
-    face_card_names = {
-        'A': 'Ace',
-        'J': 'Jack',
-        'Q': 'Queen',
-        'K': 'King',
-    }
     # NOTE TO SELF: Add the value of the key-value pair using the card value
     # as the key ('A') to the new list - if it cannot be found, then just add
     # the card value.
-    return [face_card_names.get(card_value, card_value)
+    return [FACE_CARD_NAMES.get(card_value, card_value)
             for card_value in lst_of_card_values]
 
 def replace_suit_name(suit_abbreviation):
@@ -101,12 +106,8 @@ def display_card(drawn_card):
         str: A string representation of the card, with the suit and value
              converted to full names (e.g., "Ace of Hearts").
     """
-    value_abbr = replace_face_cards(drawn_card[1])
-    value = value_abbr[0]
-
-    suit_abbr = drawn_card[0]
-    suit = replace_suit_name(suit_abbr)
-
+    value = FACE_CARD_NAMES.get(drawn_card[1], drawn_card[1])
+    suit = replace_suit_name(drawn_card[0])
     return f'{value} of {suit}'
 
 def display_hand(hand, hide_second_card=False):
@@ -129,13 +130,14 @@ def display_hand(hand, hide_second_card=False):
 
     if hide_second_card:
         return f'{card_values[0]} and unknown card'
-    elif len(card_values) < 3:
+
+    if len(card_values) < 3:
         return f'{card_values[0]} and {card_values[1]}'
-    else:
-        first_str = delimiter.join(card_value
-                                   for card_value in card_values[:-1])
-        final_str = f'{first_str} and {card_values[-1]}'
-        return final_str
+
+    first_str = delimiter.join(card_value
+                                for card_value in card_values[:-1])
+    final_str = f'{first_str} and {card_values[-1]}'
+    return final_str
 
 def total(hand):
     """Calculates the total value of a hand of cards, with Aces dynamically 
@@ -182,20 +184,19 @@ def busted(hand):
     Returns:
         bool: True if the hand's total exceeds 21, False otherwise.
     """
-    if total(hand) > 21:
-        return True
-    else:
-        return False
+    return total(hand) > 21
 
 def ask_play_again():
     while True:
         answer = input("==> Play again? Enter 'y' for yes, 'n' for no. \n").strip().lower()
+
         if answer == 'y':
             return True
-        elif answer == 'n':
+
+        if answer == 'n':
             return False
-        else:
-            prompt("Invalid input, please type 'y' or 'n'.")
+
+        prompt("Invalid input, please type 'y' or 'n'.")
 
 
 def player_turn(initial_player_hand, initial_dealer_hand, deck):
@@ -244,8 +245,8 @@ def player_turn(initial_player_hand, initial_dealer_hand, deck):
 
     if busted(current_hand):
         return total(current_hand), True
-    else:
-        return total(current_hand), False
+
+    return total(current_hand), False
 
 def dealer_turn(initial_dealer_hand, deck):
     """Handles the dealer's turn, drawing cards until the total reaches at 
@@ -279,23 +280,28 @@ def dealer_turn(initial_dealer_hand, deck):
 
     if busted(current_hand):
         return total(current_hand), True
-    else:
-        return total(current_hand), False
+
+    return total(current_hand), False
 
 def determine_winner(player_hand_total, dealer_hand_total):
     if player_hand_total > dealer_hand_total:
         return 'player'
-    elif player_hand_total < dealer_hand_total:
+    if player_hand_total < dealer_hand_total:
         return 'dealer'
-    else:
-        return 'tie'
+    return 'tie'
 
 def announce_winner(player_hand_total, dealer_hand_total):
     victor = determine_winner(player_hand_total, dealer_hand_total)
     if victor == 'player':
-        prompt(f"And the winner is... You! Congratulations, you won the game with {player_hand_total} points!")
+        prompt(
+            f"And the winner is... You! Congratulations, you won the game "
+            f"with {player_hand_total} points!"
+        )
     elif victor == 'dealer':
-        prompt(f"And the winner is... The dealer! The dealer won the game with {dealer_hand_total} points. Better luck next time!")
+        prompt(
+            f"And the winner is... The dealer! The dealer won the game with "
+            f"{dealer_hand_total} points. Better luck next time!"
+        )
     else:
         prompt(f"It's a tie! Both you and the dealer had {player_hand_total} points.")
 
@@ -323,9 +329,9 @@ def play_twenty_one():
             prompt(f"You busted with a total of {player_total} points. Dealer wins!")
             if ask_play_again():
                 continue
-            else:
-                prompt("Thanks for playing Twenty-One, see you next time!")
-                break
+
+            prompt("Thanks for playing Twenty-One, see you next time!")
+            break
 
         prompt(f"You chose to stay with a total of {player_total} points.")
 
@@ -339,9 +345,9 @@ def play_twenty_one():
             prompt(f"Dealer busted with a total of {dealer_total} points. You win!")
             if ask_play_again():
                 continue
-            else:
-                prompt("Thanks for playing Twenty-One, see you next time!")
-                break
+
+            prompt("Thanks for playing Twenty-One, see you next time!")
+            break
 
         prompt(f"Dealer chose to stay with a total of {dealer_total} points.")
 
@@ -352,7 +358,7 @@ def play_twenty_one():
         # Ask if player wants to play again.
         if ask_play_again():
             continue
-        else:
-            break
+
+        break
 
 play_twenty_one()

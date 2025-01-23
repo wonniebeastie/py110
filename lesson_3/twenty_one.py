@@ -215,9 +215,10 @@ def player_turn(initial_player_hand, initial_dealer_hand, deck):
     """
     terminal_width = os.get_terminal_size().columns if hasattr(os, 'get_terminal_size') else 60
     current_hand = initial_player_hand
+    total_points = total(current_hand)
 
     print(f"Dealer has: {display_hand(initial_dealer_hand, True)}")
-    print(f"You have: {display_hand(current_hand)} | Total Points: {total(current_hand)}")
+    print(f"You have: {display_hand(current_hand)} | Total Points: {total_points}")
     print(''.center(terminal_width, '-'))
 
     while True:
@@ -231,7 +232,7 @@ def player_turn(initial_player_hand, initial_dealer_hand, deck):
 
             current_hand.append(new_card)
             print(f"Dealer has: {display_hand(initial_dealer_hand, True)}")
-            print(f"You have: {display_hand(current_hand)} | Total Points: {total(current_hand)}")
+            print(f"You have: {display_hand(current_hand)} | Total Points: {total_points}")
             print(''.center(terminal_width, '-'))
 
             if busted(current_hand):
@@ -244,9 +245,9 @@ def player_turn(initial_player_hand, initial_dealer_hand, deck):
             prompt("Invalid input. Please enter 'h' or 's'.")
 
     if busted(current_hand):
-        return total(current_hand), True
+        return total_points, True
 
-    return total(current_hand), False
+    return total_points, False
 
 def dealer_turn(initial_dealer_hand, deck):
     """Handles the dealer's turn, drawing cards until the total reaches at 

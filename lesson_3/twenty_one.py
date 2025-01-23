@@ -11,7 +11,6 @@ FACE_CARD_NAMES = {
     'K': 'King',
 }
 
-
 def prompt(message):
     print(f'==> {message}')
 
@@ -287,10 +286,8 @@ def dealer_turn(initial_dealer_hand, deck):
 def determine_winner(player_hand_total, dealer_hand_total):
     if player_hand_total > dealer_hand_total:
         return 'player'
-
     if player_hand_total < dealer_hand_total:
         return 'dealer'
-
     return 'tie'
 
 def announce_winner(player_hand_total, dealer_hand_total):

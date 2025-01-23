@@ -198,92 +198,6 @@ def ask_play_again():
 
         prompt("Invalid input, please type 'y' or 'n'.")
 
-
-def player_turn(initial_player_hand, initial_dealer_hand, deck):
-    """Handles the player's turn, allowing them to hit or stay.
-
-    Args:
-        initial_player_hand (list): The player's starting hand.
-        initial_dealer_hand (list): The dealer's starting hand for display.
-        deck (list): The current deck of cards.
-
-    Returns:
-        tuple: (total_points, busted_status)
-               - total_points (int): The player's final total points.
-               - busted_status (bool): True if the player busted, False 
-                 otherwise.
-    """
-    terminal_width = os.get_terminal_size().columns if hasattr(os, 'get_terminal_size') else 60
-    current_hand = initial_player_hand
-    total_points = total(current_hand)
-
-    print(f"Dealer has: {display_hand(initial_dealer_hand, True)}")
-    print(f"You have: {display_hand(current_hand)} | Total Points: {total_points}")
-    print(''.center(terminal_width, '-'))
-
-    while True:
-        answer = input("==> Hit or Stay? Enter 'h' for Hit & 's' for Stay. \n").strip().lower()
-        if answer == 'h':
-            new_card = deal_card(deck)
-            new_card_for_display = display_card(new_card)
-
-            prompt(f"You drew: {new_card_for_display}")
-            print(''.center(terminal_width, '-'))
-
-            current_hand.append(new_card)
-            print(f"Dealer has: {display_hand(initial_dealer_hand, True)}")
-            print(f"You have: {display_hand(current_hand)} | Total Points: {total_points}")
-            print(''.center(terminal_width, '-'))
-
-            if busted(current_hand):
-                break
-
-        elif answer == 's':
-            break
-
-        else:
-            prompt("Invalid input. Please enter 'h' or 's'.")
-
-    if busted(current_hand):
-        return total_points, True
-
-    return total_points, False
-
-def dealer_turn(initial_dealer_hand, deck):
-    """Handles the dealer's turn, drawing cards until the total reaches at 
-    least 17 or the dealer busts.
-
-    Args:
-        initial_dealer_hand (list): The dealer's starting hand.
-        deck (list): The current deck of cards.
-
-    Returns:
-        tuple: (total_points, busted_status)
-               - total_points (int): The dealer's final total points.
-               - busted_status (bool): True if the dealer busted, False 
-                 otherwise.
-    """
-    terminal_width = os.get_terminal_size().columns if hasattr(os, 'get_terminal_size') else 60
-    current_hand = initial_dealer_hand
-
-    while total(current_hand) < 17:
-        new_card = deal_card(deck)
-        new_card_for_display = display_card(new_card)
-
-        prompt(f"Dealer drew: {new_card_for_display}")
-        current_hand.append(new_card)
-
-        print(f"Dealer has: {display_hand(current_hand)} | Total Points: {total(current_hand)}")
-        print(''.center(terminal_width, '-'))
-
-        if busted(current_hand):
-            break
-
-    if busted(current_hand):
-        return total(current_hand), True
-
-    return total(current_hand), False
-
 def determine_winner(player_hand_total, dealer_hand_total):
     if player_hand_total > dealer_hand_total:
         return 'player'
@@ -320,41 +234,76 @@ def play_twenty_one():
         player_hand = deal_two_cards(deck)
         dealer_hand = deal_two_cards(deck)
 
+        # Show each hand
+        print(f"Dealer has: {display_hand(dealer_hand, True)}")
+        print(f"You have: {display_hand(player_hand)} | Total Points: {total(player_hand)}")
+        print(''.center(terminal_width, '-'))
+
         # Player's turn
         print(''.center(terminal_width, '-'))
         print("PLAYER TURN".center(terminal_width))
         print(''.center(terminal_width, '-'))
-        player_total, player_busted = player_turn(player_hand, dealer_hand, deck)
 
-        if player_busted:
-            prompt(f"You busted with a total of {player_total} points. Dealer wins!")
-            if ask_play_again():
+        while True:
+            player_choice = input("==> Hit or Stay? Enter 'h' for Hit & 's' for Stay. \n").strip().lower()
+            
+            if player_choice not in ['h', 's']:
+                prompt("Invalid input. Please enter 'h' or 's'.")
                 continue
 
-            prompt("Thanks for playing Twenty-One, see you next time!")
-            break
+            if player_choice == 'h':
+                prompt("You chose to hit!")
+                new_card = deal_card(deck)
+                new_card_for_display = display_card(new_card)
 
-        prompt(f"You chose to stay with a total of {player_total} points.")
+                prompt(f"You drew: {new_card_for_display}")
+                print(''.center(terminal_width, '-'))
+
+                player_hand.append(new_card)
+                print(f"Dealer has: {display_hand(dealer_hand, True)}")
+                print(f"You now have: {display_hand(player_hand)} | Total Points: {total(player_hand)}")
+                print(''.center(terminal_width, '-'))
+
+            if player_choice == 's' or busted(player_hand):
+                break
+
+        if busted(player_hand):
+            prompt(f"You busted with a total of {total(player_hand)} points. Dealer wins!")
+            if ask_play_again():
+                continue
+            prompt("Thanks for playing Twenty-One, see you next time!")
+        else:
+            prompt(f"You chose to stay with a total of {total(player_hand)} points.")
 
         # Dealer's turn
         print(''.center(terminal_width, '-'))
         print("DEALER TURN".center(terminal_width))
         print(''.center(terminal_width, '-'))
-        dealer_total, dealer_busted = dealer_turn(dealer_hand, deck)
 
-        if dealer_busted:
-            prompt(f"Dealer busted with a total of {dealer_total} points. You win!")
+        while total(dealer_hand) < 17:
+            prompt("Dealer hits!")
+            new_card = deal_card(deck)
+            new_card_for_display = display_card(new_card)
+
+            prompt(f"Dealer drew: {new_card_for_display}")
+            dealer_hand.append(new_card)
+
+            print(f"Dealer has: {display_hand(dealer_hand)} | Total Points: {total(dealer_hand)}")
+            print(''.center(terminal_width, '-'))
+
+        if busted(dealer_hand):
+            prompt(f"Dealer busted with a total of {total(dealer_hand)} points. You win!")
             if ask_play_again():
                 continue
-
             prompt("Thanks for playing Twenty-One, see you next time!")
-            break
-
-        prompt(f"Dealer chose to stay with a total of {dealer_total} points.")
+        else:
+            prompt(f"Dealer chose to stay with a total of {total(dealer_hand)} points.")
 
         # Determine & announce who won if both stayed.
         prompt("Both you and the dealer chose to stay.")
-        announce_winner(player_total, dealer_total)
+        print(f"Dealer has: {total(dealer_hand)} points")
+        print(f"You have: {total(player_hand)} points")
+        announce_winner(total(player_hand), total(dealer_hand))
 
         # Ask if player wants to play again.
         if ask_play_again():

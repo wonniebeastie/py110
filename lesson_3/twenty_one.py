@@ -111,7 +111,7 @@ def display_card(drawn_card):
     return f'{value} of {suit}'
 
 def display_hand(hand, hide_second_card=False):
-    """Formats a hand of cards into a human-readable string.
+    """Formats just the values of a hand of cards into a human-readable string.
 
     Args:
         hand (list): A list of cards where each card is represented as a list
@@ -215,10 +215,11 @@ def announce_winner(player_hand_total, dealer_hand_total):
         prompt("It's a tie!")
 
 def play_twenty_one():
+    terminal_width = os.get_terminal_size().columns if hasattr(os, 'get_terminal_size') else 60
     while True:
         prompt("Let's play a game of Twenty-One!")
         prompt("Whoever gets the highest points without going over 21 wins the game!")
-        terminal_width = os.get_terminal_size().columns if hasattr(os, 'get_terminal_size') else 60
+        print(''.center(terminal_width, '-'))
 
         # Initialize & shuffle deck.
         deck = initialize_deck()
@@ -231,7 +232,6 @@ def play_twenty_one():
         # Show each hand
         print(f"Dealer has: {display_hand(dealer_hand, True)}")
         print(f"You have: {display_hand(player_hand)} | Total Points: {total(player_hand)}")
-        print(''.center(terminal_width, '-'))
 
         # Player's turn
         print(''.center(terminal_width, '-'))
@@ -256,7 +256,7 @@ def play_twenty_one():
                 player_hand.append(new_card)
                 print(f"Dealer has: {display_hand(dealer_hand, True)}")
                 print(f"You now have: {display_hand(player_hand)} | Total Points: {total(player_hand)}")
-                print(''.center(terminal_width, '-'))
+                print(''.center(terminal_width, '-')) 
 
             if player_choice == 's' or busted(player_hand):
                 break
@@ -266,6 +266,7 @@ def play_twenty_one():
             if ask_play_again():
                 continue
             prompt("Thanks for playing Twenty-One, see you next time!")
+            break
         else:
             prompt(f"You chose to stay with a total of {total(player_hand)} points.")
 
@@ -290,6 +291,7 @@ def play_twenty_one():
             if ask_play_again():
                 continue
             prompt("Thanks for playing Twenty-One, see you next time!")
+            break
         else:
             prompt(f"Dealer chose to stay with a total of {total(dealer_hand)} points.")
 

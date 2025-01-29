@@ -1,5 +1,4 @@
 import random
-import os
 
 SUITS = ['H', 'D', 'C', 'S']
 VALUES = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
@@ -215,11 +214,11 @@ def announce_winner(player_hand_total, dealer_hand_total):
         prompt("It's a tie!")
 
 def play_twenty_one():
-    terminal_width = os.get_terminal_size().columns if hasattr(os, 'get_terminal_size') else 60
+    dashes = '-' * 60
     while True:
         prompt("Let's play a game of Twenty-One!")
         prompt("Whoever gets the highest points without going over 21 wins the game!")
-        print(''.center(terminal_width, '-'))
+        print(dashes)
 
         # Initialize & shuffle deck.
         deck = initialize_deck()
@@ -238,9 +237,9 @@ def play_twenty_one():
         print(f"You have: {display_hand(player_hand)} | Total Points: {player_total}")
 
         # Player's turn
-        print(''.center(terminal_width, '-'))
-        print("PLAYER TURN".center(terminal_width))
-        print(''.center(terminal_width, '-'))
+        print(dashes)
+        print("PLAYER TURN")
+        print(dashes)
 
         while True:
             player_choice = input("==> Hit or Stay? Enter 'h' for Hit & 's' for Stay. \n").strip().lower()
@@ -255,19 +254,20 @@ def play_twenty_one():
                 new_card_for_display = display_card(new_card)
 
                 prompt(f"You drew: {new_card_for_display}")
-                print(''.center(terminal_width, '-'))
+                print(dashes)
 
                 player_hand.append(new_card)
                 player_total = total(player_hand)
                 print(f"Dealer has: {display_hand(dealer_hand, True)}")
                 print(f"You now have: {display_hand(player_hand)} | Total Points: {player_total}")
-                print(''.center(terminal_width, '-')) 
+                print(dashes)
 
             if player_choice == 's' or busted(player_hand):
                 break
 
         if busted(player_hand):
             prompt(f"You busted with a total of {player_total} points. Dealer wins!")
+            print(dashes)
             if ask_play_again():
                 continue
             prompt("Thanks for playing Twenty-One, see you next time!")
@@ -276,9 +276,9 @@ def play_twenty_one():
             prompt(f"You chose to stay with a total of {player_total} points.")
 
         # Dealer's turn
-        print(''.center(terminal_width, '-'))
-        print("DEALER TURN".center(terminal_width))
-        print(''.center(terminal_width, '-'))
+        print(dashes)
+        print("DEALER TURN")
+        print(dashes)
 
         while total(dealer_hand) < 17:
             prompt("Dealer hits!")
@@ -289,22 +289,27 @@ def play_twenty_one():
             dealer_hand.append(new_card)
 
             print(f"Dealer has: {display_hand(dealer_hand)} | Total Points: {total(dealer_hand)}")
-            print(''.center(terminal_width, '-'))
+            print(dashes)
 
         if busted(dealer_hand):
             prompt(f"Dealer busted with a total of {total(dealer_hand)} points. You win!")
+            print(dashes)
             if ask_play_again():
                 continue
             prompt("Thanks for playing Twenty-One, see you next time!")
             break
         else:
             prompt(f"Dealer chose to stay with a total of {total(dealer_hand)} points.")
+            print(dashes)
 
         # Determine & announce who won if both stayed.
         prompt("Both you and the dealer chose to stay.")
+        print(dashes)
         print(f"Dealer has: {total(dealer_hand)} points")
         print(f"You have: {player_total} points")
+        print(dashes)
         announce_winner(player_total, total(dealer_hand))
+        print(dashes)
 
         # Ask if player wants to play again.
         if not ask_play_again():

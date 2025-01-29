@@ -229,9 +229,13 @@ def play_twenty_one():
         player_hand = deal_two_cards(deck)
         dealer_hand = deal_two_cards(deck)
 
+        # Cache total points for each.
+        player_total = total(player_hand)
+        dealer_total = total(dealer_hand)
+
         # Show each hand
         print(f"Dealer has: {display_hand(dealer_hand, True)}")
-        print(f"You have: {display_hand(player_hand)} | Total Points: {total(player_hand)}")
+        print(f"You have: {display_hand(player_hand)} | Total Points: {player_total}")
 
         # Player's turn
         print(''.center(terminal_width, '-'))
@@ -254,21 +258,22 @@ def play_twenty_one():
                 print(''.center(terminal_width, '-'))
 
                 player_hand.append(new_card)
+                player_total = total(player_hand)
                 print(f"Dealer has: {display_hand(dealer_hand, True)}")
-                print(f"You now have: {display_hand(player_hand)} | Total Points: {total(player_hand)}")
+                print(f"You now have: {display_hand(player_hand)} | Total Points: {player_total}")
                 print(''.center(terminal_width, '-')) 
 
             if player_choice == 's' or busted(player_hand):
                 break
 
         if busted(player_hand):
-            prompt(f"You busted with a total of {total(player_hand)} points. Dealer wins!")
+            prompt(f"You busted with a total of {player_total} points. Dealer wins!")
             if ask_play_again():
                 continue
             prompt("Thanks for playing Twenty-One, see you next time!")
             break
         else:
-            prompt(f"You chose to stay with a total of {total(player_hand)} points.")
+            prompt(f"You chose to stay with a total of {player_total} points.")
 
         # Dealer's turn
         print(''.center(terminal_width, '-'))
@@ -298,8 +303,8 @@ def play_twenty_one():
         # Determine & announce who won if both stayed.
         prompt("Both you and the dealer chose to stay.")
         print(f"Dealer has: {total(dealer_hand)} points")
-        print(f"You have: {total(player_hand)} points")
-        announce_winner(total(player_hand), total(dealer_hand))
+        print(f"You have: {player_total} points")
+        announce_winner(player_total, total(dealer_hand))
 
         # Ask if player wants to play again.
         if not ask_play_again():

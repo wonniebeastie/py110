@@ -173,17 +173,16 @@ def total(hand):
 
     return sum_val
 
-def busted(hand):
-    """Determines if a given hand exceeds 21 points.
+def busted(total_points):
+    """Determines if a given total exceeds 21 points.
 
     Args:
-        hand (list): A list of cards, where each card is represented as [suit, 
-        value].
+        total_points (int): The total points of a player's or dealer's hand.
 
     Returns:
-        bool: True if the hand's total exceeds 21, False otherwise.
+        bool: True if the total points exceed 21, False otherwise.
     """
-    return total(hand) > 21
+    return total_points > 21
 
 def ask_play_again():
     while True:
@@ -215,6 +214,7 @@ def announce_winner(player_hand_total, dealer_hand_total):
 
 def play_twenty_one():
     dashes = '-' * 60
+
     while True:
         prompt("Let's play a game of Twenty-One!")
         prompt("Whoever gets the highest points without going over 21 wins the game!")
@@ -262,10 +262,10 @@ def play_twenty_one():
                 print(f"You now have: {display_hand(player_hand)} | Total Points: {player_total}")
                 print(dashes)
 
-            if player_choice == 's' or busted(player_hand):
+            if player_choice == 's' or busted(player_total):
                 break
 
-        if busted(player_hand):
+        if busted(player_total):
             prompt(f"You busted with a total of {player_total} points. Dealer wins!")
             print(dashes)
             if ask_play_again():
@@ -295,7 +295,7 @@ def play_twenty_one():
             print(f"Dealer now has: {display_hand(dealer_hand)} | Total Points: {dealer_total}")
             print(dashes)
 
-        if busted(dealer_hand):
+        if busted(dealer_total):
             prompt(f"Dealer busted with a total of {dealer_total} points. You win!")
             print(dashes)
             if ask_play_again():

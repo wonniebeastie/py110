@@ -280,6 +280,9 @@ def play_twenty_one():
         print("DEALER TURN")
         print(dashes)
 
+        print(f"Dealer has: {display_hand(dealer_hand)} | Total Points: {dealer_total}")
+        print(dashes)
+
         while dealer_total < 17:
             prompt("Dealer hits!")
             new_card = deal_card(deck)
@@ -289,7 +292,7 @@ def play_twenty_one():
             dealer_hand.append(new_card)
             dealer_total = total(dealer_hand)
 
-            print(f"Dealer has: {display_hand(dealer_hand)} | Total Points: {dealer_total}")
+            print(f"Dealer now has: {display_hand(dealer_hand)} | Total Points: {dealer_total}")
             print(dashes)
 
         if busted(dealer_hand):

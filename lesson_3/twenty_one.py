@@ -212,6 +212,11 @@ def announce_winner(player_hand_total, dealer_hand_total):
     else:
         prompt("It's a tie!")
 
+def end_of_round_summary(player_hand, player_points, dealer_hand, dealer_points):
+    print('SUMMARY:')
+    print(f"Dealer had: {display_hand(dealer_hand)}, for a total of: {dealer_points} points.")
+    print(f"Player had: {display_hand(player_hand)}, for a total of: {player_points} points.")
+
 def play_twenty_one():
     dashes = '-' * 60
 
@@ -266,13 +271,16 @@ def play_twenty_one():
                 break
 
         if busted(player_total):
-            prompt(f"You busted with a total of {player_total} points. Dealer wins!")
+            prompt("You busted. Dealer wins!")
+            print(dashes)
+            end_of_round_summary(player_hand, player_total, dealer_hand, dealer_total)
             print(dashes)
             if ask_play_again():
                 continue
             prompt("Thanks for playing Twenty-One, see you next time!")
             break
         else:
+            print(dashes)
             prompt(f"You chose to stay with a total of {player_total} points.")
 
         # Dealer's turn
@@ -296,7 +304,9 @@ def play_twenty_one():
             print(dashes)
 
         if busted(dealer_total):
-            prompt(f"Dealer busted with a total of {dealer_total} points. You win!")
+            prompt("Dealer busted. You win!")
+            print(dashes)
+            end_of_round_summary(player_hand, player_total, dealer_hand, dealer_total)
             print(dashes)
             if ask_play_again():
                 continue
@@ -308,11 +318,9 @@ def play_twenty_one():
 
         # Determine & announce who won if both stayed.
         prompt("Both you and the dealer chose to stay.")
-        print(dashes)
-        print(f"Dealer has: {dealer_total} points")
-        print(f"You have: {player_total} points")
-        print(dashes)
         announce_winner(player_total, dealer_total)
+        print(dashes)
+        end_of_round_summary(player_hand, player_total, dealer_hand, dealer_total)
         print(dashes)
 
         # Ask if player wants to play again.

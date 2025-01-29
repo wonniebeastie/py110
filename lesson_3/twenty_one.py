@@ -280,35 +280,36 @@ def play_twenty_one():
         print("DEALER TURN")
         print(dashes)
 
-        while total(dealer_hand) < 17:
+        while dealer_total < 17:
             prompt("Dealer hits!")
             new_card = deal_card(deck)
             new_card_for_display = display_card(new_card)
 
             prompt(f"Dealer drew: {new_card_for_display}")
             dealer_hand.append(new_card)
+            dealer_total = total(dealer_hand)
 
-            print(f"Dealer has: {display_hand(dealer_hand)} | Total Points: {total(dealer_hand)}")
+            print(f"Dealer has: {display_hand(dealer_hand)} | Total Points: {dealer_total}")
             print(dashes)
 
         if busted(dealer_hand):
-            prompt(f"Dealer busted with a total of {total(dealer_hand)} points. You win!")
+            prompt(f"Dealer busted with a total of {dealer_total} points. You win!")
             print(dashes)
             if ask_play_again():
                 continue
             prompt("Thanks for playing Twenty-One, see you next time!")
             break
         else:
-            prompt(f"Dealer chose to stay with a total of {total(dealer_hand)} points.")
+            prompt(f"Dealer chose to stay with a total of {dealer_total} points.")
             print(dashes)
 
         # Determine & announce who won if both stayed.
         prompt("Both you and the dealer chose to stay.")
         print(dashes)
-        print(f"Dealer has: {total(dealer_hand)} points")
+        print(f"Dealer has: {dealer_total} points")
         print(f"You have: {player_total} points")
         print(dashes)
-        announce_winner(player_total, total(dealer_hand))
+        announce_winner(player_total, dealer_total)
         print(dashes)
 
         # Ask if player wants to play again.

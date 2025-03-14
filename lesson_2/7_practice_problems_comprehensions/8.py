@@ -153,19 +153,24 @@ dict1 = {
 - Does order matter for the result?
 
 ✱ A - ALGORITHM ✱
-I: produce
+I: `produce_items`
 (-, +, -, +)
-[] - initialize empty container list - `size_color_list`
-[] - for each item in `produce` dictionary:
-    + if the `'type'` is `'fruit'`,
-        - extract color(s)
+[x] - initialize empty container list - `size_color_list`
+[] - for each key-value pair in `produce_items` dictionary:
+    + if the `value['type']` is `'fruit'`:
+        - get the list of color(s)
         - capitalize first letter of each string
-        - add to `size_color_list`
-    + if the `'type'` is `'vegetable'`, 
-        - extract size
+        - add transformed list of colors to `size_color_list`
+    + if the `value['type']` is `'vegetable'`, 
+        - get the size
         - transform the whole string to uppercase
-        - add to `size_color_list`
+        - add the transformed size to `size_color_list`
 [] - Return `size_color_list`
 
 """ 
+def get_colors_n_sizes(produce_items):
+    for produce in produce_items:
+        if produce_items[produce]['type'] == 'fruit':
+            
 
+print(get_colors_n_sizes(dict1))

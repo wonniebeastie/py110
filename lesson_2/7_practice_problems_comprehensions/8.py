@@ -159,7 +159,7 @@ dict1 = {
 ✱ A - ALGORITHM ✱
 I: `produce_items`
 [x] - initialize empty container list - `size_color_list`
-[] - for each key-value pair in `produce_items` dictionary:
+[] - for each key-value pair of values in `produce_items` dictionary:
     + if the `value['type']` is `'fruit'`:
         - get the list of color(s) 
         - for each color in list of color(s):
@@ -175,17 +175,14 @@ I: `produce_items`
 def get_colors_n_sizes(produce_items):
     size_color_list = []
 
-    for produce in produce_items:
-        if produce_items[produce]['type'] == 'fruit':
-            color_list = produce_items[produce]['colors']
-            new_color_list = []
-            for color in color_list:
-                transformed_color = color.capitalize()
-                new_color_list.append(transformed_color)
-            size_color_list.append(new_color_list)
+    for produce_info in produce_items.values():
+        if produce_info['type'] == 'fruit':
+            transformed_color_list = [color.capitalize() for color in produce_info['colors']]
+            size_color_list.append(transformed_color_list)
         else:
-            size = produce_items[produce]['size']
-            size_color_list.append(size.upper())
+            transformed_size = produce_info.get('size').upper()
+            size_color_list.append(transformed_size)
+    
     return size_color_list
 
 dict1 = {
@@ -211,4 +208,5 @@ dict1 = {
     },
 }
 
-print(get_colors_n_sizes(dict1))
+print(get_colors_n_sizes(dict1)) 
+# [['Red', 'Green'], 'MEDIUM', ['Orange'], 'LARGE']

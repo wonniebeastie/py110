@@ -74,3 +74,35 @@ returns the default return value, `None`. That is what is added to
 the new list, `sorted_sublists`.
 '''
 print(lst) # [['a', 'b', 'c'], [-3, 2, 11], ['black', 'blue', 'green']]
+
+
+
+# SECOND PASS
+# Return a new list with the same structure, but with the values in each 
+# sublist ordered in ascending order.
+lst = [['b', 'c', 'a'], [2, 11, -3], ['blue', 'black', 'green']]
+
+def sort_list(raw_list):
+    new_list = []
+
+    for sublist in raw_list:
+        sorted_sublist = sorted(sublist)
+        new_list.append(sorted_sublist)
+
+    return new_list
+
+print(sort_list(lst)) 
+# [['a', 'b', 'c'], [-3, 2, 11], ['black', 'blue', 'green']]
+
+# The `for` loop iterates through the sublists in `lst` on line 87. For each
+# sublist, the `sorted()` function is called to sort them in ascending order.
+# It returns a sorted sublist and this is appended to the `new_list`
+# initialized on line 85. This process is repeated for each sublist.
+
+# Finally, the `print()` function prints out the result to the console.
+
+def sort_list2(raw_list):
+    return [ sorted(sublist) for sublist in raw_list ]
+
+print(sort_list2(lst))
+# [['a', 'b', 'c'], [-3, 2, 11], ['black', 'blue', 'green']]

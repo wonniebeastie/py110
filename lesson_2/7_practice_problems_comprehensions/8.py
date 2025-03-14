@@ -98,3 +98,74 @@ This returning value is used in the function defined after it, called
 the problem description - a list of colors in sublists and sizes as 
 strings.
 '''
+
+
+# SECOND PASS
+"""
+I: a dictionary 
+O: a list - containing specific values based on type
+
+✱ EXAMPLES ✱
+- Ex 1
+- I: 
+dict1 = {
+    'grape': {
+        'type': 'fruit',
+        'colors': ['red', 'green'],
+        'size': 'small',
+    },
+    'carrot': {
+        'type': 'vegetable',
+        'colors': ['orange'],
+        'size': 'medium',
+    },
+    'apricot': {
+        'type': 'fruit',
+        'colors': ['orange'],
+        'size': 'medium',
+    },
+    'marrow': {
+        'type': 'vegetable',
+        'colors': ['green'],
+        'size': 'large',
+    },
+}
+- O: [["Red", "Green"], "MEDIUM", ["Orange"], "LARGE"]
+
+✱ REQUIREMENTS ✱
+- return list must contain colors of the fruits & sizes of the vegetables
+- sizes = uppercase
+- colors = capitalized
+
+- so of each item of input dict:
+    - the key `'type'` in each sub-dict value must be `'fruit'` or `'vegetable'`
+      of these:
+        - if the type is `'fruit'`:
+            + the value of key `'colors'` must be added to returning list
+            + the elements of the value must be added as is, as a list, instead
+              of as individual items.
+            + each string of the value must be capitalized
+        - if the type is `'vegetable'`:
+            + the value of key `'size'` must be added to returning list
+            + the value must be in all uppercase
+
+✱ QUESTIONS ✱
+- Does order matter for the result?
+
+✱ A - ALGORITHM ✱
+I: produce
+(-, +, -, +)
+[] - initialize empty container list - `size_color_list`
+[] - for each item in `produce` dictionary:
+    + if the `'type'` is `'fruit'`,
+        - extract color(s)
+        - capitalize first letter of each string
+        - add to `size_color_list`
+    + if the `'type'` is `'vegetable'`, 
+        - extract size
+        - transform the whole string to uppercase
+        - add to `size_color_list`
+[] - Return `size_color_list`
+
+""" 
+

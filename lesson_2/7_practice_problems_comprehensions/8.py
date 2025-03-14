@@ -161,7 +161,7 @@ I: `produce_items`
 [x] - initialize empty container list - `size_color_list`
 [] - for each key-value pair in `produce_items` dictionary:
     + if the `value['type']` is `'fruit'`:
-        - get the list of color(s) (direct key access)
+        - get the list of color(s) 
         - for each color in list of color(s):
             + capitalize first letter of each string
             + add transformed list of colors to `size_color_list`
@@ -183,6 +183,9 @@ def get_colors_n_sizes(produce_items):
                 transformed_color = color.capitalize()
                 new_color_list.append(transformed_color)
             size_color_list.append(new_color_list)
+        else:
+            size = produce_items[produce]['size']
+            size_color_list.append(size.upper())
     return size_color_list
 
 dict1 = {

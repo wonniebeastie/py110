@@ -1,103 +1,103 @@
-# """
-# INPUT & OUTPUT
-# I: a dictionary with nested dictionaries
-# O: a list that contains the COLORS of FRUITS,
-# and SIZES of VEGETABLES.
+"""
+INPUT & OUTPUT
+I: a dictionary with nested dictionaries
+O: a list that contains the COLORS of FRUITS,
+and SIZES of VEGETABLES.
 
 
-# RULES (EXPLICIT/IMPLICIT)
-# EXP:
-# - Sizes should be uppercase.
-# - Colors should be capitalized.
+RULES (EXPLICIT/IMPLICIT)
+EXP:
+- Sizes should be uppercase.
+- Colors should be capitalized.
 
-# IMP:
-# - 
+IMP:
+- 
 
-# EXPECTED RESULT
-# [["Red", "Green"], "MEDIUM", ["Orange"], "LARGE"]
+EXPECTED RESULT
+[["Red", "Green"], "MEDIUM", ["Orange"], "LARGE"]
 
 
-# ALGO 
-# [] 1. Create an empty "resulting_list".
-# [] 2. Loop through each item in "input dictionary"
-# 	- if the "type" is a "fruit", 
-# 		append the value of "colors" to "resulting_list"
-# 	- if the "type" is a "vegetable",
-# 		append the value of "size" to "resulting list"
-# [] 3. Repeat until end of "input dictionary"
-# [] 4. Return "resulting_list".
+ALGO 
+[] 1. Create an empty "resulting_list".
+[] 2. Loop through each item in "input dictionary"
+	- if the "type" is a "fruit", 
+		append the value of "colors" to "resulting_list"
+	- if the "type" is a "vegetable",
+		append the value of "size" to "resulting list"
+[] 3. Repeat until end of "input dictionary"
+[] 4. Return "resulting_list".
 
-# """
+"""
 
-# dict1 = {
-#     'grape': {
-#         'type': 'fruit',
-#         'colors': ['red', 'green'],
-#         'size': 'small',
-#     },
-#     'carrot': {
-#         'type': 'vegetable',
-#         'colors': ['orange'],
-#         'size': 'medium',
-#     },
-#     'apricot': {
-#         'type': 'fruit',
-#         'colors': ['orange'],
-#         'size': 'medium',
-#     },
-#     'marrow': {
-#         'type': 'vegetable',
-#         'colors': ['green'],
-#         'size': 'large',
-#     },
-# }
+dict1 = {
+    'grape': {
+        'type': 'fruit',
+        'colors': ['red', 'green'],
+        'size': 'small',
+    },
+    'carrot': {
+        'type': 'vegetable',
+        'colors': ['orange'],
+        'size': 'medium',
+    },
+    'apricot': {
+        'type': 'fruit',
+        'colors': ['orange'],
+        'size': 'medium',
+    },
+    'marrow': {
+        'type': 'vegetable',
+        'colors': ['green'],
+        'size': 'large',
+    },
+}
 
-# def color_n_size(fruits_n_veggies):
-# 	resulting_list = []
+def color_n_size(fruits_n_veggies):
+	resulting_list = []
 	
-# 	for item in fruits_n_veggies.values():
-# 		if item['type'] == 'fruit':
-# 			uppercase_colors = []
-# 			for color in item['colors']:
-# 				uppercase_colors.append(color.capitalize())
-# 			resulting_list.append(uppercase_colors)
-# 		else:
-# 			resulting_list.append(item['size'].upper())
+	for item in fruits_n_veggies.values():
+		if item['type'] == 'fruit':
+			uppercase_colors = []
+			for color in item['colors']:
+				uppercase_colors.append(color.capitalize())
+			resulting_list.append(uppercase_colors)
+		else:
+			resulting_list.append(item['size'].upper())
 	
-# 	return resulting_list
+	return resulting_list
 
-# # print(color_n_size(dict1)) 
-# # [['Red', 'Green'], 'MEDIUM', ['Orange'], 'LARGE']
+# print(color_n_size(dict1)) 
+# [['Red', 'Green'], 'MEDIUM', ['Orange'], 'LARGE']
 
-# '''
-# NOW DO ONE WITH COMPREHENSION!
-# '''
+'''
+NOW DO ONE WITH COMPREHENSION!
+'''
 
 
-# def color_or_size(subdict):
-# 	if subdict['type'] == 'fruit':
-# 		return [color.capitalize() for color in subdict['colors']]
-# 	else:
-# 		return subdict['size'].upper()
+def color_or_size(subdict):
+	if subdict['type'] == 'fruit':
+		return [color.capitalize() for color in subdict['colors']]
+	else:
+		return subdict['size'].upper()
 
-# def colors_n_sizes(dictionary):
-# 	return [color_or_size(subdict) for subdict in dict1.values()]
+def colors_n_sizes(dictionary):
+	return [color_or_size(subdict) for subdict in dict1.values()]
 
-# print(colors_n_sizes(dict1))
-# # [['Red', 'Green'], 'MEDIUM', ['Orange'], 'LARGE']
+print(colors_n_sizes(dict1))
+# [['Red', 'Green'], 'MEDIUM', ['Orange'], 'LARGE']
 
-# '''
-# The `color_or_size` function defined on line 77 works by returning
-# either a list with strings that describe a color or colors (first
-# character capitalized) if the value for the `'type'` key is `'fruit'`,
-# or just a string describing size otherwise (if it's `'vegetable'`), 
-# all in uppercase.
+'''
+The `color_or_size` function defined on line 77 works by returning
+either a list with strings that describe a color or colors (first
+character capitalized) if the value for the `'type'` key is `'fruit'`,
+or just a string describing size otherwise (if it's `'vegetable'`), 
+all in uppercase.
 
-# This returning value is used in the function defined after it, called
-# `colors_n_sizes`. This function returns the final list called for by
-# the problem description - a list of colors in sublists and sizes as 
-# strings.
-# '''
+This returning value is used in the function defined after it, called
+`colors_n_sizes`. This function returns the final list called for by
+the problem description - a list of colors in sublists and sizes as 
+strings.
+'''
 
 
 # SECOND PASS
@@ -159,7 +159,7 @@ dict1 = {
 ✱ A - ALGORITHM ✱
 I: `produce_items`
 [x] - initialize empty container list - `size_color_list`
-[] - for each key-value pair of values in `produce_items` dictionary:
+[x] - for each key-value pair of values in `produce_items` dictionary:
     + if the `value['type']` is `'fruit'`:
         - get the list of color(s) 
         - for each color in list of color(s):
@@ -171,7 +171,7 @@ I: `produce_items`
         - transform the whole string to uppercase
         [NOTE: extract to helper function (B)]
         - add the transformed size to `size_color_list`
-[] - Return `size_color_list`
+[x] - Return `size_color_list`
 
 <-------- EXTRACTED STEP A -------->
 PURPOSE
@@ -181,10 +181,10 @@ I: list of colors (strings)
 O: a new list of colors (capitalized strings)
 
 I: `fruit_colors`
-[] - for each color in `fruit_colors`
+[x] - for each color in `fruit_colors`
     + capitalize color
     + add color to new list
-[] - return list 
+[x] - return list 
 <---------------------------------->
 
 <-------- EXTRACTED STEP B -------->
@@ -196,7 +196,26 @@ O: string of same value, in all uppercase
 
 ✱ A - ALGORITHM ✱
 I: `size`
-[] - return `size` string but in all uppercase
+[x] - return `size` string but in all uppercase
+<---------------------------------->
+
+<-------- EXTRACTED STEP C -------->
+PURPOSE 
+To transform the object depending on if the input item is from a fruit or veggie.
+
+I: a dictionary view object of nested dictionaries
+O: a list of transformed colors 
+OR
+O: a transformed string of the size
+
+✱ A - ALGORITHM ✱
+I: `produce`
+[x] - if `produce` type is a fruit:
+    + call `capitalize_colors()` with list of colors
+    + return result
+[x] - else:
+    + call `transform_size()` with the size of the produce
+    + return result
 <---------------------------------->
 """ 
 def capitalize_colors(fruit_colors):
@@ -205,16 +224,16 @@ def capitalize_colors(fruit_colors):
 def transform_size(size):
     return size.upper()
 
+def transform_produce(produce):
+    if produce['type'] == 'fruit':
+        transformed_color_list = capitalize_colors(produce['colors'])
+        return transformed_color_list
+    else:
+        transformed_size = transform_size(produce['size'])
+        return transformed_size
+
 def get_colors_n_sizes(produce_items):
-    size_color_list = []
-    # We just need the values
-    for produce_info in produce_items.values():
-        if produce_info['type'] == 'fruit':
-            size_color_list.append(capitalize_colors(produce_info['colors']))
-        else:
-            size_color_list.append(transform_size(produce_info['size']))
-    
-    return size_color_list
+    return [transform_produce(produce_item) for produce_item in produce_items.values()]
 
 dict1 = {
     'grape': {

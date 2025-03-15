@@ -163,25 +163,56 @@ I: `produce_items`
     + if the `value['type']` is `'fruit'`:
         - get the list of color(s) 
         - for each color in list of color(s):
+            [NOTE: extract to helper function (A)]
             + capitalize first letter of each string
             + add transformed list of colors to `size_color_list`
     + if the `value['type']` is `'vegetable'`, 
         - get the size
         - transform the whole string to uppercase
+        [NOTE: extract to helper function (B)]
         - add the transformed size to `size_color_list`
 [] - Return `size_color_list`
 
+<-------- EXTRACTED STEP A -------->
+PURPOSE
+To capitalize first letter of each string in fruit color list.
+
+I: list of colors (strings)
+O: a new list of colors (capitalized strings)
+
+I: `fruit_colors`
+[] - for each color in `fruit_colors`
+    + capitalize color
+    + add color to new list
+[] - return list 
+<---------------------------------->
+
+<-------- EXTRACTED STEP B -------->
+PURPOSE
+To transform size string into all uppercase
+
+I: a string
+O: string of same value, in all uppercase
+
+✱ A - ALGORITHM ✱
+I: `size`
+[] - return `size` string but in all uppercase
+<---------------------------------->
 """ 
+def capitalize_colors(fruit_colors):
+    return [color.capitalize() for color in fruit_colors]
+
+def transform_size(size):
+    return size.upper()
+
 def get_colors_n_sizes(produce_items):
     size_color_list = []
-
+    # We just need the values
     for produce_info in produce_items.values():
         if produce_info['type'] == 'fruit':
-            transformed_color_list = [color.capitalize() for color in produce_info['colors']]
-            size_color_list.append(transformed_color_list)
+            size_color_list.append(capitalize_colors(produce_info['colors']))
         else:
-            transformed_size = produce_info.get('size').upper()
-            size_color_list.append(transformed_size)
+            size_color_list.append(transform_size(produce_info['size']))
     
     return size_color_list
 
